@@ -10,22 +10,12 @@ export const useRegister = () => {
 
     const postUser = async (data: UserRequest) => {
         debugger
-        const findUser = await axios.get(`${api}/register/?username=${data.username}`);
-
-        if (findUser) {
-            return toast.error(findUser.data.msg);
-        } else {
-            const response = axios.post(`${api}`, { ...data });
-            toast.promise(response, {
-                loading: 'Registrando...',
-                success: () => {
-                    navigate('/login');
-                    return 'Registro exitoso';
-                },
-                error: 'Algo ha sucedido, intente nuevamente',
-            }, {
-                loading: { duration: 2000 }
-            })
+        const saveUser = await axios.post(`${api}/register`, { ...data });
+        if (saveUser.status === 200) {
+            navigate('/login');
+            toast.success(saveUser.data.msg);
+        } else if (saveUser.status === 404) {
+            toast.error(saveUser.data.msg);
         }
     };
 

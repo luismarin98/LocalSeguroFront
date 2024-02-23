@@ -23,6 +23,7 @@ export const RegisterFeature: FC = () => {
         if (values.password !== confPass) {
             toast.error('Asegurate de que las contraseñas sean iguales.')
         } else {
+            values.id = Math.floor(Math.random() * 10000);
             postUser(values);
         }
         reset();
