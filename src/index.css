@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+
+    /* /* Ocultar scrollbar para Chrome, Safari y Opera 
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Ocultar scrollbar para IE, Edge y Firefox 
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE y Edge 
+        scrollbar-width: none;
+        /* Firefox 
+    } */
+
+    .no-scrollbar::-webkit-scrollbar {
+        width: 15px;
+        height: 15px;
+    }
+
+    .no-scrollbar::-webkit-scrollbar-track {
+        border-radius: 100vh;
+        background: #bebdbc;
+    }
+
+    .no-scrollbar::-webkit-scrollbar-thumb {
+        background: #8f8484;
+        border-radius: 100vh;
+        border: 3px solid #f6f7ed;
+    }
+
+    .no-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #766372;
+    }
+}
