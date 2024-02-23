@@ -1,17 +1,10 @@
-import { FC, useContext, useEffect } from "react";
+import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { UserRequest } from "../../Interfaces/UserDomain";
 import getItem from "../../components/StorageFunctions";
-import DashboardContext, { IDashboard } from "./provider";
 
 export const DashboardFeature: FC = () => {
-    const { getUserAdmin } = useContext(DashboardContext) as IDashboard;
-
     const userLocal: UserRequest | null = getItem('user');
-
-    useEffect(() => {
-        getUserAdmin();
-    }, [])
 
     return <div className="flex flex-col gap-3 items-center justify-center h-screen">
         {

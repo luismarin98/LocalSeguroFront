@@ -1,19 +1,18 @@
 import axios from "axios";
 import { UserRequest } from "../../../Interfaces/UserDomain";
-import getItem, { setItem } from "../../../components/StorageFunctions";
+import getItem from "../../../components/StorageFunctions";
 import { useNavigate } from "react-router-dom";
 
 export const useDashboard = () => {
 
-    const api = process.env.REACT_APP_API_USERS;
+    const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/users';
     const navigate = useNavigate();
 
     const getUserAdmin = async () => {
         const getUserStorage: UserRequest | null = getItem('user');
 
         await axios.get<UserRequest>(`${api}/?username=${getUserStorage!.username}`).then((res) => {
-            localStorage.removeItem('user');
-            setItem('user', res.data);
+            localStorage.setItem('user', JSON.stringify(res.data));
             res.data.isAdmin ? navigate('/dashboard') : navigate('/dashboard/client');
         })
     }
