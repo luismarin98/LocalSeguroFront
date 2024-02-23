@@ -14,7 +14,7 @@ export const useDashboard = () => {
         await axios.get<UserRequest>(`${api}/?username=${getUserStorage!.username}`).then((res) => {
             localStorage.removeItem('user');
             setItem('user', res.data);
-            res.data.isAdmin ? navigate('/dashboard') : navigate('/client');
+            res.data.isAdmin ? navigate('/dashboard') : navigate('/dashboard/client');
         })
     }
 
