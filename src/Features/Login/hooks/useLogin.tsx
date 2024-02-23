@@ -9,7 +9,7 @@ export const useLogin = () => {
 
     const getUser = async (data: UserRequest) => {
         try {
-            const response = await axios.get<UserRequest[]>(`${api}?username=${data.username}&password=${data.password}`);
+            const response = await axios.get<UserRequest[]>(`${api}/login/?username=${data.username}&password=${data.password}`);
             if (response.data.length > 0 && response.data[0].username === data.username) {
                 toast.success(`Bienvenid@ ${response.data[0].username}`);
                 navigate('/dashboard');
