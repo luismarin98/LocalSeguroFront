@@ -2,6 +2,7 @@ import { UserRequest } from "../../../Interfaces/UserDomain";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { setItem } from "../../../components/StorageFunctions";
 
 export const useLogin = () => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const useLogin = () => {
             if (response.data.length > 0 && response.data[0].username === data.username) {
                 toast.success(`Bienvenid@ ${response.data[0].username}`);
                 navigate('/dashboard');
-                localStorage.setItem('user', JSON.stringify(response.data[0]));
+                setItem('user', response.data[0]);
             } else if (response.data.length < 0) {
                 toast.error('Puede que no te encuentres registrado!');
             }

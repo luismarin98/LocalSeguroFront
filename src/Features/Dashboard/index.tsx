@@ -11,7 +11,7 @@ export const DashboardFeature: FC = () => {
 
     useEffect(() => {
         getUserAdmin();
-    }, [getUserAdmin])
+    }, [])
 
     return <div className="flex flex-col gap-3 items-center justify-center h-screen">
         {
