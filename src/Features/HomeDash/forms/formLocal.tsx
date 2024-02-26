@@ -1,9 +1,13 @@
-import { MouseEvent } from "react"
+import { MouseEvent, useContext } from "react"
 import { Input } from "../../../components/Input"
+import HomeDashContext, { IHomeDash } from "../provider"
 
 export const FormLocal = () => {
+    const { setOpenLocal } = useContext(HomeDashContext) as IHomeDash;
+
     const handlesave = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        setOpenLocal(false);
     }
 
     return <form className="w-full shadow-md shadow-neutral-800 rounded-md p-2 flex flex-col gap-3 bg-blue-500 items-center">
