@@ -5,19 +5,25 @@ export interface IHomeDash {
     getUserData: () => Promise<void>;
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
-    openLocal: boolean;
-    setOpenLocal: Dispatch<SetStateAction<boolean>>;
+    openAddLocal: boolean;
+    setOpenAddLocal: Dispatch<SetStateAction<boolean>>;
+    openAddMoto: boolean;
+    setOpeAddMoto: Dispatch<SetStateAction<boolean>>;
+    openAddUser: boolean;
+    setOpenAddUser: Dispatch<SetStateAction<boolean>>;
 }
 
 const HomeDashContext = createContext({});
 
 export const HomeDashProvider = ({ children }: { children: ReactNode }) => {
     const { getUserData } = useHomeDash();
-    
-    const [open, setOpen] = useState<boolean>(false);
-    const [openLocal, setOpenLocal] = useState<boolean>(false);
 
-    const storage: IHomeDash = { getUserData, open, setOpen, openLocal, setOpenLocal };
+    const [open, setOpen] = useState<boolean>(false);
+    const [openAddUser, setOpenAddUser] = useState<boolean>(false);
+    const [openAddLocal, setOpenAddLocal] = useState<boolean>(false);
+    const [openAddMoto, setOpeAddMoto] = useState<boolean>(false);
+
+    const storage: IHomeDash = { getUserData, open, setOpen, openAddLocal, setOpenAddLocal, openAddMoto, setOpeAddMoto, openAddUser, setOpenAddUser };
 
     return <HomeDashContext.Provider value={storage}>{children}</HomeDashContext.Provider>
 }
