@@ -1,5 +1,8 @@
 import { HomeDashFeature } from "../../Features/HomeDash"
+import { HomeDashProvider } from "../../Features/HomeDash/provider"
 
 export const HomeDash = () => {
-    return <HomeDashFeature />
+    return <HomeDashProvider>
+        <HomeDashFeature />
+    </HomeDashProvider>
 }

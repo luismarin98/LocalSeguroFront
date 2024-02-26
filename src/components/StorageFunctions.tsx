@@ -6,3 +6,7 @@ export default function getItem<T>(key: string): T | null {
 export function setItem<T>(key: string, value: T): void {
     localStorage.setItem(key, JSON.stringify(value));
 }
+
+export function removeItem<T>(key: string): void {
+    localStorage.removeItem(key);
+}
