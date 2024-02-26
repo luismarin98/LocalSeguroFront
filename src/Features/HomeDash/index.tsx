@@ -10,7 +10,7 @@ import { FormUser } from "./forms/formUser";
 export const HomeDashFeature: FC = () => {
     const userLocal: UserRequest | null = getItem('user');
 
-    const { /* getUserData, */ open, setOpen, openAddLocal, openAddMoto, openAddUser, setOpeAddMoto, setOpenAddLocal, setOpenAddUser } = useContext(HomeDashContext) as IHomeDash;
+    const { /* getUserData, */openAddLocal, openAddMoto, openAddUser, setOpeAddMoto, setOpenAddLocal, setOpenAddUser } = useContext(HomeDashContext) as IHomeDash;
 
     /* useEffect(() => {
         getUserData();
@@ -82,7 +82,14 @@ export const HomeDashFeature: FC = () => {
                         <p>Añadir moto</p>
                     </button>
                 </div>
-                <div className="w-3/5 bg-slate-300 h-5/6 rounded-md">Lista de acciones</div>
+                <div className="w-3/5 bg-slate-300 h-5/6 rounded-md">
+                    <div className="w-full flex flex-row justify-around">DNI | Dueño | Nombre del local | Telefono | Ubicacion | Link foto</div>
+                    {
+                        userLocal!.localsData!.map((data, i) => (
+                            <p className="w-full flex flex-row justify-around" key={i}>{data.dniOnwer} | {data.nameOwner} | {data.localName} | {data.phone} | {data.location} | <Link to={data.linkPhoto}>Ver foto</Link></p>
+                        ))
+                    }
+                </div>
                 <Modal title="Anadir local" isOpen={openAddLocal} setIsOpen={setOpenAddLocal}><FormLocal /></Modal>
                 <Modal title="Anadir local" isOpen={openAddMoto} setIsOpen={setOpeAddMoto}>Form Local</Modal>
             </div >
