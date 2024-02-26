@@ -4,7 +4,7 @@ import logo from '../imgs/logoPNE.png';
 import { UserRequest } from "../Interfaces/UserRequest";
 import { MenuModal } from "./MenuModal";
 import { Menu } from "@headlessui/react";
-import getItem from "./StorageFunctions";
+import getItem, { removeItem } from "./StorageFunctions";
 
 export const Navbar = () => {
 
@@ -14,7 +14,8 @@ export const Navbar = () => {
 
     const handLogout = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        localStorage.removeItem('user');
+        removeItem('locals');
+        removeItem('user');
         navigate('/')
     }
 
