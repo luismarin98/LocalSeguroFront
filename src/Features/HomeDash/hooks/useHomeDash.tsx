@@ -25,6 +25,7 @@ export const useHomeDash = () => {
             success: (res) => {
                 removeItem('locals');
                 setItem('locals', res.data[0]);
+                document.location.reload();
                 return 'Historial actualizado';
             },
             error: 'Algo ha sucedido, intente nuevamente'
