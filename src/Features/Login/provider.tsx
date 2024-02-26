@@ -1,6 +1,6 @@
 import { ReactNode, createContext } from "react";
 import { useLogin } from "./hooks/useLogin";
-import { UserRequest } from "../../Interfaces/UserDomain";
+import { UserRequest } from "../../Interfaces/UserRequest";
 
 export interface ILogin {
     getUser: (data: UserRequest) => Promise<void>;

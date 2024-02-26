@@ -8,5 +8,6 @@ export const FormLocal = () => {
         <Input title="Telefono" />
         <Input title="Ubicacion del local" />
         <Input title="Foto de visita al local" />
+        <button className="bg-neutral-800 rounded-md px-6 py-0.5 text-white hover:scale-105">Guardar local</button>
     </form>
 }

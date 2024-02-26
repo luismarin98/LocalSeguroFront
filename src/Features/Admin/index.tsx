@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { UserRequest } from "../../Interfaces/UserDomain";
+import { UserRequest } from "../../Interfaces/UserRequest";
 import getItem from "../../components/StorageFunctions";
 
 export const AdminFeature: FC = () => {

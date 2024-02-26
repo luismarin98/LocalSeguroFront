@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
-import { UserRequest } from "../../Interfaces/UserDomain";
+import { UserRequest } from "../../Interfaces/UserRequest";
 import getItem from "../../components/StorageFunctions";
 
 export const DashboardFeature: FC = () => {

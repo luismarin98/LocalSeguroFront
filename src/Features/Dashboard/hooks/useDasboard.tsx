@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserRequest } from "../../../Interfaces/UserDomain";
+import { UserRequest } from "../../../Interfaces/UserRequest";
 import getItem from "../../../components/StorageFunctions";
 import { useNavigate } from "react-router-dom";
 

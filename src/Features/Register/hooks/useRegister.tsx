@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { UserRequest } from "../../../Interfaces/UserDomain";
+import { UserRequest } from "../../../Interfaces/UserRequest";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import { ReactNode, createContext } from "react";
 import { useAdmin } from "./hooks/useAdmin";
-import { UserRequest } from "../../Interfaces/UserDomain";
+import { UserRequest } from "../../Interfaces/UserRequest";
 
 export interface IAdmin {
     getUsers: () => Promise<void>;

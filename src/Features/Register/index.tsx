@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, MouseEvent, useContext, useState } from "react"
 
-import { UserRequest } from "../../Interfaces/UserDomain"
+import { UserRequest } from "../../Interfaces/UserRequest"
 import { FormProvider, useForm } from "react-hook-form"
 import RegisterContext, { IRegister } from "./provider";
 import toast from "react-hot-toast";
@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 export const RegisterFeature: FC = () => {
     const [confPass, setConfPass] = useState<string>('');
 
-    const initialValues: UserRequest = { password: '', username: '', email: '', phone: '', localsData: [], isAdmin: false, id: 0 };
+    const initialValues: UserRequest = { password: '', username: '', email: '', phone: '', localsData: [], isAdmin: false, id: 0, usuarios: [] };
     const methods = useForm({ defaultValues: initialValues });
 
     const { postUser } = useContext(RegisterContext) as IRegister;

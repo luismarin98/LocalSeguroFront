@@ -1,11 +1,14 @@
 import { MouseEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../imgs/logoPNE.png';
-import { UserRequest } from "../Interfaces/UserDomain";
+import { UserRequest } from "../Interfaces/UserRequest";
 import { MenuModal } from "./MenuModal";
 import { Menu } from "@headlessui/react";
+import getItem from "./StorageFunctions";
 
 export const Navbar = () => {
+
+    const userLocal: UserRequest | null = getItem('user');
 
     const navigate = useNavigate();
 
@@ -20,12 +23,10 @@ export const Navbar = () => {
         navigate('/login');
     }
 
-    function getItem<T>(key: string): T | null {
-        const item = localStorage.getItem(key);
-        return item ? JSON.parse(item) as T : null;
+    const handleRedirect = (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        navigate('/dashboard');
     }
-
-    const userLocal: UserRequest | null = getItem('user');
 
     return (
         <nav className="bg-gray-700 p-2">
@@ -46,6 +47,25 @@ export const Navbar = () => {
                 {
                     userLocal !== null ? (
                         <MenuModal title={userLocal!.username}>
+                            {
+                                userLocal!.isAdmin ? (
+                                    <Menu.Item>
+                                        {
+                                            ({ active }) => (
+                                                <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={handleRedirect}>Usuarios</button>
+                                            )
+                                        }
+                                    </Menu.Item>
+                                ) : (
+                                    <Menu.Item>
+                                        {
+                                            ({ active }) => (
+                                                <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={handleRedirect}>Locales</button>
+                                            )
+                                        }
+                                    </Menu.Item>
+                                )
+                            }
                             <Menu.Item>
                                 {
                                     ({ active }) => (

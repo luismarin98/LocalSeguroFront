@@ -1,6 +1,6 @@
 import { ReactNode, createContext } from "react";
 import { useRegister } from "./hooks/useRegister";
-import { UserRequest } from "../../Interfaces/UserDomain";
+import { UserRequest } from "../../Interfaces/UserRequest";
 
 export interface IRegister {
     postUser: (data: UserRequest) => void;

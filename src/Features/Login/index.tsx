@@ -1,12 +1,12 @@
 import { FC, MouseEvent, useContext, useEffect } from "react"
 import LoginContext, { ILogin } from "./provider"
-import { UserRequest } from "../../Interfaces/UserDomain"
+import { UserRequest } from "../../Interfaces/UserRequest"
 import { FormProvider, useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
 
 export const LoginFeature: FC = () => {
-    const initialValues: UserRequest = { password: '', username: '', email: '', phone: '', localsData: [], isAdmin: false, id: 0 };
+    const initialValues: UserRequest = { password: '', username: '', email: '', phone: '', localsData: [], isAdmin: false, id: 0,usuarios: [] };
     const methos = useForm({ defaultValues: initialValues });
     const navigate = useNavigate();
 
