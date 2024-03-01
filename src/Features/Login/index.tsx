@@ -1,14 +1,30 @@
-import { FC, MouseEvent, useContext, useEffect } from "react";
+import { FC, MouseEvent, useContext } from "react";
 import LoginContext, { ILogin } from "./provider";
 import { UserRequest } from "../../Interfaces/UserRequest";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const LoginFeature: FC = () => {
-    const initialValues: UserRequest = { password: '', username: '', email: '', phone: '', localsData: [], isAdmin: false, id: 0, me_register: { email: '', id: 0, phone: 0, username: '' }, users_register: [] };
+    const initialValues: UserRequest = {
+        password: '',
+        username: '',
+        email: '',
+        phone: '',
+        localsData: [],
+        isAdmin: false,
+        id: 0,
+        me_register: {
+            email: '',
+            id: 0,
+            phone: '',
+            username: ''
+        },
+        users_register: [],
+        motos: []
+    };
+
     const methos = useForm({ defaultValues: initialValues });
-    const navigate = useNavigate();
 
     const { getUser } = useContext(LoginContext) as ILogin;
     const { getValues, reset, register } = useForm<UserRequest>();
@@ -20,19 +36,6 @@ export const LoginFeature: FC = () => {
         getUser(data);
         reset();
     }
-
-    function getItem<T>(key: string): T | null {
-        const item = localStorage.getItem(key);
-        return item ? JSON.parse(item) as T : null;
-    }
-
-    const userLocal: UserRequest | null = getItem('user');
-
-    useEffect(() => {
-        if (userLocal) {
-            userLocal.isAdmin ? navigate('/dashboard/admin') : navigate('/dashboard/client')
-        }
-    }, [navigate, userLocal])
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center h-screen">
