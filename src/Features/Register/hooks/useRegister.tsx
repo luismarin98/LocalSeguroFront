@@ -8,15 +8,17 @@ export const useRegister = () => {
 
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/users';
 
-    const postUser = async (data: UserRequest) => {
+    const postUser = (data: UserRequest) => {
         debugger
-        const saveUser = await axios.post(`${api}/register`, { ...data });
-        if (saveUser.status === 200) {
-            navigate('/login');
-            toast.success(saveUser.data.msg);
-        } else if (saveUser.status === 404) {
-            toast.error(saveUser.data.msg);
-        }
+        const saveUser = axios.post(`${api}/register`, { ...data });
+        toast.promise(saveUser, {
+            loading: 'Registrando...',
+            success: (res) => {
+                navigate('/login');
+                return res.data.msg;
+            },
+            error: 'Algo sucedio, intente nuevamente',
+        }, { loading: { duration: 2000 } });
     };
 
     return { postUser };

@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 export const RegisterFeature: FC = () => {
     const [confPass, setConfPass] = useState<string>('');
 
-    const initialValues: UserRequest = { password: '', username: '', email: '', phone: '', localsData: [], isAdmin: false, id: 0, usuarios: [] };
+    const initialValues: UserRequest = { password: '', username: '', email: '', phone: '', localsData: [], isAdmin: false, id: 0, me_register: { email: '', id: 0, phone: 0, username: '' }, users_register: [] };
     const methods = useForm({ defaultValues: initialValues });
 
     const { postUser } = useContext(RegisterContext) as IRegister;
