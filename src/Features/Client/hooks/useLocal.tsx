@@ -9,7 +9,7 @@ export const useLocal = () => {
     const user: UserRequest | null = getItem('user');
 
     const postLocal = async (data: LocalsRequest) => {
-        const postLocal = axios.post(`${api}/save/${user!.id}`, { ...data });
+        const postLocal = axios.post(`${api}/save`, { ...data });
         toast.promise(postLocal, {
             loading: 'Guardando informacion',
             success: (res) => res.data.msg,
@@ -23,6 +23,7 @@ export const useLocal = () => {
             loading: 'Cargando locales...',
             success: (res) => {
                 setItem('locals', res.data.localsArray);
+                window.location.reload();
                 return res.data.msg;
             },
             error: 'Algo sucedio, intente nuevamente',

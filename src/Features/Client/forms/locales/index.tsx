@@ -13,7 +13,7 @@ export const FormLocals = () => {
 
     const methods = useForm({ defaultValues: initialValues });
 
-    const { register, getValues } = useForm<LocalsRequest>();
+    const { register, getValues, reset } = useForm<LocalsRequest>();
 
     const user: UserRequest | null = getItem('user');
 
@@ -30,6 +30,7 @@ export const FormLocals = () => {
 
         postLocal(values)
         setOpenAddLocal(!openAddLocal);
+        reset();
     }
 
     return <FormProvider {...methods}>
