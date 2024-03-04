@@ -7,7 +7,7 @@ import { LocalsRequest } from "../../Interfaces/LocalRequest";
 import getItem from "../../components/StorageFunctions";
 
 export const ClientFeature: FC = () => {
-    const { openAddMoto, setOpeAddMoto, setOpenAddLocal, openAddLocal } = useContext(ClientContext) as IClient;
+    const { openAddMoto, setOpeAddMoto, setOpenAddLocal, openAddLocal, getLocals } = useContext(ClientContext) as IClient;
 
     const handleAddLocal = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -21,10 +21,10 @@ export const ClientFeature: FC = () => {
 
     const handleRefresh = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        //getLocals(userLocal!.id.toString());
+        getLocals();
     }
 
-    const localsData: LocalsRequest[] = getItem('locals')!;
+    const localsData: LocalsRequest[] | null = getItem('locals')!;
 
     return (
         <div className="flex flex-row flex-wrap justify-around gap-2 w-full h-full items-center">

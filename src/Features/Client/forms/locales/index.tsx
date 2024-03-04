@@ -1,19 +1,21 @@
 import { useContext, MouseEvent } from "react";
 import { LocalsRequest } from "../../../../Interfaces/LocalRequest";
-import { useLocal } from "../../hooks/useLocal";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Input } from "../../../../components/Input";
 import ClientContext, { IClient } from "../../provider";
+import getItem from "../../../../components/StorageFunctions";
+import { UserRequest } from "../../../../Interfaces/UserRequest";
 
 export const FormLocals = () => {
-    const { setOpenAddLocal, openAddLocal } = useContext(ClientContext) as IClient;
-    const initialValues: LocalsRequest = { dniOnwer: '', linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '' };
-    const { postLocal } = useLocal();
+    const { setOpenAddLocal, openAddLocal, postLocal } = useContext(ClientContext) as IClient;
+    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '', id_user: 0 };
 
     const methods = useForm({ defaultValues: initialValues });
 
     const { register, getValues } = useForm<LocalsRequest>();
+
+    const user: UserRequest | null = getItem('user');
 
     const handlesave = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -22,6 +24,9 @@ export const FormLocals = () => {
         if (values.dniOnwer === null) return toast.error('Asegurate de ingresar la cedula del dueño del local');
         if (values.localName === null) return toast.error('Asegurate de ingresar el nombre del local');
         if (values.phone === null) return toast.error('Asegurate de ingresar el numero de telefono del local');
+
+        values.id = Math.floor(Math.random() * 10000);
+        values.id_user = user!.id;
 
         postLocal(values)
         setOpenAddLocal(!openAddLocal);
