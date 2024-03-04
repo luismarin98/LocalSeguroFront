@@ -6,21 +6,22 @@ import { setItem } from "../../../components/StorageFunctions";
 
 export const useLogin = () => {
     const navigate = useNavigate();
-    const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/users'
+    const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user'
 
     const getUser = async (data: UserRequest) => {
-        try {
-            const response = await axios.get<UserRequest[] | undefined>(`${api}/login/?username=${data.username}&password=${data.password}`);
-            if (response.data!.length > 0 && response.data![0]!.username === data.username) {
+        const findLog = axios.get(`${api}/login/?username=${data.username}&password=${data.password}`);
+        toast.promise(findLog, {
+            loading: 'Logging',
+            success: (res) => {
                 navigate('/dashboard');
-                setItem('user', response.data![0]);
-            } else if (response.data!.length < 0) {
-                toast.error('Puede que no te encuentres registrado!');
-            }
-        } catch (error) {
-            console.error(error);
-            toast.error('Algo sucedio, intente nuevamente');
-        }
+                setItem('user', res.data.userData[0]);
+                return res.data.msg
+            },
+            error: (err) => {
+                console.error(err);
+                return 'Algo sucedio, intente nuevamente'
+            },
+        }, { loading: { duration: 2000 } });
     }
 
     return { getUser };

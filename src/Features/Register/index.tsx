@@ -13,7 +13,6 @@ export const RegisterFeature: FC = () => {
         username: '',
         email: '',
         phone: '',
-        localsData: [],
         isAdmin: false,
         id: 0,
         me_register: {
@@ -23,7 +22,6 @@ export const RegisterFeature: FC = () => {
             username: ''
         },
         users_register: [],
-        motos: []
     };
     
     const methods = useForm({ defaultValues: initialValues });

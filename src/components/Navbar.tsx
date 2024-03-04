@@ -48,25 +48,13 @@ export const Navbar = () => {
                 {
                     userLocal !== null ? (
                         <MenuModal title={userLocal!.username}>
-                            {
-                                userLocal!.isAdmin ? (
-                                    <Menu.Item>
-                                        {
-                                            ({ active }) => (
-                                                <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={handleRedirect}>Usuarios</button>
-                                            )
-                                        }
-                                    </Menu.Item>
-                                ) : (
-                                    <Menu.Item>
-                                        {
-                                            ({ active }) => (
-                                                <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={handleRedirect}>Locales</button>
-                                            )
-                                        }
-                                    </Menu.Item>
-                                )
-                            }
+                            <Menu.Item>
+                                {
+                                    ({ active }) => (
+                                        <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={handleRedirect}>Inicio</button>
+                                    )
+                                }
+                            </Menu.Item>
                             <Menu.Item>
                                 {
                                     ({ active }) => (

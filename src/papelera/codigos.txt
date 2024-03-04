@@ -6,3 +6,9 @@ function getItem<T>(key: string): T | null {
   const item = localStorage.getItem(key);
   return item ? JSON.parse(item) as T : null;
 }
+
+N° de mototaxi
+Nombre de conductor
+Cooperativa a la que pertenece
+Ubicación en tiempo real
+Foto en tiempo real

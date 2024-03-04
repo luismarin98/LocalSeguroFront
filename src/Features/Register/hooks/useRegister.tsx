@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const useRegister = () => {
     const navigate = useNavigate();
 
-    const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/users';
+    const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
 
     const postUser = (data: UserRequest) => {
         debugger

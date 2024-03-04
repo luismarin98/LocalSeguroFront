@@ -1,13 +1,13 @@
-import { MouseEvent, useContext } from "react"
-import { Input } from "../../../components/Input"
-import HomeDashContext, { IHomeDash } from "../provider"
-import { LocalsRequest } from "../../../Interfaces/LocalRequest";
+import { useContext, MouseEvent } from "react";
+import { LocalsRequest } from "../../../../Interfaces/LocalRequest";
+import { useLocal } from "../../hooks/useLocal";
 import { FormProvider, useForm } from "react-hook-form";
-import { useLocal } from "./hooks/useLocal";
 import toast from "react-hot-toast";
+import { Input } from "../../../../components/Input";
+import ClientContext, { IClient } from "../../provider";
 
-export const FormLocal = () => {
-    const { setOpenAddLocal, setOpen, openAddLocal } = useContext(HomeDashContext) as IHomeDash;
+export const FormLocals = () => {
+    const { setOpenAddLocal, openAddLocal } = useContext(ClientContext) as IClient;
     const initialValues: LocalsRequest = { dniOnwer: '', linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '' };
     const { postLocal } = useLocal();
 
@@ -22,10 +22,9 @@ export const FormLocal = () => {
         if (values.dniOnwer === null) return toast.error('Asegurate de ingresar la cedula del dueño del local');
         if (values.localName === null) return toast.error('Asegurate de ingresar el nombre del local');
         if (values.phone === null) return toast.error('Asegurate de ingresar el numero de telefono del local');
-        
+
         postLocal(values)
         setOpenAddLocal(!openAddLocal);
-        setOpen(false)
     }
 
     return <FormProvider {...methods}>

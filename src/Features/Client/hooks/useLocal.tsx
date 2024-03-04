@@ -1,8 +1,8 @@
 import axios from "axios";
-import { LocalsRequest } from "../../../../Interfaces/LocalRequest";
+import { LocalsRequest } from "../../../Interfaces/LocalRequest";
 import toast from "react-hot-toast";
-import { UserRequest } from "../../../../Interfaces/UserRequest";
-import getItem from "../../../../components/StorageFunctions";
+import { UserRequest } from "../../../Interfaces/UserRequest";
+import getItem from "../../../components/StorageFunctions";
 
 export const useLocal = () => {
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/users/locals';

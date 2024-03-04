@@ -11,7 +11,6 @@ export const LoginFeature: FC = () => {
         username: '',
         email: '',
         phone: '',
-        localsData: [],
         isAdmin: false,
         id: 0,
         me_register: {
@@ -21,7 +20,6 @@ export const LoginFeature: FC = () => {
             username: ''
         },
         users_register: [],
-        motos: []
     };
 
     const methos = useForm({ defaultValues: initialValues });
