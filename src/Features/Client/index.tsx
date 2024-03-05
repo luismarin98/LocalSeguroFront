@@ -1,13 +1,25 @@
-import { FC, useContext, MouseEvent } from "react";
+import { FC, useContext, MouseEvent, ChangeEvent } from "react";
 import { Modal } from "../../components/Modal";
 import { FormLocals, FormMotos } from "./forms";
 import ClientContext, { IClient } from "./provider";
 import { Link } from "react-router-dom";
 import { LocalsRequest } from "../../Interfaces/LocalRequest";
 import getItem from "../../components/StorageFunctions";
+import { MotosRequest } from "../../Interfaces/MotosRequest";
 
 export const ClientFeature: FC = () => {
-    const { openAddMoto, setOpeAddMoto, setOpenAddLocal, openAddLocal, getLocals } = useContext(ClientContext) as IClient;
+    const {
+        openAddMoto,
+        setOpeAddMoto,
+        setOpenAddLocal,
+        openAddLocal,
+        getLocals,
+        getMotos,
+        setSeeMotos,
+        seeMotos,
+        valueOption,
+        setValueOption
+    } = useContext(ClientContext) as IClient;
 
     const handleAddLocal = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -22,9 +34,16 @@ export const ClientFeature: FC = () => {
     const handleRefresh = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         getLocals();
+        getMotos();
     }
 
-    const localsData: LocalsRequest[] | null = getItem('locals')!;
+    const handleChangeOption = (event: ChangeEvent<HTMLSelectElement>) => {
+        if (event.target.value === 'moto') { setSeeMotos(true) } if (event.target.value === 'local') { setSeeMotos(false) }
+        setValueOption(event.target.value);
+    }
+
+    const localsData: LocalsRequest[] | null = getItem('locals');
+    const motosData: MotosRequest[] | null = getItem('moto');
 
     return (
         <div className="flex flex-row flex-wrap justify-around gap-2 w-full h-full items-center">
@@ -68,31 +87,47 @@ export const ClientFeature: FC = () => {
                     <button onClick={handleRefresh} className="p-2 bg-neutral-300 hover:shadow-md hover:shadow-neutral-800 rounded-md hover:scale-105 transition-all duration-100">
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-rotate-clockwise-2" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" /><path d="M5.63 7.16l0 .01" /><path d="M4.06 11l0 .01" /><path d="M4.63 15.1l0 .01" /><path d="M7.16 18.37l0 .01" /><path d="M11 19.94l0 .01" /></svg>
                     </button>
+                    <select className="ring-1 ring-black rounded-md p-1 transition-all ease-in-out duration-100 hover:shadow-md hover:shadow-neutral-800 cursor-pointer" value={valueOption} onChange={handleChangeOption}>
+                        <option value=''>Filtrar por:</option>
+                        <option value='moto'>Motos</option>
+                        <option value='local'>Locales</option>
+                    </select>
                 </div>
                 <div className="w-full bg-slate-300 h-full rounded-md">
-                    <div className="w-full flex flex-row justify-around">
-                        <p>DNI </p>
-                        <p>Dueño </p>
-                        <p>Nombre del local </p>
-                        <p>Telefono </p>
-                        <p>Ubicacion </p>
-                        <p>Link foto</p>
-                    </div>
                     {
-                        localsData !== null && localsData !== undefined ? (
-                            localsData!.length > 0 && localsData!.map((data, i) => (
-                                <div className="w-full flex flex-row justify-around" key={i}>
-                                    <p>{data.dniOnwer}</p>
-                                    <p>{data.nameOwner}</p>
-                                    <p>{data.localName}</p>
-                                    <p>{data.phone}</p>
-                                    <p>{data.location}</p>
-                                    <p><Link to={data.linkPhoto}>Ver foto</Link></p>
-                                </div>
-                            ))
-                        ) : (
-                            <p>{!localsData ? 'Aun no hay locales registrados' : 'Actualiza la pagina para cargar los datos'}</p>
-                        )
+                        seeMotos === true ? (
+                            motosData !== null && motosData !== undefined ? (
+                                motosData!.length > 0 && motosData!.map((data, i) => (
+                                    <div key={i} className="w-full flex flex-row justify-around">
+                                        <p>{data.num_moto}</p>
+                                        <p>{data.cooperativa}</p>
+                                        <p>{data.conductor}</p>
+                                        <p>{data.ubicacion}</p>
+                                        <Link to={data.foto}>ver foto</Link>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>{!localsData ? 'Aun no hay locales registrados' : 'Actualiza la pagina para cargar los datos'}</p>
+                            )
+                        ) : seeMotos === false ? (
+                            localsData !== null && localsData !== undefined ? (
+                                localsData!.length > 0 && localsData!.map((data, i) => (
+                                    <div className="w-full flex flex-row justify-around" key={i}>
+                                        <p>{data.dniOnwer}</p>
+                                        <p>{data.nameOwner}</p>
+                                        <p>{data.localName}</p>
+                                        <p>{data.phone}</p>
+                                        <p>{data.location}</p>
+                                        <p><Link to={data.linkPhoto}>Ver foto</Link></p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>{!localsData ? 'Aun no hay locales registrados' : 'Actualiza la pagina para cargar los datos'}</p>
+                            )
+                        ) : null
+                    }
+                    {
+                        /*  */
                     }
                 </div>
             </div>

@@ -14,7 +14,7 @@ export const useLogin = () => {
             loading: 'Logging',
             success: (res) => {
                 navigate('/dashboard');
-                setItem('user', res.data.userData[0]);
+                setItem('user', res.data.userData);
                 return res.data.msg
             },
             error: (err) => {

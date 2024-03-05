@@ -18,7 +18,7 @@ export const useMoto = () => {
     }
 
     const getMotos = () => {
-        const motos = axios.get(`${api}/${userId!.id}`);
+        const motos = axios.get(`${api}/search/${userId!.id}`);
         toast.promise(motos, {
             loading: 'Cargando...',
             success: (res) => {

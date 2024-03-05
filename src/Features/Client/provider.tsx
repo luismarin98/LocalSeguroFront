@@ -15,7 +15,11 @@ export interface IClient {
     postLocal: (data: LocalsRequest) => Promise<void>;
     getLocals: () => Promise<void>;
     getMotos: () => void;
-    postMoto: (data: MotosRequest) => void
+    postMoto: (data: MotosRequest) => void;
+    seeMotos: boolean;
+    setSeeMotos: Dispatch<SetStateAction<boolean>>;
+    setValueOption: Dispatch<SetStateAction<string>>;
+    valueOption: string;
 }
 
 const ClientContext = createContext({});
@@ -28,8 +32,25 @@ export const ClientProvider = ({ children }: { children: ReactNode }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [openAddLocal, setOpenAddLocal] = useState<boolean>(false);
     const [openAddMoto, setOpeAddMoto] = useState<boolean>(false);
+    const [seeMotos, setSeeMotos] = useState<boolean>(false);
+    const [valueOption, setValueOption] = useState<string>('')
 
-    const storage: IClient = { isOpen, setIsOpen, openAddLocal, setOpenAddLocal, openAddMoto, setOpeAddMoto, postLocal, getLocals, getMotos, postMoto };
+    const storage: IClient = {
+        isOpen,
+        setIsOpen,
+        openAddLocal,
+        setOpenAddLocal,
+        openAddMoto,
+        setOpeAddMoto,
+        postLocal,
+        getLocals,
+        getMotos,
+        postMoto,
+        seeMotos,
+        setSeeMotos,
+        valueOption,
+        setValueOption
+    };
 
     return <ClientContext.Provider value={storage}>{children}</ClientContext.Provider>
 }
