@@ -5,7 +5,7 @@ import { UserRequest } from "../../../Interfaces/UserRequest";
 import getItem, { setItem } from "../../../components/StorageFunctions";
 
 export const useLocal = () => {
-    const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/locals';
+    const api = process.env.REACT_APP_API_LOCALS ? process.env.REACT_APP_API_LOCALS : 'http://localhost:3001/api/locals';
     const user: UserRequest | null = getItem('user');
 
     const postLocal = async (data: LocalsRequest) => {

@@ -126,9 +126,6 @@ export const ClientFeature: FC = () => {
                             )
                         ) : null
                     }
-                    {
-                        /*  */
-                    }
                 </div>
             </div>
             <Modal title="Añadir local" isOpen={openAddLocal} setIsOpen={setOpenAddLocal}><FormLocals /></Modal>
