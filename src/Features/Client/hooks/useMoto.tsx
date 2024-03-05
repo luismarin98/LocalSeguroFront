@@ -5,7 +5,7 @@ import { UserRequest } from "../../../Interfaces/UserRequest";
 import toast from "react-hot-toast";
 
 export const useMoto = () => {
-    const api = 'http://localhost:3001/api/motos';
+    const api = process.env.REACT_APP_API_MOTOS ? process.env.REACT_APP_API_MOTOS : 'http://localhost:3001/api/motos';
     const userId: UserRequest | null = getItem('user');
 
     const postMoto = (data: MotosRequest) => {
