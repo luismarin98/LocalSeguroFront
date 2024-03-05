@@ -96,7 +96,7 @@ export const ClientFeature: FC = () => {
                 <div className="w-full bg-slate-300 h-full rounded-md">
                     {
                         seeMotos === true ? (
-                            motosData !== null && motosData !== undefined ? (
+                            motosData !== null || motosData !== undefined ? (
                                 motosData!.length > 0 && motosData!.map((data, i) => (
                                     <div key={i} className="w-full flex flex-row justify-around">
                                         <p>{data.num_moto}</p>
@@ -110,7 +110,7 @@ export const ClientFeature: FC = () => {
                                 <p>{!localsData ? 'Aun no hay locales registrados' : 'Actualiza la pagina para cargar los datos'}</p>
                             )
                         ) : seeMotos === false ? (
-                            localsData !== null && localsData !== undefined ? (
+                            localsData !== null || localsData !== undefined ? (
                                 localsData!.length > 0 && localsData!.map((data, i) => (
                                     <div className="w-full flex flex-row justify-around" key={i}>
                                         <p>{data.dniOnwer}</p>
