@@ -16,6 +16,7 @@ function App() {
           <Route path="" element={<HomeDash />} />
           <Route path="client" element={<Client />} />
           <Route path="admin" element={<Admin />} />
+          <Route path="*" element={<div className="w-full h-full flex items-center justify-center"><p className="text-2xl uppercase">Page not found</p></div>} />
         </Route>
       </Routes>
     </div>
