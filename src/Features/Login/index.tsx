@@ -20,6 +20,7 @@ export const LoginFeature: FC = () => {
             username: ''
         },
         users_register: [],
+        photo: ''
     };
 
     const methos = useForm({ defaultValues: initialValues });

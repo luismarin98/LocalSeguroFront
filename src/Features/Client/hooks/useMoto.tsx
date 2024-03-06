@@ -13,7 +13,10 @@ export const useMoto = () => {
         toast.promise(post, {
             loading: 'Guardando...',
             success: (res) => res.data.msg,
-            error: 'Algo sucedio, intente nuevamente',
+            error: (err) => {
+                console.log(err.response.data.Error)
+                return err.response.data.msg
+            }
         })
     }
 
@@ -25,7 +28,10 @@ export const useMoto = () => {
                 setItem('moto', res.data.motosArray);
                 return res.data.msg;
             },
-            error: 'Algo sucedio, intente nuevamente',
+            error: (err) => {
+                console.log(err.response.data.Error)
+                return err.response.data.msg
+            }
         })
     }
 

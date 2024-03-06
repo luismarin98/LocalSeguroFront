@@ -18,9 +18,9 @@ export const useLogin = () => {
                 return res.data.msg
             },
             error: (err) => {
-                console.error(err);
-                return 'Algo sucedio, intente nuevamente'
-            },
+                console.log(err.response.data.Error)
+                return err.response.data.msg
+            }
         }, { loading: { duration: 2000 } });
     }
 

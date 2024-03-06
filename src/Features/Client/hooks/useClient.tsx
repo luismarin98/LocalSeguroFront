@@ -16,7 +16,10 @@ export const useClient = () => {
                 setLocalsData(res.data);
                 return 'Locales Cargados exitosamente';
             },
-            error: (err) => `${err}`,
+            error: (err) => {
+                console.log(err.response.data.Error)
+                return err.response.data.msg
+            }
         })
 
     };

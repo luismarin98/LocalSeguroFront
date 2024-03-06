@@ -13,7 +13,10 @@ export const useLocal = () => {
         toast.promise(postLocal, {
             loading: 'Guardando informacion',
             success: (res) => res.data.msg,
-            error: 'Algo ha sucedido, intente nuevamente',
+            error: (err) => {
+                console.log(err.response.data.Error)
+                return err.response.data.msg
+            },
         }, { loading: { duration: 2000 } });
     }
 
@@ -26,7 +29,10 @@ export const useLocal = () => {
                 window.location.reload();
                 return res.data.msg;
             },
-            error: 'Algo sucedio, intente nuevamente',
+            error: (err) => {
+                console.log(err.response.data.Error)
+                return err.response.data.msg
+            }
         }, { loading: { duration: 2000 } })
     }
 

@@ -17,7 +17,10 @@ export const useRegister = () => {
                 navigate('/login');
                 return res.data.msg;
             },
-            error: 'Algo sucedio, intente nuevamente',
+            error: (err) => {
+                console.log(err.response.data.Error)
+                return err.response.data.msg
+            }
         }, { loading: { duration: 2000 } });
     };
 

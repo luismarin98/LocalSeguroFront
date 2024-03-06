@@ -22,6 +22,7 @@ export const RegisterFeature: FC = () => {
             username: ''
         },
         users_register: [],
+        photo: null
     };
     
     const methods = useForm({ defaultValues: initialValues });
@@ -47,7 +48,7 @@ export const RegisterFeature: FC = () => {
     return (
         <div className="flex flex-col gap-3 items-center justify-center h-screen">
             <FormProvider {...methods}>
-                <div className="flex flex-col items-center justify-center gap-5 p-3 bg-slate-200 text-black rounded-md w-[45vh] h-[70vh]">
+                <div className="flex flex-col items-center justify-center gap-5 bg-blue-300 dark:bg-neutral-200 text-black rounded-md py-8 px-10">
                     <p className="text-center text-3xl">Registrate!</p>
                     <div className="flex flex-col gap-2">
                         <p>Usuario</p>

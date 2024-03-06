@@ -28,7 +28,10 @@ export const useHomeDash = () => {
                 document.location.reload();
                 return 'Historial actualizado';
             },
-            error: 'Algo ha sucedido, intente nuevamente'
+            error: (err) => {
+                console.log(err.response.data.Error)
+                return err.response.data.msg
+            }
         }, { loading: { duration: 2000 } })
     }
 

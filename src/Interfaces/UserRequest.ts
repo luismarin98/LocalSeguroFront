@@ -7,6 +7,7 @@ export interface UserRequest {
     isAdmin: boolean;
     me_register: AdmminUser | null;
     users_register: UserRegister[] | null;
+    photo: string | null;
 }
 
 interface AdmminUser {
