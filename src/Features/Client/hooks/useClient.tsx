@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { LocalsRequest } from "../../../Interfaces/LocalRequest"
-import axios from "axios";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export const useClient = () => {
     const [localData, setLocalsData] = useState<LocalsRequest[]>([]);

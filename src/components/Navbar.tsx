@@ -12,25 +12,40 @@ export const Navbar = () => {
 
     const navigate = useNavigate();
 
-    const handLogout = (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        removeItem('locals');
-        removeItem('user');
-        navigate('/')
-    }
+    const buttons = [
+        {
+            title: 'Inicio',
+            onClick: (event: MouseEvent<HTMLButtonElement>) => {
+                event.preventDefault();
+                navigate('/dashboard');
+            }
+        },
+        {
+            title: 'Perfil',
+            onClick: (event: MouseEvent<HTMLButtonElement>) => {
+                event.preventDefault();
+                navigate('/dashboard/profile');
+            }
+        },
+        {
+            title: 'Cerrar sesion',
+            onClick: (event: MouseEvent<HTMLButtonElement>) => {
+                event.preventDefault();
+                removeItem('locals');
+                removeItem('user');
+                removeItem('moto');
+                navigate('/')
+            }
+        }
+    ];
 
     const handleLoggin = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         navigate('/login');
     }
 
-    const handleRedirect = (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        navigate('/dashboard');
-    }
-
     return (
-        <nav className="bg-gray-700 p-2">
+        <nav className="bg-gray-700 p-2 m-1 rounded-md">
             <div className="container flex justify-around items-center">
 
                 <div className="flex flex-row gap-2 items-center justify-center">
@@ -38,7 +53,7 @@ export const Navbar = () => {
                     <Link className="text-white text-lg font-semibold" to='/'>Local Seguro</Link>
                 </div>
 
-                <div className="flex flex-row flex-wrap gap-2">
+                <div className="flex flex-row flex-wrap gap-2 text-white">
                     <Link to='/'>Inicio</Link>
                     {
                         userLocal && userLocal!.isAdmin && <Link to='/dashboard'>Dashboard</Link>
@@ -48,20 +63,18 @@ export const Navbar = () => {
                 {
                     userLocal !== null ? (
                         <MenuModal title={userLocal!.username}>
-                            <Menu.Item>
-                                {
-                                    ({ active }) => (
-                                        <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={handleRedirect}>Inicio</button>
-                                    )
-                                }
-                            </Menu.Item>
-                            <Menu.Item>
-                                {
-                                    ({ active }) => (
-                                        <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={handLogout}>Cerrar session</button>
-                                    )
-                                }
-                            </Menu.Item>
+                            {
+                                buttons.map((data, i) => (
+                                    <Menu.Item key={i}>
+                                        {
+                                            ({ active }) => (
+                                                <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={data.onClick}>{data.title}</button>
+                                            )
+                                        }
+                                    </Menu.Item>
+                                ))
+                            }
+
                         </MenuModal>
                     ) : (
                         <button className="px-4 py-1 rounded-md bg-neutral-200 text-black" onClick={handleLoggin}>Acceder</button>

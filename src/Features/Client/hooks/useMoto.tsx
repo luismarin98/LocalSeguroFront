@@ -1,8 +1,8 @@
-import axios from "axios"
 import { MotosRequest } from "../../../Interfaces/MotosRequest";
 import getItem, { setItem } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export const useMoto = () => {
     const api = process.env.REACT_APP_API_MOTOS ? process.env.REACT_APP_API_MOTOS : 'http://localhost:3001/api/motos';

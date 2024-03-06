@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const useRegister = () => {
     const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { setItem } from "../../../components/StorageFunctions";
+import axios from "axios";
 
 export const useLogin = () => {
     const navigate = useNavigate();

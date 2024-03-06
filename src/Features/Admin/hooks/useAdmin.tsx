@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
+import axios from "axios";
 
 export const useAdmin = () => {
     const [users, setUsers] = useState<UserRequest[]>([]);

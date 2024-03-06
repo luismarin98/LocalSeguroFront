@@ -1,8 +1,8 @@
-import axios from "axios";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import getItem, { removeItem, setItem } from "../../../components/StorageFunctions";
 import { LocalsRequest } from "../../../Interfaces/LocalRequest";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export const useHomeDash = () => {
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/users';
