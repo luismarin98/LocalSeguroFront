@@ -9,7 +9,7 @@ export const useHomeDash = () => {
     const userData: UserRequest | null = getItem('user');
 
     const getUserData = async () => {
-        debugger
+        
         await axios.get<UserRequest | undefined>(`${api}/home/?id=${userData!.id}`).then((res) => {
             removeItem('user');
             setItem('user', res.data);

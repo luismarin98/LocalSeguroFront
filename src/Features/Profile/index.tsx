@@ -25,18 +25,14 @@ export const ProfileFeature = () => {
                 setOpenModaPhoto(!openModalPhoto)
             }
         }
-    ];
+    ]
 
     return <>
         <div className="flex flex-row flex-wrap gap-3 items-center justify-center">
             <div className="flex flex-row flex-wrap gap-5 justify-center items-center dark:bg-blue-400 bg-green-300 p-3 rounded-md">
-                {
-                    user!.photo !== null ? (<img src={user!.photo} alt={user!.username} width={90} height={90} className="rounded-full shadow-md dark:hover:shadow-neutral-500 hover:scale-105 transition-all ease-in-out duration-100" />) : (
-                        <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpublicidadymercados.com%2Fcheems-y-marketing%2F&psig=AOvVaw1ljKzLP_7zthWh6euAB3nC&ust=1709832846712000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLCpxu2V4IQDFQAAAAAdAAAAABAE" alt="chems" />
-                    )
-                }
+                <img src={user!.photo!} alt={user!.username} className="w-32 h-32 rounded-full hover:shadow-md dark:hover:shadow-neutral-500 hover:scale-105 transition-all ease-in-out duration-100" />
                 <div className="flex flex-col gap-3">
-                    <p><strong>Nombre de usuario:</strong> {user!.username}</p>
+                    <p><strong>Nombres:</strong> {user!.username}</p>
                     <p><strong>Correo:</strong> {user!.email}</p>
                     <p><strong>Telefono:</strong> +593 {user!.phone}</p>
                     <p><strong>Tipo de usuario:</strong> {user!.isAdmin ? 'Administrador' : 'Usuario'}</p>
@@ -49,7 +45,7 @@ export const ProfileFeature = () => {
                 }
             </div>
         </div>
-        <Modal title="Cambiar contra" isOpen={open} setIsOpen={setOpen}><UpdatePass /></Modal>
+        <Modal title="Cambiar contraseña" isOpen={open} setIsOpen={setOpen}><UpdatePass /></Modal>
         <Modal title="Cambiar foto" isOpen={openModalPhoto} setIsOpen={setOpenModaPhoto}><FormUpdatePhoto /></Modal>
     </>
 }

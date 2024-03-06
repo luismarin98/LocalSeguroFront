@@ -1,4 +1,4 @@
 export interface UpdatePassword {
-    olPass: string;
+    oldPass: string;
     newPass: string;
 }

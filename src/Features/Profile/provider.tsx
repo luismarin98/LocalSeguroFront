@@ -1,6 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
 import { useProfile } from "./hooks/useProfile";
 import { UpdatePassword } from "../../Interfaces/UpdateRequest";
+import { PhotoRequest } from "../../Interfaces/PhotoRequest";
 
 export interface IProfile {
     open: boolean;
@@ -12,7 +13,7 @@ export interface IProfile {
     setOpenModaPhoto: Dispatch<SetStateAction<boolean>>;
 
     updatePass: (data: UpdatePassword) => void;
-    updatePhoto: (photo: string) => void;
+    updatePhoto: (photo: PhotoRequest) => void
 }
 
 const ProfileContext = createContext({});

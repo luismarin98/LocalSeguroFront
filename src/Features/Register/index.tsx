@@ -1,12 +1,13 @@
-import { ChangeEvent, FC, MouseEvent, useContext, useState } from "react"
+import { ChangeEvent, FC, MouseEvent, useContext, useEffect, useState } from "react"
 
 import { UserRequest } from "../../Interfaces/UserRequest"
-import { FormProvider, useForm } from "react-hook-form"
+import { FormProvider, useForm, SubmitHandler } from "react-hook-form"
 import RegisterContext, { IRegister } from "./provider";
 import toast from "react-hot-toast";
 
 export const RegisterFeature: FC = () => {
     const [confPass, setConfPass] = useState<string>('');
+    const [numero, setNumero] = useState<string>('');
 
     const initialValues: UserRequest = {
         password: '',
@@ -22,33 +23,39 @@ export const RegisterFeature: FC = () => {
             username: ''
         },
         users_register: [],
-        photo: null
+        photo: ''
     };
-    
+
     const methods = useForm({ defaultValues: initialValues });
 
     const { postUser } = useContext(RegisterContext) as IRegister;
-    const { reset, register, getValues, setValue } = useForm<UserRequest>();
+    const { reset, register, setValue, handleSubmit, getValues } = useForm<UserRequest>();
 
     const handleChangeConfPass = (event: ChangeEvent<HTMLInputElement>) => { setConfPass(event.target.value) }
 
-    const handleRegister = (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+    const handleRegister: SubmitHandler<UserRequest> = (data) => {
+        const values = data;
+        if (values.password !== confPass) return toast.error('Asegurate de que las contraseñas sean iguales.');
+        if (values.username === '' || values.password === '' || values.email === '' || values.phone === '') return toast.error('Asegurate de rellenar todos los campos');
+
         setValue('isAdmin', false);
-        const values = getValues();
-        if (values.password !== confPass) {
-            toast.error('Asegurate de que las contraseñas sean iguales.')
-        } else {
-            values.id = Math.floor(Math.random() * 10000);
-            postUser(values);
-        }
+        setValue('photo', 'https://guiauniversitaria.mx/wp-content/uploads/2023/08/CHEEMS.png.webp');
+        values.id = Math.floor(Math.random() * 10000);
+        postUser(values);
         reset();
+    }
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (/[0-9]/.test(event.target.value)) {
+            setValue('phone', event.target.value);
+            setNumero(event.target.value);
+        }
     }
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center h-screen">
             <FormProvider {...methods}>
-                <div className="flex flex-col items-center justify-center gap-5 bg-blue-300 dark:bg-neutral-200 text-black rounded-md py-8 px-10">
+                <form onSubmit={handleSubmit(handleRegister)} className="flex flex-col items-center justify-center gap-5 bg-blue-300 dark:bg-neutral-200 text-black rounded-md py-8 px-10">
                     <p className="text-center text-3xl">Registrate!</p>
                     <div className="flex flex-col gap-2">
                         <p>Usuario</p>
@@ -64,14 +71,14 @@ export const RegisterFeature: FC = () => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <p>Correo</p>
-                        <input type="email" className="rounded-md ring-1 ring-white" {...register('email')} />
+                        <input type="email" className="rounded-md ring-1 ring-white" {...register('email')} required />
                     </div>
                     <div className="flex flex-col gap-2">
                         <p>Telefono</p>
-                        <input type="text" className="rounded-md ring-1 ring-white" {...register('phone')} />
+                        <input type="text" className="rounded-md ring-1 ring-white" value={numero} onChange={handleChange} maxLength={9} />
                     </div>
-                    <button onClick={handleRegister} className="bg-neutral-800 rounded-md px-6 py-0.5 text-white hover:scale-105">Registrarse</button>
-                </div>
+                    <button type="submit" className="bg-neutral-800 rounded-md px-6 py-0.5 text-white hover:scale-105">Registrarse</button>
+                </form>
             </FormProvider>
         </div>
     )

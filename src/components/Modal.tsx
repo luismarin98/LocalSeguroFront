@@ -39,7 +39,7 @@ export const Modal = (props: modalProps) => {
                                 <div className='bg-white p-2 rounded-md shadow-xl'>
                                     <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">{props.title}</Dialog.Title>
                                 </div>
-                                <Dialog.Description className="mt-2">{props.children}</Dialog.Description>
+                                <div className="mt-2">{props.children}</div>
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>

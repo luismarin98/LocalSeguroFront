@@ -7,7 +7,12 @@ export interface UserRequest {
     isAdmin: boolean;
     me_register: AdmminUser | null;
     users_register: UserRegister[] | null;
-    photo: string | null;
+    photo: string;
+}
+
+export interface LoginRequest {
+    username: string;
+    password: string;
 }
 
 interface AdmminUser {

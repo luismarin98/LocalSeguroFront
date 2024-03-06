@@ -9,7 +9,6 @@ export const useRegister = () => {
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
 
     const postUser = (data: UserRequest) => {
-        debugger
         const saveUser = axios.post(`${api}/register`, { ...data });
         toast.promise(saveUser, {
             loading: 'Registrando...',

@@ -1,32 +1,20 @@
 import { FC, MouseEvent, useContext } from "react";
 import LoginContext, { ILogin } from "./provider";
-import { UserRequest } from "../../Interfaces/UserRequest";
+import { LoginRequest } from "../../Interfaces/UserRequest";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 export const LoginFeature: FC = () => {
-    const initialValues: UserRequest = {
+    const initialValues: LoginRequest = {
         password: '',
-        username: '',
-        email: '',
-        phone: '',
-        isAdmin: false,
-        id: 0,
-        me_register: {
-            email: '',
-            id: 0,
-            phone: '',
-            username: ''
-        },
-        users_register: [],
-        photo: ''
+        username: ''
     };
 
     const methos = useForm({ defaultValues: initialValues });
 
     const { getUser } = useContext(LoginContext) as ILogin;
-    const { getValues, reset, register } = useForm<UserRequest>();
+    const { getValues, reset, register } = useForm<LoginRequest>();
 
     const handLog = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
