@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 export const AdminFeature: FC = () => {
     const { openAddUser, setOpenAddUser } = useContext(AdminContext) as IAdmin;
-    //const userLocal: UserRequest | null = getItem('user');
 
     return <div className="flex flex-row flex-wrap gap-2">
         <button className={`flex flex-col items-center p-2 gap-2 bg-green-400 transition-all duration-75 hover:scale-105 rounded-md hover:shadow-md hover:shadow-neutral-900`}>
@@ -22,21 +21,3 @@ export const AdminFeature: FC = () => {
         <Modal title="Anadir usuario" isOpen={openAddUser} setIsOpen={setOpenAddUser}><FormUser /></Modal>
     </div>
 }
-
-/* <div className="grid grid-rows-3 grid-flow-col gap-4 h-full w-full overflow-x-auto scroll-m-4 no-scrollbar items-center">
-        {
-            userLocal!.localsData === null ? (
-                <p>Puede que no hayan datos registrados</p>
-            ) : userLocal!.localsData?.map((data, i) => (
-                <button key={i} className="bg-gray-200 rounded-md ring-1 m-2 ring-black w-[40vh] h-[20vh] hover:shadow-md hover:shadow-neutral-800 hover:scale-105 transition-all duration-100">
-                    <div className="flex flex-row gap-2 w-full items-center justify-around">
-                        <p>{data.linkPhoto}</p>
-                        <div className="flex flex-col gap-2">
-                            <p>{data.nameOwner}</p>
-                            <p>{data.localName}</p>
-                        </div>
-                    </div>
-                </button>
-            ))
-        }
-    </div> */

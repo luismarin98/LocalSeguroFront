@@ -22,7 +22,6 @@ export const RegisterFeature: FC = () => {
             phone: '',
             username: ''
         },
-        users_register: [],
         photo: ''
     };
 

@@ -26,7 +26,13 @@ export const Navbar = () => {
                 event.preventDefault();
                 navigate('/dashboard/profile');
             }
-        },
+        },/* 
+        userLocal!.isAdmin ? (
+            {
+                title: 'Dashboard',
+                onClick: 
+            }
+        ) : ({}), */
         {
             title: 'Cerrar sesion',
             onClick: (event: MouseEvent<HTMLButtonElement>) => {
@@ -36,12 +42,17 @@ export const Navbar = () => {
                 removeItem('moto');
                 navigate('/')
             }
-        }
+        },
     ];
 
     const handleLoggin = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         navigate('/login');
+    }
+
+    const handleDash = (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        navigate('/dashboard/admin')
     }
 
     return (
@@ -55,9 +66,6 @@ export const Navbar = () => {
 
                 <div className="flex flex-row flex-wrap gap-2 text-white">
                     <Link to='/'>Inicio</Link>
-                    {
-                        userLocal && userLocal!.isAdmin && <Link to='/dashboard'>Dashboard</Link>
-                    }
                 </div>
 
                 {
@@ -74,7 +82,17 @@ export const Navbar = () => {
                                     </Menu.Item>
                                 ))
                             }
-
+                            {
+                                userLocal!.isAdmin ? (
+                                    <Menu.Item>
+                                        {
+                                            ({ active }) => (
+                                                <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`} onClick={handleDash}>Dashboard</button>
+                                            )
+                                        }
+                                    </Menu.Item>
+                                ) : ''
+                            }
                         </MenuModal>
                     ) : (
                         <button className="px-4 py-1 rounded-md bg-neutral-200 text-black" onClick={handleLoggin}>Acceder</button>

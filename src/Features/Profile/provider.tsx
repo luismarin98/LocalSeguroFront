@@ -13,7 +13,11 @@ export interface IProfile {
     setOpenModaPhoto: Dispatch<SetStateAction<boolean>>;
 
     updatePass: (data: UpdatePassword) => void;
-    updatePhoto: (photo: PhotoRequest) => void
+    updatePhoto: (photo: PhotoRequest) => void;
+    getUser: () => void;
+    getLocals: () => Promise<void>;
+    getMotos: () => Promise<void>;
+
 }
 
 const ProfileContext = createContext({});
@@ -22,9 +26,10 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     const [open, setOpen] = useState<boolean>(false);
     const [openModalPhoto, setOpenModaPhoto] = useState<boolean>(false);
     const [confPass, setConfPass] = useState<string>('');
-    const { updatePass, updatePhoto } = useProfile();
 
-    const storage: IProfile = { open, setOpen, confPass, setConfPass, updatePass, updatePhoto, openModalPhoto, setOpenModaPhoto };
+    const { updatePass, updatePhoto, getUser, getLocals, getMotos } = useProfile();
+
+    const storage: IProfile = { open, setOpen, confPass, setConfPass, updatePass, updatePhoto, openModalPhoto, setOpenModaPhoto, getUser, getLocals, getMotos };
 
     return <ProfileContext.Provider value={storage}>{children}</ProfileContext.Provider>
 }

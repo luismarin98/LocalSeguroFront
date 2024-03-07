@@ -17,10 +17,7 @@ export const useLogin = () => {
                 setItem('user', res.data.userData);
                 return res.data.msg
             },
-            error: (err) => {
-                console.log(err.response.data.Error)
-                return err.response.data.msg
-            }
+            error: (err) => err.response.data.msg,
         }, { loading: { duration: 2000 } });
     }
 

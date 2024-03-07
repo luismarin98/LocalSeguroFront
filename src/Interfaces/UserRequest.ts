@@ -6,7 +6,6 @@ export interface UserRequest {
     phone: string;
     isAdmin: boolean;
     me_register: AdmminUser | null;
-    users_register: UserRegister[] | null;
     photo: string;
 }
 
@@ -20,8 +19,4 @@ interface AdmminUser {
     username: string;
     email: string;
     phone: string;
-}
-
-interface UserRegister {
-    id: number;
 }
