@@ -1,7 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import getItem from "../../../components/StorageFunctions";
+import getItem, { removeItem, setItem } from "../../../components/StorageFunctions";
 import { UpdatePassword } from "../../../Interfaces/UpdateRequest";
 import { PhotoRequest } from "../../../Interfaces/PhotoRequest";
 
@@ -14,10 +14,7 @@ export const useProfile = () => {
         toast.promise(putRes, {
             loading: 'Actualizando contraseña',
             success: (res) => res.data.msg,
-            error: (err) => {
-                //console.log(err.response.data.Error)
-                return err.response.data.msg
-            },
+            error: (err) => err.response.data.msg,
         }, { loading: { duration: 2000 } })
     }
 
@@ -25,11 +22,11 @@ export const useProfile = () => {
         const putPhoto = axios.put(`${api}/updatePhoto/${user!.id}`, { data });
         toast.promise(putPhoto, {
             loading: 'Actualizando foto',
-            success: (res) => res.data.msg,
-            error: (err) => {
-                //console.log(err.response.data.Error)x
-                return err.response!.data!.msg
+            success: (res) => {
+                axios.get(`${api}/search/${user!.id}`).then((res) => setItem('user', res.data.userData));
+                return res.data.msg;
             },
+            error: (err) => err.response.data.msg,
         }, { loading: { duration: 2000 } })
     }
 
