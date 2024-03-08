@@ -1,9 +1,11 @@
-import { ChangeEvent, FC, MouseEvent, useContext, useEffect, useState } from "react"
+import { ChangeEvent, FC, useContext, useEffect, useState } from "react"
 
 import { UserRequest } from "../../Interfaces/UserRequest"
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form"
 import RegisterContext, { IRegister } from "./provider";
 import toast from "react-hot-toast";
+import getItem from "../../components/StorageFunctions";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterFeature: FC = () => {
     const [confPass, setConfPass] = useState<string>('');
@@ -16,19 +18,16 @@ export const RegisterFeature: FC = () => {
         phone: '',
         isAdmin: false,
         id: 0,
-        me_register: {
-            email: '',
-            id: 0,
-            phone: '',
-            username: ''
-        },
+        me_register: 0,
         photo: ''
     };
 
     const methods = useForm({ defaultValues: initialValues });
 
+    const navigate = useNavigate();
+
     const { postUser } = useContext(RegisterContext) as IRegister;
-    const { reset, register, setValue, handleSubmit, getValues } = useForm<UserRequest>();
+    const { reset, register, setValue, handleSubmit } = useForm<UserRequest>();
 
     const handleChangeConfPass = (event: ChangeEvent<HTMLInputElement>) => { setConfPass(event.target.value) }
 
@@ -50,6 +49,11 @@ export const RegisterFeature: FC = () => {
             setNumero(event.target.value);
         }
     }
+
+    useEffect(() => {
+        const user: UserRequest | null = getItem('user');
+        if (user) return navigate('/dahsboard');
+    }, [])
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center h-screen">

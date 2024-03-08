@@ -1,9 +1,10 @@
-import { FC, MouseEvent, useContext } from "react";
+import { FC, MouseEvent, useContext, useEffect } from "react";
 import LoginContext, { ILogin } from "./provider";
-import { LoginRequest } from "../../Interfaces/UserRequest";
+import { LoginRequest, UserRequest } from "../../Interfaces/UserRequest";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import getItem from "../../components/StorageFunctions";
 
 export const LoginFeature: FC = () => {
     const initialValues: LoginRequest = {
@@ -12,6 +13,8 @@ export const LoginFeature: FC = () => {
     };
 
     const methos = useForm({ defaultValues: initialValues });
+
+    const navigate = useNavigate();
 
     const { getUser } = useContext(LoginContext) as ILogin;
     const { getValues, reset, register } = useForm<LoginRequest>();
@@ -23,6 +26,11 @@ export const LoginFeature: FC = () => {
         getUser(data);
         reset();
     }
+
+    useEffect(() => {
+        const user: UserRequest | null = getItem('user');
+        if (user) return navigate('/dashboard');
+    }, [])
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center h-screen">

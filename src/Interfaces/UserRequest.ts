@@ -5,18 +5,11 @@ export interface UserRequest {
     email: string;
     phone: string;
     isAdmin: boolean;
-    me_register: AdmminUser | null;
+    me_register: number;
     photo: string;
 }
 
 export interface LoginRequest {
     username: string;
     password: string;
-}
-
-interface AdmminUser {
-    id: number;
-    username: string;
-    email: string;
-    phone: string;
 }

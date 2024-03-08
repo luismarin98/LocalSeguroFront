@@ -2,6 +2,7 @@ import { InputHTMLAttributes, forwardRef } from "react";
 import { Path, UseFormRegister } from "react-hook-form";
 import { LocalsRequest } from "../Interfaces/LocalRequest";
 import { MotosRequest } from "../Interfaces/MotosRequest";
+import { UserRequest } from "../Interfaces/UserRequest";
 
 type InputProps = {
     title?: string;
@@ -17,6 +18,13 @@ type MotoInputProps = {
     disabled?: boolean | undefined;
 } & InputHTMLAttributes<HTMLInputElement>;
 
+type UserInputProps = {
+    title?: string;
+    iRegister?: UseFormRegister<UserRequest>;
+    textRegis?: Path<UserRequest>;
+    disabled?: boolean | undefined;
+} & InputHTMLAttributes<HTMLInputElement>;
+
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => (
     <label className="w-full flex flex-row p-2 gap-3">
         <p className="w-full text-white">{props.title}</p>
@@ -25,6 +33,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => (
 ));
 
 export const MotoInput = forwardRef<HTMLInputElement, MotoInputProps>((props, ref) => (
+    <label className="w-full flex flex-row p-2 gap-3">
+        <p className="w-full text-white">{props.title}</p>
+        <input className="ring-1 ring-black text-black" type={props.type} {...(typeof props.iRegister === 'function' ? props.iRegister(props.textRegis!) : {})} />
+    </label>
+));
+
+export const UserInput = forwardRef<HTMLInputElement, UserInputProps>((props, ref) => (
     <label className="w-full flex flex-row p-2 gap-3">
         <p className="w-full text-white">{props.title}</p>
         <input className="ring-1 ring-black text-black" type={props.type} {...(typeof props.iRegister === 'function' ? props.iRegister(props.textRegis!) : {})} />
