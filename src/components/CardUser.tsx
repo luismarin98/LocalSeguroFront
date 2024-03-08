@@ -2,7 +2,7 @@ import { UserRequest } from "../Interfaces/UserRequest";
 
 export const CardUser = (data: UserRequest) => {
     return (
-        <div className="flex flex-row gap-2 justify-center items-center bg-neutral-700 rounded-md w-1/3 p-2">
+        <div className="flex flex-row gap-2 justify-center items-center bg-neutral-700 rounded-md w-[40vh] h-1/2 p-2">
             <img src={data.photo} alt={data.username} width={70} height={70} className="rounded-full bg-white" />
             <div className="w-full">
                 <p><strong>Usuario:</strong> {data.username}</p>

@@ -24,7 +24,7 @@ export const AdminFeature: FC = () => {
         </button>
         <div className="w-5/6 h-5/6 flex flex-col gap-2 justify-center">
             <FormSearch />
-            <div className="bg-neutral-200 rounded-md w-full h-full shadow-inner shadow-neutral-800 grid grid-rows-2 grid-flow-col gap-4 place-items-center">
+            <div className="bg-neutral-200 p-2 overflow-x-auto no-scrollbar rounded-md w-full h-full shadow-inner shadow-neutral-800 grid grid-rows-2 grid-flow-col gap-4 place-items-center">
                 {
                     users && users!.length > 0 && users!.map((data, i) => (
                         <CardUser key={i} {...data} />
