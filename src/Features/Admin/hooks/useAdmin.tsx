@@ -3,8 +3,10 @@ import axios from "axios";
 import getItem, { setItem } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import { SearchRequest } from "../../../Interfaces/SearchRequest";
+import { useState } from "react";
 
 export const useAdmin = () => {
+    const [userId, setUserId] = useState<number>(0);
 
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
     const user: UserRequest | null = getItem('user');
@@ -32,5 +34,19 @@ export const useAdmin = () => {
         }, { loading: { duration: 2000 } })
     }
 
-    return { getUsers, postUser };
+    const editUser = (data: UserRequest) => { }
+
+    const deleteUser = () => {
+        const del = axios.delete(`${api}/delete/${userId}`);
+        toast.promise(del, {
+            loading: 'Eliminando usuario...',
+            success: (res) => {
+                setUserId(0);
+                return res.data.msg;
+            },
+            error: (err) => err.response.data.msg,
+        }, { loading: { duration: 2000 } })
+    }
+
+    return { getUsers, postUser, editUser, deleteUser, setUserId, userId };
 }

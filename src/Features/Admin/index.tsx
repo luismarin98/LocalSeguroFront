@@ -4,11 +4,12 @@ import getItem from "../../components/StorageFunctions";
 import { Modal } from "../../components/Modal";
 import AdminContext, { IAdmin } from "./provider";
 import { FormUser } from "./forms/formUser";
-import { CardUser } from "../../components/CardUser";
+import { CardUser } from "./Components/CardUser";
 import { FormSearch } from "./forms/formSearch";
+import { DialogModal } from "./Components/DialogModal";
 
 export const AdminFeature: FC = () => {
-    const { openAddUser, setOpenAddUser } = useContext(AdminContext) as IAdmin;
+    const { openAddUser, setOpenAddUser, setOpenDelete, openDelete } = useContext(AdminContext) as IAdmin;
 
     const users: UserRequest[] | null = getItem('users');
 
@@ -33,5 +34,6 @@ export const AdminFeature: FC = () => {
             </div>
         </div>
         <Modal title="Añadir usuario" isOpen={openAddUser} setIsOpen={setOpenAddUser}><FormUser /></Modal>
+        <Modal title="Estas seguro/a de eliminar este usuario?" isOpen={openDelete} setIsOpen={setOpenDelete} ><DialogModal /></Modal>
     </div>
 }
