@@ -37,6 +37,7 @@ export const Navbar = () => {
                 removeItem('locals');
                 removeItem('user');
                 removeItem('moto');
+                removeItem('users');
                 navigate('/')
             }
         },
