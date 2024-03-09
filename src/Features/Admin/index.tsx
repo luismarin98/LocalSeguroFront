@@ -7,9 +7,10 @@ import { FormUser } from "./forms/formUser";
 import { CardUser } from "./Components/CardUser";
 import { FormSearch } from "./forms/formSearch";
 import { DialogModal } from "./Components/DialogModal";
+import { FormEditUser } from "./forms/formEdit";
 
 export const AdminFeature: FC = () => {
-    const { openAddUser, setOpenAddUser, setOpenDelete, openDelete } = useContext(AdminContext) as IAdmin;
+    const { openAddUser, setOpenAddUser, setOpenDelete, openDelete, openEditUser, setOpenEditUser } = useContext(AdminContext) as IAdmin;
 
     const users: UserRequest[] | null = getItem('users');
 
@@ -34,6 +35,7 @@ export const AdminFeature: FC = () => {
             </div>
         </div>
         <Modal title="Añadir usuario" isOpen={openAddUser} setIsOpen={setOpenAddUser}><FormUser /></Modal>
+        <Modal title="Editar usuario" isOpen={openEditUser} setIsOpen={setOpenEditUser} ><FormEditUser /></Modal>
         <Modal title="Estas seguro/a de eliminar este usuario?" isOpen={openDelete} setIsOpen={setOpenDelete} ><DialogModal /></Modal>
     </div>
 }

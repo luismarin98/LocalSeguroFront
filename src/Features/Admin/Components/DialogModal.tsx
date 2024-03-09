@@ -10,6 +10,7 @@ export const DialogModal = () => {
             onClick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 deleteUser();
+                setOpenDelete(false)
             },
             style: 'bg-red-400 hover:bg-red-500 text-white rounded-md p-2 hover:scale-105 shadow-md hover:shadow-neutral-800'
         },

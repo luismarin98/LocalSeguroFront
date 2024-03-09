@@ -12,6 +12,9 @@ export interface IAdmin {
     openAddUser: boolean;
     setOpenAddUser: Dispatch<SetStateAction<boolean>>;
 
+    openEditUser: boolean;
+    setOpenEditUser: Dispatch<SetStateAction<boolean>>;
+
     userId: number;
     setUserId: Dispatch<SetStateAction<number>>;
 
@@ -26,6 +29,9 @@ export interface IAdmin {
 
     userAdmin: boolean | null;
     setUserAdmin: Dispatch<SetStateAction<boolean | null>>;
+
+    userData: UserRequest | undefined;
+    setUserData: Dispatch<SetStateAction<UserRequest | undefined>>;
 }
 
 const AdminContext = createContext({});
@@ -34,10 +40,12 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     const { getUsers, postUser, deleteUser, editUser, setUserId, userId } = useAdmin();
 
     const [openAddUser, setOpenAddUser] = useState<boolean>(false);
+    const [openEditUser, setOpenEditUser] = useState<boolean>(false);
     const [openDelete, setOpenDelete] = useState<boolean>(false);
     const [numero, setNumero] = useState<string>('');
     const [valueSelect, setValueSelect] = useState<string>('');
     const [userAdmin, setUserAdmin] = useState<boolean | null>(false);
+    const [userData, setUserData] = useState<UserRequest>();
 
     const storage: IAdmin = {
         getUsers,
@@ -55,7 +63,11 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
         openDelete,
         setOpenDelete,
         userId,
-        setUserId
+        setUserId,
+        openEditUser,
+        setOpenEditUser,
+        userData,
+        setUserData
     };
 
     return <AdminContext.Provider value={storage}>{children}</AdminContext.Provider>

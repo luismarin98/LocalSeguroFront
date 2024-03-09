@@ -30,11 +30,22 @@ export const useAdmin = () => {
                 window.location.reload();
                 return res.data.msg;
             },
-            error: (err) => err.response.data.msg,
+            error: (err) => {
+                setItem('users', []);
+                window.location.reload();
+                return err.response.data.msg;
+            },
         }, { loading: { duration: 2000 } })
     }
 
-    const editUser = (data: UserRequest) => { }
+    const editUser = (data: UserRequest) => {
+        const update = axios.put(`${api}/update/${data.id}`, { ...data });
+        toast.promise(update, {
+            loading: 'Actualizando datos...',
+            success: (res) => res.data.msg,
+            error: (err) => err.response.data.msg,
+        }, { loading: { duration: 2000 } })
+    }
 
     const deleteUser = () => {
         const del = axios.delete(`${api}/delete/${userId}`);

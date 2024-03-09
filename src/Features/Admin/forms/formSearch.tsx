@@ -32,7 +32,7 @@ export const FormSearch = () => {
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submit)} className="flex flex-row flex-wrap gap-2 justify-around items-center">
-                <h1>Historial de acciones</h1>
+                <h1>Usuarios creados</h1>
                 <select value={valueSelect} onChange={handleChangeOption} className="ring-1 ring-black text-black rounded-md p-1 transition-all ease-in-out duration-100 hover:shadow-md hover:shadow-neutral-800 cursor-pointer">
                     <option value='null'>Filtrar por:</option>
                     <option value='true'>Administradores</option>
