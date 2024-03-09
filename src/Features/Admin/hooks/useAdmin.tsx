@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import axios from "axios";
-import getItem, { setItem } from "../../../components/StorageFunctions";
+import { setItem, getItem } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import { SearchRequest } from "../../../Interfaces/SearchRequest";
 import { useState } from "react";

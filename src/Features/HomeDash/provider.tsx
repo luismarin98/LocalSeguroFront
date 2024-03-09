@@ -2,16 +2,15 @@ import { ReactNode, createContext } from "react";
 import { useHomeDash } from "./hooks/useHomeDash";
 
 export interface IHomeDash {
-    getUserData: () => Promise<void>;
-    getLocals: (id: string) => Promise<void>;
+    getBy: () => Promise<void>;
 }
 
 const HomeDashContext = createContext({});
 
 export const HomeDashProvider = ({ children }: { children: ReactNode }) => {
-    const { getUserData, getLocals } = useHomeDash();
+    const { getBy } = useHomeDash();
 
-    const storage: IHomeDash = { getUserData, getLocals };
+    const storage: IHomeDash = { getBy };
 
     return <HomeDashContext.Provider value={storage}>{children}</HomeDashContext.Provider>
 }

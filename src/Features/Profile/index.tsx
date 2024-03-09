@@ -1,6 +1,6 @@
 import { MouseEvent, useContext } from "react";
 import { UserRequest } from "../../Interfaces/UserRequest";
-import getItem from "../../components/StorageFunctions";
+import { getItem } from "../../components/StorageFunctions";
 import { Modal } from "../../components/Modal";
 import ProfileContext, { IProfile } from "./provider";
 import { UpdatePass } from "./forms/formUpdatePass";
@@ -41,6 +41,8 @@ export const ProfileFeature = () => {
         }
     ]
 
+    const registredBy: UserRequest | null = getItem('registerBy');
+
     return <>
         <div className="flex flex-row flex-wrap gap-3 items-center justify-center dark:text-neutral-900">
             <div className="flex flex-row flex-wrap gap-5 justify-center items-center dark:bg-blue-400 bg-green-300 p-3 rounded-md">
@@ -56,6 +58,15 @@ export const ProfileFeature = () => {
                             <p><strong>Registro total de locales:</strong> {local && local!.length > 0 ? local!.length : 'No tienes locales registrados actualmente'}</p>
                             <p><strong>Registro total de motos:</strong> {moto && moto!.length > 0 ? moto!.length : 'No tienes motos registradas actualmente'}</p>
                         </>
+                    }
+                    {
+                        registredBy && registredBy !== undefined && (
+                            <div className="felx flex-col gap-2 w-full">
+                                <p className="text-xl uppercase font-bold">Registrado por</p>
+                                <p className="text-md"><strong>Usuario:</strong> {registredBy!.username}</p>
+                                <p className="text-md"><strong>Email:</strong> {registredBy!.email}</p>
+                            </div>
+                        )
                     }
                 </div>
             </div>

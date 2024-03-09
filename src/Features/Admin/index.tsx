@@ -1,6 +1,6 @@
 import { FC, MouseEvent, useContext } from "react";
 import { UserRequest } from "../../Interfaces/UserRequest";
-import getItem from "../../components/StorageFunctions";
+import { getItem } from "../../components/StorageFunctions";
 import { Modal } from "../../components/Modal";
 import AdminContext, { IAdmin } from "./provider";
 import { FormUser } from "./forms/formUser";

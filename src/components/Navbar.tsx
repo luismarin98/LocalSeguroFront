@@ -4,7 +4,7 @@ import logo from '../imgs/logoPNE.png';
 import { UserRequest } from "../Interfaces/UserRequest";
 import { MenuModal } from "./MenuModal";
 import { Menu } from "@headlessui/react";
-import getItem, { removeItem } from "./StorageFunctions";
+import { removeItem, getItem } from "./StorageFunctions";
 
 export const Navbar = () => {
 
@@ -38,6 +38,7 @@ export const Navbar = () => {
                 removeItem('user');
                 removeItem('moto');
                 removeItem('users');
+                removeItem('registerBy');
                 navigate('/')
             }
         },

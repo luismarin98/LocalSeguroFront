@@ -4,7 +4,7 @@ import { FormLocals, FormMotos } from "./forms";
 import ClientContext, { IClient } from "./provider";
 import { Link } from "react-router-dom";
 import { LocalsRequest } from "../../Interfaces/LocalRequest";
-import getItem from "../../components/StorageFunctions";
+import { getItem } from "../../components/StorageFunctions";
 import { MotosRequest } from "../../Interfaces/MotosRequest";
 
 export const ClientFeature: FC = () => {

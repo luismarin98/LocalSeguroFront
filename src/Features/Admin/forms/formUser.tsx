@@ -1,6 +1,6 @@
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import getItem from "../../../components/StorageFunctions";
+import { getItem } from "../../../components/StorageFunctions";
 import { ChangeEvent, useContext, useEffect } from "react";
 import AdminContext, { IAdmin } from "../provider";
 import { UserInput } from "../../../components/Input";
@@ -51,7 +51,7 @@ export const FormUser = () => {
 
     useEffect(() => {
         setValue('me_register', user!.id);
-    }, [])
+    })
 
     return <FormProvider {...methods}>
         <form onSubmit={handleSubmit(submit)} className="w-full shadow-md shadow-neutral-800 rounded-md p-2 flex flex-col gap-3 bg-blue-500 items-center justify-center">

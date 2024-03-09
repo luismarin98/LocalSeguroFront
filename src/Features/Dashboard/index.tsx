@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { UserRequest } from "../../Interfaces/UserRequest";
-import getItem from "../../components/StorageFunctions";
+import { getItem } from "../../components/StorageFunctions";
 
 export const DashboardFeature: FC = () => {
     const userLocal: UserRequest | null = getItem('user');

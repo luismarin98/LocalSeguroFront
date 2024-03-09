@@ -1,7 +1,8 @@
-import { FC } from "react"
+import { FC, useContext, useEffect } from "react"
 import { UserRequest } from "../../Interfaces/UserRequest"
-import getItem from "../../components/StorageFunctions"
+import { getItem } from "../../components/StorageFunctions"
 import { Link } from "react-router-dom";
+import HomeDashContext, { IHomeDash } from "./provider";
 
 const client_buttons = [
     {
@@ -24,26 +25,25 @@ const admin_buttons = [
     },
     {
         title: 'Actividad de los usuarios',
-        href: '/dashboard/admin/users-list',
+        href: '/dashboard/admin/activities',
         icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-users" width="70" height="70" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
     }
 ];
 
 export const HomeDashFeature: FC = () => {
     const user: UserRequest | null = getItem('user');
+    const { getBy } = useContext(HomeDashContext) as IHomeDash;
 
-    if (user!.isAdmin) return (
-        <div className="flex flex-row flex-wrap w-full items-center justify-center gap-2">
-            {
-                admin_buttons.map((obj, i) => (<Link key={i} className="w-32 h-32 bg-neutral-800 dark:bg-neutral-300 dark:text-black transition-all ease-in-out hover:scale-105 hover:shadow-md rounded-md hover:shadow-neutral-800 text-white flex flex-col gap-2 justify-center items-center text-center" to={obj.href}>{obj.icon}{obj.title}</Link>))
-            }
-        </div>
-    )
+    useEffect(() => { getBy() })
 
     return (
         <div className="flex flex-row flex-wrap w-full items-center justify-center gap-2">
             {
-                client_buttons.map((obj, i) => (<Link key={i} className="w-32 h-32 bg-neutral-800 dark:bg-neutral-300 dark:text-black transition-all ease-in-out hover:scale-105 hover:shadow-md rounded-md hover:shadow-neutral-800 text-white flex flex-col gap-2 justify-center items-center text-cente" to={obj.href}>{obj.icon}{obj.title}</Link>))
+                user!.isAdmin ? (
+                    admin_buttons.map((obj, i) => (<Link key={i} className="w-32 h-32 bg-neutral-800 dark:bg-neutral-300 dark:text-black transition-all ease-in-out hover:scale-105 hover:shadow-md rounded-md hover:shadow-neutral-800 text-white flex flex-col gap-2 justify-center items-center text-center" to={obj.href}>{obj.icon}{obj.title}</Link>))
+                ) : (
+                    client_buttons.map((obj, i) => (<Link key={i} className="w-32 h-32 bg-neutral-800 dark:bg-neutral-300 dark:text-black transition-all ease-in-out hover:scale-105 hover:shadow-md rounded-md hover:shadow-neutral-800 text-white flex flex-col gap-2 justify-center items-center text-cente" to={obj.href}>{obj.icon}{obj.title}</Link>))
+                )
             }
         </div>
     )

@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Input } from "../../../../components/Input";
 import ClientContext, { IClient } from "../../provider";
-import getItem from "../../../../components/StorageFunctions";
+import { getItem } from "../../../../components/StorageFunctions";
 import { UserRequest } from "../../../../Interfaces/UserRequest";
 
 export const FormLocals = () => {

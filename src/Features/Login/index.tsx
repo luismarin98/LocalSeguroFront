@@ -4,7 +4,7 @@ import { LoginRequest, UserRequest } from "../../Interfaces/UserRequest";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import getItem from "../../components/StorageFunctions";
+import { getItem } from "../../components/StorageFunctions";
 
 export const LoginFeature: FC = () => {
     const initialValues: LoginRequest = {
@@ -30,7 +30,7 @@ export const LoginFeature: FC = () => {
     useEffect(() => {
         const user: UserRequest | null = getItem('user');
         if (user) return navigate('/dashboard');
-    }, [])
+    })
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center h-screen">

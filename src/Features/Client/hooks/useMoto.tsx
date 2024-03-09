@@ -1,5 +1,5 @@
 import { MotosRequest } from "../../../Interfaces/MotosRequest";
-import getItem, { setItem } from "../../../components/StorageFunctions";
+import { setItem, getItem } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import toast from "react-hot-toast";
 import axios from "axios";

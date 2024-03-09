@@ -1,7 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import getItem, { removeItem, setItem } from "../../../components/StorageFunctions";
+import { removeItem, setItem, getItem } from "../../../components/StorageFunctions";
 import { UpdatePassword } from "../../../Interfaces/UpdateRequest";
 import { PhotoRequest } from "../../../Interfaces/PhotoRequest";
 import { useNavigate } from "react-router-dom";
@@ -62,6 +62,8 @@ export const useProfile = () => {
             error: (err) => err.response.data.msg,
         }, { loading: { duration: 2000 } })
     }
+
+
 
     return { updatePass, updatePhoto, getUser, getLocals, getMotos }
 }

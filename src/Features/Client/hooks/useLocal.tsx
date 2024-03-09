@@ -1,7 +1,7 @@
 import { LocalsRequest } from "../../../Interfaces/LocalRequest";
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import getItem, { setItem } from "../../../components/StorageFunctions";
+import { setItem, getItem } from "../../../components/StorageFunctions";
 import axios from "axios";
 
 export const useLocal = () => {

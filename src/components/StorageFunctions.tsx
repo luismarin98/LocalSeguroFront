@@ -1,5 +1,5 @@
 
-export default function getItem<T>(key: string): T | null {
+export function getItem<T>(key: string): T | null {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) as T : null;
 }
