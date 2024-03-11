@@ -9,7 +9,7 @@ export const useMoto = () => {
     const userId: UserRequest | null = getItem('user');
 
     const postMoto = (data: MotosRequest) => {
-        const post = axios.post(`${api}/postMoto`, { ...data });
+        const post = axios.post(`${api}/save`, { ...data });
         toast.promise(post, {
             loading: 'Guardando...',
             success: (res) => res.data.msg,
