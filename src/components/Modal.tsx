@@ -36,9 +36,13 @@ export const Modal = (props: modalProps) => {
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle transition-all flex flex-col items-center">
-                                <div className='bg-white p-2 rounded-md shadow-xl'>
-                                    <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">{props.title}</Dialog.Title>
-                                </div>
+                                {
+                                    props.title && (
+                                        <div className='bg-white p-2 rounded-md shadow-xl'>
+                                            <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">{props.title}</Dialog.Title>
+                                        </div>
+                                    )
+                                }
                                 <div className="mt-2">{props.children}</div>
                             </Dialog.Panel>
                         </Transition.Child>
