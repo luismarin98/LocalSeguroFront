@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
+import { useActivities } from "./hooks/useActivities";
 
 export interface IActivities {
     openModal: boolean;
@@ -6,6 +7,8 @@ export interface IActivities {
 
     openDrawer: boolean;
     setOpenDrawer: Dispatch<SetStateAction<boolean>>;
+
+    getActivities: () => void;
 }
 
 const ActivitiesContext = createContext({});
@@ -13,12 +16,14 @@ const ActivitiesContext = createContext({});
 export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+    const { getActivities } = useActivities();
 
     const storage: IActivities = {
         openModal,
         setOpenModal,
         openDrawer,
-        setOpenDrawer
+        setOpenDrawer,
+        getActivities
     };
 
     return <ActivitiesContext.Provider value={storage}>{children}</ActivitiesContext.Provider>
