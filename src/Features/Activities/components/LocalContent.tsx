@@ -1,10 +1,9 @@
 import { useContext, MouseEvent } from "react";
 import { ActivityLocal } from "../../../Interfaces/ActivityRequest";
 import ActivitiesContext, { IActivities } from "../provider";
-import { removeItem } from "../../../components/StorageFunctions";
 
 export const LocalContent = (data: ActivityLocal) => {
-    const { setOpenDrawer } = useContext(ActivitiesContext) as IActivities;
+    const { setOpenDrawer, deleteActivity } = useContext(ActivitiesContext) as IActivities;
 
     const handleEdit = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -13,8 +12,7 @@ export const LocalContent = (data: ActivityLocal) => {
 
     const handleDelete = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        removeItem('activityLocal')
-        //setOpenModal(!openModal);
+        deleteActivity(data.act.id);
     }
 
     const handleUbicacion = (event: MouseEvent<HTMLButtonElement>) => {

@@ -39,6 +39,7 @@ export const Navbar = () => {
                 removeItem('moto');
                 removeItem('users');
                 removeItem('registerBy');
+                removeItem('activities');
                 navigate('/')
             }
         },

@@ -13,6 +13,7 @@ export interface IActivities {
     filterActivities: (filter: FilterActivities) => void;
     getActivity: (filter: ActData) => void;
     typeActivity: string | undefined;
+    deleteActivity: (id: number) => void
 }
 
 const ActivitiesContext = createContext({});
@@ -20,9 +21,9 @@ const ActivitiesContext = createContext({});
 export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
 
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
-    const { filterActivities, openModal, setOpenModal, getActivity, typeActivity } = useActivities();
+    const { filterActivities, openModal, setOpenModal, getActivity, typeActivity, deleteActivity } = useActivities();
 
-    const storage: IActivities = { openModal, setOpenModal, openDrawer, setOpenDrawer, filterActivities, getActivity, typeActivity };
+    const storage: IActivities = { openModal, setOpenModal, openDrawer, setOpenDrawer, filterActivities, getActivity, typeActivity, deleteActivity };
 
     return <ActivitiesContext.Provider value={storage}>{children}</ActivitiesContext.Provider>
 }

@@ -22,6 +22,7 @@ export const useActivities = () => {
                 removeItem('activities');
                 const act: ActData = res.data.arrayActivities;
                 setItem('activities', act);
+                window.location.reload();
                 return res.data.msg;
             },
             error: (err) => err.response.data.msg,
@@ -33,25 +34,42 @@ export const useActivities = () => {
         toast.promise(getAct, {
             loading: 'Cargando actividades...',
             success: (res) => {
-                removeItem('activity');
                 if (res.data.activity.act.type === 'Add Local') {
+                    removeItem('activityLocal');
                     setItem('activityLocal', res.data.activity);
-                } else if (res.data.activity.act.type === 'Add Moto') {
-                    setItem('activityUser', res.data.activity);
                 } else if (res.data.activity.act.type === 'Add User') {
+                    removeItem('activityUser');
+                    setItem('activityUser', res.data.activity);
+                } else if (res.data.activity.act.type === 'Add Moto') {
+                    removeItem('activityMoto');
                     setItem('activityMoto', res.data.activity);
                 }
-
                 setTypeActivity(res.data.activity.act.type)
                 setOpenModal(true);
                 return res.data.msg;
             },
-            error: (err) => {
-                console.error(err);
-                return 'Algo sucedio, intente nuevamente'
-            },
+            error: (err) => err.response.data.msg,
         }, { loading: { duration: 2000 } });
     }
 
-    return { filterActivities, openModal, setOpenModal, getActivity, typeActivity }
+    const deleteActivity = (id: number) => {
+        const delAct = axios.delete(`${api}/delete-activity/${id}`);
+        toast.promise(delAct, {
+            loading: 'Eliminando actividad...',
+            success: (res) => {
+                /* if (res.data.type === 'Add Local') {
+                    removeItem('activityLocal');
+                } else if (res.data.type === 'Add Moto') {
+                    removeItem('activityUser');
+                } else if (res.data.type === 'Add User') {
+                    removeItem('activityMoto');
+                } */
+                setOpenModal(false);
+                return res.data.msg;
+            },
+            error: (err) => err.response.data.msg,
+        }, { loading: { duration: 2000 } });
+    }
+
+    return { filterActivities, openModal, setOpenModal, getActivity, typeActivity, deleteActivity }
 }
