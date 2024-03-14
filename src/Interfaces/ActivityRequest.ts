@@ -17,6 +17,28 @@ export interface ActData {
     id_admin: number;
     id_obj: number;
     username: string;
+    email: string;
+    phone: string;
     photo: string;
     type: activityType;
+}
+
+export interface ActivityContent {
+    act: ActData,
+    obj: UserRequest | LocalsRequest | MotosRequest;
+}
+
+export interface ActivityUser {
+    act: ActData,
+    obj: UserRequest;
+}
+
+export interface ActivityMoto {
+    act: ActData,
+    obj: MotosRequest;
+}
+
+export interface ActivityLocal {
+    act: ActData,
+    obj: LocalsRequest;
 }

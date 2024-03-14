@@ -4,18 +4,38 @@ import { setItem, getItem } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import { SearchRequest } from "../../../Interfaces/SearchRequest";
 import { useState } from "react";
+import { ActData } from "../../../Interfaces/ActivityRequest";
 
 export const useAdmin = () => {
     const [userId, setUserId] = useState<number>(0);
 
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
+    const actApi = process.env.REACT_APP_API_ACTIVITIES ? process.env.REACT_APP_API_ACTIVITIES : 'http://localhost:3001/api/activities';
     const user: UserRequest | null = getItem('user');
 
     const postUser = (data: UserRequest) => {
         const postU = axios.post(`${api}/post-user/${user!.id}`, { ...data });
         toast.promise(postU, {
             loading: 'Registrando nuevo usuario...',
-            success: (res) => res.data.msg,
+            success: (res) => {
+                (
+                    async () => {
+                        const actData: ActData = {
+                            id: Math.floor(Math.random() * 1000000),
+                            id_admin: user!.me_register,
+                            photo: user!.photo,
+                            type: 'Add User',
+                            username: user!.username,
+                            email: user!.email,
+                            phone: user!.phone,
+                            id_user: user!.id,
+                            id_obj: data.id
+                        }
+                        await axios.post(`${actApi}/save-activity`, { ...actData });
+                    }
+                )()
+                return res.data.msg
+            },
             error: (err) => err.response.data.msg,
         }, { loading: { duration: 2000 } })
     }

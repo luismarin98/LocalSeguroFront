@@ -21,20 +21,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="" element={<HomeDash />} />
           <Route path="client" element={<Client />} />
-          {
-            user && user!.isAdmin ? (
-              <Route path="admin" element={<AdminRo />}>
-                <Route path="" element={<Admin />} />
-                <Route path="activities" element={<Activities />} />
-              </Route>
-            ) : (
-              <Route path="admin" element={
-                <div className="flex items-center justify-center">
-                  <p className="uppercase text-xl">No tienes acceso</p>
-                </div>
-              } />
-            )
-          }
+          <Route path="admin" element={<AdminRo />}>
+            <Route path="" element={<Admin />} />
+            <Route path="activities" element={<Activities />} />
+          </Route>
           <Route path="profile" element={<Profile />} />
           <Route path="*" element={<div className="w-full h-full flex items-center justify-center"><p className="text-2xl uppercase">Pagina no encontrada</p></div>} />
         </Route>
