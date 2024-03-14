@@ -55,6 +55,10 @@ export const FormEditLocal = (local: LocalsRequest) => {
                 <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('location')} />
             </label>
             <label className="w-full flex flex-row gap-2 p-2">
+                <p className="text-black w-full">Foto</p>
+                <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('linkPhoto')} />
+            </label>
+            <label className="w-full flex flex-row gap-2 p-2">
                 <p className="text-black w-full">Telefono</p>
                 <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('phone')} />
             </label>
