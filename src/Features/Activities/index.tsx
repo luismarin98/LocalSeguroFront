@@ -4,7 +4,7 @@ import { CardActivity } from "./components/cardActivity";
 import { Modal } from "../../components/Modal";
 import ActivitiesContext, { IActivities } from "./provider";
 import { Draw } from "../../components/Drawer";
-import { FormEditMoto } from "./forms/editMoto";
+import { FormEditLocal } from "./forms/editLocal";
 import { ActData, ActivityMoto, ActivityLocal, ActivityUser } from "../../Interfaces/ActivityRequest";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormFilter } from "./forms/FormFilter";
@@ -12,6 +12,8 @@ import { FilterActivities } from "../../Interfaces/SearchRequest";
 import { LocalContent } from "./components/LocalContent";
 import { MotoContent } from "./components/MotoContent";
 import { UserContent } from "./components/UserContent";
+import { FormEditMoto } from "./forms/editMoto";
+import { FormEditUser } from "./forms/editUser";
 
 export const ActivitiesFeature: FC = () => {
     const { openModal, setOpenModal, openDrawer, setOpenDrawer, typeActivity } = useContext(ActivitiesContext) as IActivities;
@@ -22,7 +24,7 @@ export const ActivitiesFeature: FC = () => {
     const method = useForm({ defaultValues: initialValues });
 
     const activityLocal: ActivityLocal | null = getItem('activityLocal');
-    const ActivityMoto: ActivityMoto | null = getItem('activityMoto');
+    const activityMoto: ActivityMoto | null = getItem('activityMoto');
     const activityUser: ActivityUser | null = getItem('activityUser');
 
     return <>
@@ -38,14 +40,24 @@ export const ActivitiesFeature: FC = () => {
                 }
             </div>
         </div>
-        
-        <Draw title="Editar actividad" open={openDrawer} setOpen={setOpenDrawer}><FormEditMoto /></Draw>
+
+        <Draw title="Editar actividad" open={openDrawer} setOpen={setOpenDrawer}>
+            {
+                typeActivity === 'Add Local' && activityLocal && activityLocal !== null && <FormEditLocal {...activityLocal!.obj} />
+            }
+            {
+                typeActivity === 'Add Moto' && activityMoto && activityMoto !== null && <FormEditMoto {...activityMoto!.obj} />
+            }
+            {
+                typeActivity === 'Add User' && activityUser && activityUser !== null && <FormEditUser {...activityUser!.obj} />
+            }
+        </Draw>
         <Modal isOpen={openModal} setIsOpen={setOpenModal} >
             {
                 typeActivity === 'Add Local' ? (
                     <LocalContent act={activityLocal!.act} obj={activityLocal!.obj} />
                 ) : typeActivity === 'Add Moto' ? (
-                    <MotoContent act={ActivityMoto!.act} obj={ActivityMoto!.obj} />
+                    <MotoContent act={activityMoto!.act} obj={activityMoto!.obj} />
                 ) : typeActivity === 'Add User' && <UserContent act={activityUser!.act} obj={activityUser!.obj} />
             }
         </Modal>

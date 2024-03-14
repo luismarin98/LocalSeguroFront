@@ -6,9 +6,12 @@ import { ActData } from "../../../Interfaces/ActivityRequest";
 import { FilterActivities } from "../../../Interfaces/SearchRequest";
 import { useState } from "react";
 import { ActivityResponse } from "../../../Interfaces/Responses";
+import { LocalsRequest } from "../../../Interfaces/LocalRequest";
+import { MotosRequest } from "../../../Interfaces/MotosRequest";
 
 export const useActivities = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [typeActivity, setTypeActivity] = useState<string>();
 
     const api = process.env.REACT_APP_API_ACTIVITIES ? process.env.REACT_APP_API_ACTIVITIES : 'http://localhost:3001/api/activities';
@@ -57,19 +60,52 @@ export const useActivities = () => {
         toast.promise(delAct, {
             loading: 'Eliminando actividad...',
             success: (res) => {
-                /* if (res.data.type === 'Add Local') {
+                if (res.data.type === 'Add Local') {
                     removeItem('activityLocal');
                 } else if (res.data.type === 'Add Moto') {
                     removeItem('activityUser');
                 } else if (res.data.type === 'Add User') {
                     removeItem('activityMoto');
-                } */
+                }
+                setTypeActivity('');
                 setOpenModal(false);
                 return res.data.msg;
             },
-            error: (err) => err.response.data.msg,
+            error: (err) => {
+                setOpenModal(false);
+                return err.response.data.msg
+            },
         }, { loading: { duration: 2000 } });
     }
 
-    return { filterActivities, openModal, setOpenModal, getActivity, typeActivity, deleteActivity }
+    const updateActivity = (id: number, data: LocalsRequest | UserRequest | MotosRequest) => {
+        const updateAct = axios.put(`${api}/update-activity/${id}`, { ...data });
+        toast.promise(updateAct, {
+            loading: 'Actualizando actividad...',
+            success: (res) => {
+                if (res.data.activity.type === 'Add Local') {
+                    removeItem('activityLocal');
+                    setItem('activityLocal', res.data.activity);
+                } else if (res.data.activity.type === 'Add User') {
+                    removeItem('activityUser');
+                    setItem('activityUser', res.data.activity);
+                } else if (res.data.activity.type === 'Add Moto') {
+                    removeItem('activityMoto');
+                    setItem('activityMoto', res.data.activity);
+                }
+                setOpenDrawer(false);
+                setOpenModal(false);
+                setTypeActivity('');
+                return res.data.msg;
+            },
+            error: (err) => {
+                setOpenDrawer(false);
+                setOpenModal(false);
+                setTypeActivity('');
+                return err.response.data.msg;
+            },
+        }, { loading: { duration: 2000 } });
+    }
+
+    return { filterActivities, openModal, setOpenModal, getActivity, typeActivity, deleteActivity, updateActivity, openDrawer, setOpenDrawer }
 }
