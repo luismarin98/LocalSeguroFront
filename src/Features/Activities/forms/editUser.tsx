@@ -52,6 +52,7 @@ export const FormEditUser = (user: UserRequest) => {
         setValue('me_register', user.me_register);
         setValue('phone', user.phone);
         setValue('photo', user.photo);
+        // eslint-disable-next-line
     }, [])
 
     return <FormProvider {...method}>

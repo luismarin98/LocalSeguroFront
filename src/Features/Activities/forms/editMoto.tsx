@@ -1,4 +1,4 @@
-import { useContext, MouseEvent, useEffect, ChangeEvent, useState } from "react";
+import { useContext, MouseEvent, useEffect } from "react";
 import ActivitiesContext, { IActivities } from "../provider";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { getItem } from "../../../components/StorageFunctions";
@@ -33,6 +33,7 @@ export const FormEditMoto = (moto: MotosRequest) => {
         setValue('id_user', moto.id_user);
         setValue('ubicacion', moto.ubicacion);
         setValue('num_moto', moto.num_moto);
+        // eslint-disable-next-line
     }, [])
 
     return <FormProvider {...method}>

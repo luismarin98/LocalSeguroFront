@@ -34,6 +34,7 @@ export const FormEditLocal = (local: LocalsRequest) => {
         setValue('phone', local.phone);
         setValue('location', local.location);
         setValue('linkPhoto', local.linkPhoto);
+        // eslint-disable-next-line
     }, [])
 
     return <FormProvider {...method}>
