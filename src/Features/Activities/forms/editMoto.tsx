@@ -38,23 +38,23 @@ export const FormEditMoto = (moto: MotosRequest) => {
     return <FormProvider {...method}>
         <form className="w-full p-2 flex flex-col gap-3 h-full justify-center items-center" onSubmit={handleSubmit(submit)}>
             <label className="w-full flex flex-row gap-2 p-2">
-                <p className="text-black w-full">DNI</p>
+                <p className="text-black w-full">Conductor</p>
                 <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('conductor')} />
             </label>
             <label className="w-full flex flex-row gap-2 p-2">
-                <p className="text-black w-full">DNI</p>
+                <p className="text-black w-full">Cooperativa</p>
                 <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('cooperativa')} />
             </label>
             <label className="w-full flex flex-row gap-2 p-2">
-                <p className="text-black w-full">DNI</p>
+                <p className="text-black w-full">Numero de moto</p>
                 <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('num_moto')} />
             </label>
             <label className="w-full flex flex-row gap-2 p-2">
-                <p className="text-black w-full">DNI</p>
+                <p className="text-black w-full">Ubicacion</p>
                 <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('ubicacion')} />
             </label>
             <label className="w-full flex flex-row gap-2 p-2">
-                <p className="text-black w-full">DNI</p>
+                <p className="text-black w-full">Foto</p>
                 <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('foto')} />
             </label>
             <div className="flex flex-row flex-wrap gap-2 items-center justify-center">
