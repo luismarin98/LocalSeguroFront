@@ -14,7 +14,11 @@ export const Home = () => {
     
     return (
         <div className="flex flex-col gap-3 items-center justify-center h-screen">
-            <p className="text-3xl text-center">Bienvenid@ a tu pagina "Local Seguro"</p>
+            <p className="text-6xl text-center">Hola!</p>
+            <p className="text-xl text-center">Bienvenid@ a la pagina "Local Seguro"</p>
+            <p className='text-md'>Actualmente esta no es una pagina oficial de la policia nacional</p>
+            <p className="text-md">ya que es una pagina dedicada para el estudio</p>
+            <p className="text-sm">Att. El desarrollador</p>
         </div>
     )
 }

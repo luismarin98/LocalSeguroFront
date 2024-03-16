@@ -2,20 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&display=swap');
+
+body {
+    font-family: "Stardos Stencil", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
 @layer utilities {
-
-    /* /* Ocultar scrollbar para Chrome, Safari y Opera 
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Ocultar scrollbar para IE, Edge y Firefox 
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        /* IE y Edge 
-        scrollbar-width: none;
-        /* Firefox 
-    } */
 
     .no-scrollbar::-webkit-scrollbar {
         width: 15px;
