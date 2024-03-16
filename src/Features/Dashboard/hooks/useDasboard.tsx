@@ -1,6 +1,6 @@
 import axios from "axios";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import { getItem } from "../../../components/StorageFunctions";
+import { getSession } from "../../../components/StorageFunctions";
 import { useNavigate } from "react-router-dom";
 
 export const useDashboard = () => {
@@ -9,7 +9,7 @@ export const useDashboard = () => {
     const navigate = useNavigate();
 
     const getUserAdmin = async () => {
-        const getUserStorage: UserRequest | null = getItem('user');
+        const getUserStorage: UserRequest | null = getSession('user');
 
         await axios.get<UserRequest>(`${api}/?username=${getUserStorage!.username}`).then((res) => {
             localStorage.setItem('user', JSON.stringify(res.data));

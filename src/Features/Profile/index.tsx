@@ -1,17 +1,20 @@
 import { MouseEvent, useContext } from "react";
 import { UserRequest } from "../../Interfaces/UserRequest";
-import { getItem } from "../../components/StorageFunctions";
+import { getItem, getSession } from "../../components/StorageFunctions";
 import { Modal } from "../../components/Modal";
 import ProfileContext, { IProfile } from "./provider";
 import { UpdatePass } from "./forms/formUpdatePass";
 import { FormUpdatePhoto } from "./forms/formUpdatePhoto";
 import { LocalsRequest } from "../../Interfaces/LocalRequest";
 import { MotosRequest } from "../../Interfaces/MotosRequest";
+import { useNavigate } from "react-router-dom";
 
 export const ProfileFeature = () => {
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
     const local: LocalsRequest[] | null = getItem('local');
     const moto: MotosRequest[] | null = getItem('moto');
+
+    const navigate = useNavigate();
 
     const { open, setOpen, setOpenModaPhoto, openModalPhoto, getLocals, getMotos, getUser } = useContext(ProfileContext) as IProfile;
 
@@ -24,7 +27,7 @@ export const ProfileFeature = () => {
             }
         },
         {
-            title: user!.photo === null ? 'Añadir foto' : 'Cambiar foto',
+            title: user && user!.photo === null ? 'Añadir foto' : 'Cambiar foto',
             onClick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 setOpenModaPhoto(!openModalPhoto)
@@ -37,6 +40,13 @@ export const ProfileFeature = () => {
                 getLocals();
                 getMotos();
                 getUser();
+            }
+        },
+        {
+            title: 'Dashboard',
+            onClick: (event: MouseEvent<HTMLButtonElement>) => {
+                event.preventDefault();
+                navigate(`/dashboard/${user!.username}`)
             }
         }
     ]

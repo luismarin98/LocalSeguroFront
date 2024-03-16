@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { getItem, removeItem, setItem } from "../../../components/StorageFunctions";
+import { getSession } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import { ActData } from "../../../Interfaces/ActivityRequest";
 import { FilterActivities } from "../../../Interfaces/SearchRequest";
@@ -8,6 +8,8 @@ import { useState } from "react";
 import { ActivityResponse } from "../../../Interfaces/Responses";
 import { LocalsRequest } from "../../../Interfaces/LocalRequest";
 import { MotosRequest } from "../../../Interfaces/MotosRequest";
+import { useDispatch } from "react-redux";
+import { setActivities, setLocalAct, setMotoAct, setUserAct } from "../../../Redux/Activity/activity.slice";
 
 export const useActivities = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
@@ -15,22 +17,27 @@ export const useActivities = () => {
     const [typeActivity, setTypeActivity] = useState<string>();
 
     const api = process.env.REACT_APP_API_ACTIVITIES ? process.env.REACT_APP_API_ACTIVITIES : 'http://localhost:3001/api/activities';
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
+    const dispatch = useDispatch();
 
     const filterActivities = (filter: FilterActivities) => {
         const resFilter = axios.get(`${api}/filter-activities/${user!.id}?type=${filter.type !== null ? filter.type : filter.username !== '' && `?username=${filter.username}`}`);
         toast.promise(resFilter, {
             loading: 'Cargando actividades...',
             success: (res) => {
-                removeItem('activities');
-                const act: ActData = res.data.arrayActivities;
-                setItem('activities', act);
-                window.location.reload();
+                dispatch(setActivities(res.data.arrayActivities));
                 return res.data.msg;
             },
-            error: (err) => err.response.data.msg,
+            error: (err) => {
+                console.error(err);
+                return 'algo sucedio, mirar consola';
+            },
         }, { loading: { duration: 2000 } });
     }
+
+/*     const filterActivitiess = async (filter: FilterActivities) => {
+        
+    } */
 
     const getActivity = (data: ActData) => {
         const getAct = axios.get<ActivityResponse>(`${api}/get-activity/${data!.id}`);
@@ -38,14 +45,11 @@ export const useActivities = () => {
             loading: 'Cargando actividades...',
             success: (res) => {
                 if (res.data.activity.act.type === 'Add Local') {
-                    removeItem('activityLocal');
-                    setItem('activityLocal', res.data.activity);
+                    dispatch(setLocalAct(res.data.activity))
                 } else if (res.data.activity.act.type === 'Add User') {
-                    removeItem('activityUser');
-                    setItem('activityUser', res.data.activity);
+                    dispatch(setUserAct(res.data.activity))
                 } else if (res.data.activity.act.type === 'Add Moto') {
-                    removeItem('activityMoto');
-                    setItem('activityMoto', res.data.activity);
+                    dispatch(setMotoAct(res.data.activity))
                 }
                 setTypeActivity(res.data.activity.act.type)
                 setOpenModal(true);
@@ -61,11 +65,11 @@ export const useActivities = () => {
             loading: 'Eliminando actividad...',
             success: (res) => {
                 if (res.data.type === 'Add Local') {
-                    removeItem('activityLocal');
+                    dispatch(setLocalAct(null))
                 } else if (res.data.type === 'Add Moto') {
-                    removeItem('activityUser');
+                    dispatch(setMotoAct(null))
                 } else if (res.data.type === 'Add User') {
-                    removeItem('activityMoto');
+                    dispatch(setUserAct(null))
                 }
                 setTypeActivity('');
                 setOpenModal(false);
@@ -84,14 +88,11 @@ export const useActivities = () => {
             loading: 'Actualizando actividad...',
             success: (res) => {
                 if (res.data.activity.type === 'Add Local') {
-                    removeItem('activityLocal');
-                    setItem('activityLocal', res.data.activity);
+                    dispatch(setLocalAct(res.data.activity))
                 } else if (res.data.activity.type === 'Add User') {
-                    removeItem('activityUser');
-                    setItem('activityUser', res.data.activity);
+                    dispatch(setUserAct(null))
                 } else if (res.data.activity.type === 'Add Moto') {
-                    removeItem('activityMoto');
-                    setItem('activityMoto', res.data.activity);
+                    dispatch(setMotoAct(null))
                 }
                 setOpenDrawer(false);
                 setOpenModal(false);

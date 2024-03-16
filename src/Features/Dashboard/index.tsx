@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { UserRequest } from "../../Interfaces/UserRequest";
-import { getItem } from "../../components/StorageFunctions";
+import { getSession } from "../../components/StorageFunctions";
 
 export const DashboardFeature: FC = () => {
-    const userLocal: UserRequest | null = getItem('user');
+    const userLocal: UserRequest | null = getSession('user');
 
     return <div className="flex flex-col gap-3 items-center justify-center h-screen">
         {

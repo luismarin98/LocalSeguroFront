@@ -3,16 +3,16 @@ import { Modal } from "../../components/Modal";
 import { FormLocals, FormMotos } from "./forms";
 import ClientContext, { IClient } from "./provider";
 import { Link } from "react-router-dom";
-import { LocalsRequest } from "../../Interfaces/LocalRequest";
-import { getItem } from "../../components/StorageFunctions";
-import { MotosRequest } from "../../Interfaces/MotosRequest";
+import { useAppSelector } from "../../Redux/store";
+import { list_localsSelector } from "../../Redux/Local/local.selector";
+import { list_motosSelector } from "../../Redux/Moto/moto.selector";
 
 export const ClientFeature: FC = () => {
     const {
         openAddMoto,
         setOpeAddMoto,
-        setOpenAddLocal,
-        openAddLocal,
+        setOpenAddLocal, //etujdhdhdghr
+        openAddLocal, //shrgsfghrths
         getLocals,
         getMotos,
         setSeeMotos,
@@ -42,8 +42,8 @@ export const ClientFeature: FC = () => {
         setValueOption(event.target.value);
     }
 
-    const localsData: LocalsRequest[] | null = getItem('locals');
-    const motosData: MotosRequest[] | null = getItem('moto');
+    const list_locals = useAppSelector(list_localsSelector);
+    const list_motos = useAppSelector(list_motosSelector);
 
     return (
         <div className="flex flex-row flex-wrap justify-around gap-2 w-full h-full items-center">
@@ -96,8 +96,8 @@ export const ClientFeature: FC = () => {
                 <div className="w-full bg-slate-300 h-full rounded-md text-black p-2">
                     {
                         seeMotos === true ? (
-                            motosData !== null && motosData !== undefined ? (
-                                motosData!.length > 0 && motosData!.map((data, i) => (
+                            list_motos !== null && list_motos !== undefined ? (
+                                list_motos!.length > 0 && list_motos!.map((data, i) => (
                                     <div key={i} className="w-full flex flex-row justify-around items-center">
                                         <p>{data.num_moto}</p>
                                         <p>{data.cooperativa}</p>
@@ -107,11 +107,11 @@ export const ClientFeature: FC = () => {
                                     </div>
                                 ))
                             ) : (
-                                <p>{!localsData ? 'Aun no hay locales registrados' : 'Actualiza la pagina para cargar los datos'}</p>
+                                <p>{!list_locals ? 'Aun no hay locales registrados' : 'Actualiza la pagina para cargar los datos'}</p>
                             )
                         ) : seeMotos === false ? (
-                            localsData !== null && localsData !== undefined ? (
-                                localsData!.length > 0 && localsData!.map((data, i) => (
+                            list_locals !== null && list_locals !== undefined ? (
+                                list_locals!.length > 0 && list_locals!.map((data, i) => (
                                     <div className="w-full flex flex-row justify-around items-center" key={i}>
                                         <p>{data.dniOnwer}</p>
                                         <p>{data.nameOwner}</p>
@@ -122,7 +122,7 @@ export const ClientFeature: FC = () => {
                                     </div>
                                 ))
                             ) : (
-                                <p>{!localsData ? 'Aun no hay locales registrados' : 'Actualiza la pagina para cargar los datos'}</p>
+                                <p>{!list_locals ? 'Aun no hay locales registrados' : 'Actualiza la pagina para cargar los datos'}</p>
                             )
                         ) : null
                     }

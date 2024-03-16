@@ -1,14 +1,17 @@
 import { MotosRequest } from "../../../Interfaces/MotosRequest";
-import { setItem, getItem } from "../../../components/StorageFunctions";
+import { getSession } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { ActData } from "../../../Interfaces/ActivityRequest";
+import { useDispatch } from "react-redux";
+import { setListMoto } from "../../../Redux/Moto/moto.slice";
 
 export const useMoto = () => {
     const api = process.env.REACT_APP_API_MOTOS ? process.env.REACT_APP_API_MOTOS : 'http://localhost:3001/api/motos';
     const actApi = process.env.REACT_APP_API_ACTIVITIES ? process.env.REACT_APP_API_ACTIVITIES : 'http://localhost:3001/api/activities';
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
+    const dispatch = useDispatch();
 
     const postMoto = (data: MotosRequest) => {
         const post = axios.post(`${api}/save`, { ...data });
@@ -45,7 +48,7 @@ export const useMoto = () => {
         toast.promise(motos, {
             loading: 'Cargando...',
             success: (res) => {
-                setItem('moto', res.data.motosArray);
+                dispatch(setListMoto(res.data.motosArray));
                 return res.data.msg;
             },
             error: (err) => {

@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom"
 import { UserRequest } from "../../Interfaces/UserRequest"
-import { getItem } from "../../components/StorageFunctions"
+import { getSession } from "../../components/StorageFunctions"
 
 export const AdminR = () => {
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
 
     return <div className="w-full h-full flex justify-center items-center">
         {

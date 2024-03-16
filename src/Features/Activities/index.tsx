@@ -1,11 +1,9 @@
 import { FC, useContext } from "react";
-import { getItem } from "../../components/StorageFunctions";
 import { CardActivity } from "./components/cardActivity";
 import { Modal } from "../../components/Modal";
 import ActivitiesContext, { IActivities } from "./provider";
 import { Draw } from "../../components/Drawer";
 import { FormEditLocal } from "./forms/editLocal";
-import { ActData, ActivityMoto, ActivityLocal, ActivityUser } from "../../Interfaces/ActivityRequest";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormFilter } from "./forms/FormFilter";
 import { FilterActivities } from "../../Interfaces/SearchRequest";
@@ -14,18 +12,19 @@ import { MotoContent } from "./components/MotoContent";
 import { UserContent } from "./components/UserContent";
 import { FormEditMoto } from "./forms/editMoto";
 import { FormEditUser } from "./forms/editUser";
+import { useAppSelector } from "../../Redux/store";
+import { activitiesSelector, activityLocalSelector, activityMotoSelector, activityUserSelector } from "../../Redux/Activity/activity.selector";
 
 export const ActivitiesFeature: FC = () => {
     const { openModal, setOpenModal, openDrawer, setOpenDrawer, typeActivity } = useContext(ActivitiesContext) as IActivities;
-    const activities: ActData[] | null = getItem('activities');
-
+    const activities = useAppSelector(activitiesSelector);
     const initialValues: FilterActivities = { type: 'All', username: '' };
 
     const method = useForm({ defaultValues: initialValues });
 
-    const activityLocal: ActivityLocal | null = getItem('activityLocal');
-    const activityMoto: ActivityMoto | null = getItem('activityMoto');
-    const activityUser: ActivityUser | null = getItem('activityUser');
+    const activityLocal = useAppSelector(activityLocalSelector);
+    const activityMoto = useAppSelector(activityMotoSelector);
+    const activityUser = useAppSelector(activityUserSelector);
 
     return <>
         <div className="w-full h-full flex flex-col gap-2 items-center">

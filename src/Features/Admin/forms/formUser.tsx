@@ -1,6 +1,6 @@
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import { getItem } from "../../../components/StorageFunctions";
+import { getSession } from "../../../components/StorageFunctions";
 import { ChangeEvent, useContext, useEffect } from "react";
 import AdminContext, { IAdmin } from "../provider";
 import { UserInput } from "../../../components/Input";
@@ -19,7 +19,7 @@ export const FormUser = () => {
     };
 
     const methods = useForm({ defaultValues: initialValues });
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
 
     const { postUser, setValueSelect, valueSelect, setOpenAddUser, setNumero, numero } = useContext(AdminContext) as IAdmin;
     const { handleSubmit, reset, register, setValue } = useForm<UserRequest>();

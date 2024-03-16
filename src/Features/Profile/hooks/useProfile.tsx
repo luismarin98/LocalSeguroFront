@@ -1,32 +1,36 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import { removeItem, setItem, getItem } from "../../../components/StorageFunctions";
+import { removeItem, setItem, getSession } from "../../../components/StorageFunctions";
 import { UpdatePassword } from "../../../Interfaces/UpdateRequest";
 import { PhotoRequest } from "../../../Interfaces/PhotoRequest";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLocal } from "../../../Redux/Local/locals.slice";
+import { setMoto } from "../../../Redux/Moto/moto.slice";
+import { setUser } from "../../../Redux/User/user.slice";
 
 export const useProfile = () => {
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
     const localApi = process.env.REACT_APP_API_LOCALS ? process.env.REACT_APP_API_LOCALS : 'http://localhost:3001/api/locals';
     const motoApi = process.env.REACT_APP_API_MOTOS ? process.env.REACT_APP_API_MOTOS : 'http://localhost:3001/api/motos';
 
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const getLocals = async () => {
         const get = await axios.get(`${localApi}/search/${user!.id}`);
-        setItem('local', get.data.localsArray);
+        dispatch(setLocal(get.data.localsArray))
     }
 
     const getMotos = async () => {
         const get = await axios.get(`${motoApi}/search/${user!.id}`);
-        setItem('moto', get.data.motosArray);
+        dispatch(setMoto(get.data.motosArray))
     }
 
     const getUser = () => {
         const upd = axios.get(`${api}/search/${user!.id}`);
-        //removeItem('user');
         toast.promise(upd, {
             loading: 'Datos actualizados',
             success: (res) => res.data.msg,
@@ -39,9 +43,6 @@ export const useProfile = () => {
         toast.promise(putRes, {
             loading: 'Actualizando contraseña',
             success: (res) => {
-                removeItem('user');
-                removeItem('moto');
-                removeItem('local');
                 navigate('/login');
                 return res.data.msg
             },
@@ -54,9 +55,7 @@ export const useProfile = () => {
         toast.promise(putPhoto, {
             loading: 'Actualizando foto',
             success: (res) => {
-                removeItem('user');
-                setItem('user', res.data.userData);
-                window.location.reload();
+                dispatch(setUser(res.data.userData))
                 return res.data.msg;
             },
             error: (err) => err.response.data.msg,

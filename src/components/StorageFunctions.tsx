@@ -11,3 +11,16 @@ export function setItem<T>(key: string, value: T): void {
 export function removeItem<T>(key: string): void {
     localStorage.removeItem(key);
 }
+
+export function setSession<T>(key: string, value: T): void {
+    sessionStorage.setItem(key, JSON.stringify(value));
+}
+
+export function getSession<T>(key: string): T | null {
+    const item = sessionStorage.getItem(key);
+    return item ? JSON.parse(item) as T : null;
+}
+
+export function endSession<T>(key: string): void {
+    sessionStorage.removeItem(key);
+}

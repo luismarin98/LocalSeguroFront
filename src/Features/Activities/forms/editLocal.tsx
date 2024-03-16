@@ -2,14 +2,14 @@ import { MouseEvent, useContext, useEffect } from "react"
 import ActivitiesContext, { IActivities } from "../provider"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { LocalsRequest } from "../../../Interfaces/LocalRequest";
-import { ActivityLocal } from "../../../Interfaces/ActivityRequest";
-import { getItem } from "../../../components/StorageFunctions";
+import { useAppSelector } from "../../../Redux/store";
+import { activityLocalSelector } from "../../../Redux/Activity/activity.selector";
 
 export const FormEditLocal = (local: LocalsRequest) => {
     const { updateActivity, setOpenDrawer } = useContext(ActivitiesContext) as IActivities;
 
     const { handleSubmit, register, setValue, reset } = useForm<LocalsRequest>();
-    const localAct: ActivityLocal | null = getItem('activityLocal');
+    const localAct = useAppSelector(activityLocalSelector);
 
     const submit: SubmitHandler<LocalsRequest> = (data) => {
         updateActivity(localAct!.act.id, data);

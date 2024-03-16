@@ -2,15 +2,15 @@ import { useContext, MouseEvent, useEffect, ChangeEvent, useState } from "react"
 import { UserRequest } from "../../../Interfaces/UserRequest"
 import ActivitiesContext, { IActivities } from "../provider";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { getItem } from "../../../components/StorageFunctions";
-import { ActivityUser } from "../../../Interfaces/ActivityRequest";
+import { useAppSelector } from "../../../Redux/store";
+import { activityUserSelector } from "../../../Redux/Activity/activity.selector";
 
 export const FormEditUser = (user: UserRequest) => {
     const { updateActivity, setOpenDrawer } = useContext(ActivitiesContext) as IActivities;
     const [valueSelect, setValueSelect] = useState<string>('');
 
     const { handleSubmit, register, setValue, reset } = useForm<UserRequest>();
-    const userAct: ActivityUser | null = getItem('activityLocal');
+    const userAct = useAppSelector(activityUserSelector);
 
     const submit: SubmitHandler<UserRequest> = (data) => {
         updateActivity(userAct!.act.id, data);

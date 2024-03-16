@@ -1,17 +1,20 @@
 import toast from "react-hot-toast";
 import axios from "axios";
-import { setItem, getItem } from "../../../components/StorageFunctions";
+import { getSession } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import { SearchRequest } from "../../../Interfaces/SearchRequest";
 import { useState } from "react";
 import { ActData } from "../../../Interfaces/ActivityRequest";
+import { useDispatch } from "react-redux";
+import { list_users } from "../../../Redux/User/user.slice";
 
 export const useAdmin = () => {
     const [userId, setUserId] = useState<number>(0);
+    const dispatch = useDispatch();
 
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
     const actApi = process.env.REACT_APP_API_ACTIVITIES ? process.env.REACT_APP_API_ACTIVITIES : 'http://localhost:3001/api/activities';
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
 
     const postUser = (data: UserRequest) => {
         const postU = axios.post(`${api}/post-user/${user!.id}`, { ...data });
@@ -46,13 +49,11 @@ export const useAdmin = () => {
         toast.promise(get, {
             loading: 'Filtrando...',
             success: (res) => {
-                setItem('users', res.data.usersArray);
-                window.location.reload();
+                dispatch(list_users(res.data.usersArray))
                 return res.data.msg;
             },
             error: (err) => {
-                setItem('users', []);
-                window.location.reload();
+                dispatch(list_users(null));
                 return err.response.data.msg;
             },
         }, { loading: { duration: 2000 } })

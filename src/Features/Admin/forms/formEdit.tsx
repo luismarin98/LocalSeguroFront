@@ -4,9 +4,12 @@ import { UserRequest } from "../../../Interfaces/UserRequest";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { UserInput } from "../../../components/Input";
 import toast from "react-hot-toast";
+import { useAppSelector } from "../../../Redux/store";
+import { userSelector } from "../../../Redux/User/user.selector";
 
 export const FormEditUser = () => {
-    const { editUser, setNumero, numero, setValueSelect, valueSelect, setOpenEditUser, userData } = useContext(AdminContext) as IAdmin;
+    const { editUser, setNumero, numero, setValueSelect, valueSelect, setOpenEditUser } = useContext(AdminContext) as IAdmin;
+    const userData = useAppSelector(userSelector)
 
     const initialValues: UserRequest = {
         password: '',

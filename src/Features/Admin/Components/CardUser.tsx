@@ -1,9 +1,12 @@
 import { MouseEvent, useContext } from "react";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import AdminContext, { IAdmin } from "../provider";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../Redux/User/user.slice";
 
 export const CardUser = (data: UserRequest) => {
-    const { openDelete, setOpenDelete, setUserId, setOpenEditUser, openEditUser, setUserData } = useContext(AdminContext) as IAdmin;
+    const { openDelete, setOpenDelete, setUserId, setOpenEditUser, openEditUser } = useContext(AdminContext) as IAdmin;
+    const dispatch = useDispatch();
 
     const actions = [
         {
@@ -11,7 +14,7 @@ export const CardUser = (data: UserRequest) => {
             onClick: (event: MouseEvent<HTMLButtonElement>) => { //Editar usuario
                 event.preventDefault();
                 setOpenEditUser(!openEditUser);
-                setUserData(data);
+                dispatch(setUser(data));
             },
             style: 'bg-green-400 rounded-md transition-all ease-in-out duration-100 hover:scale-105 p-2'
         },

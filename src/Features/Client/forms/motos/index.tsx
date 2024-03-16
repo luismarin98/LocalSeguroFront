@@ -5,7 +5,7 @@ import { MouseEvent, useContext } from "react"
 import toast from "react-hot-toast"
 import ClientContext, { IClient } from "../../provider"
 import { UserRequest } from "../../../../Interfaces/UserRequest"
-import { getItem } from "../../../../components/StorageFunctions"
+import { getSession } from "../../../../components/StorageFunctions"
 
 export const FormMotos = () => {
     const initialValues: MotosRequest = { conductor: '', cooperativa: '', foto: '', id: 0, num_moto: 0, ubicacion: '', id_user: 0 }
@@ -13,7 +13,7 @@ export const FormMotos = () => {
     const { postMoto, setOpeAddMoto, openAddMoto } = useContext(ClientContext) as IClient;
 
     const { register, getValues, reset } = useForm<MotosRequest>();
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
 
     const handleSave = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();

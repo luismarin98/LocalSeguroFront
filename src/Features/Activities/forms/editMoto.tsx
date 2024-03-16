@@ -1,15 +1,15 @@
 import { useContext, MouseEvent, useEffect } from "react";
 import ActivitiesContext, { IActivities } from "../provider";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { getItem } from "../../../components/StorageFunctions";
-import { ActivityMoto } from "../../../Interfaces/ActivityRequest";
 import { MotosRequest } from "../../../Interfaces/MotosRequest";
+import { useAppSelector } from "../../../Redux/store";
+import { activityMotoSelector } from "../../../Redux/Activity/activity.selector";
 
 export const FormEditMoto = (moto: MotosRequest) => {
     const { updateActivity, setOpenDrawer } = useContext(ActivitiesContext) as IActivities;
 
     const { handleSubmit, register, setValue, reset } = useForm<MotosRequest>();
-    const motoAct: ActivityMoto | null = getItem('activityLocal');
+    const motoAct = useAppSelector(activityMotoSelector);
 
     const submit: SubmitHandler<MotosRequest> = (data) => {
         updateActivity(motoAct!.act.id, data);

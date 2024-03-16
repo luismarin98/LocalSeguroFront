@@ -4,7 +4,7 @@ import { LoginRequest, UserRequest } from "../../Interfaces/UserRequest";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { getItem } from "../../components/StorageFunctions";
+import { getSession } from "../../components/StorageFunctions";
 
 export const LoginFeature: FC = () => {
     const initialValues: LoginRequest = {
@@ -28,8 +28,8 @@ export const LoginFeature: FC = () => {
     }
 
     useEffect(() => {
-        const user: UserRequest | null = getItem('user');
-        if (user) return navigate('/dashboard');
+        const user: UserRequest | null = getSession('user');
+        if (user) return navigate(`/dashboard/${user!.username}`);
     })
 
     return (

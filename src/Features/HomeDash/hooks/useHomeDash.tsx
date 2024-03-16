@@ -1,10 +1,10 @@
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import { setItem, getItem } from "../../../components/StorageFunctions";
+import { setItem, getSession } from "../../../components/StorageFunctions";
 import axios from "axios";
 
 export const useHomeDash = () => {
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
-    const userData: UserRequest | null = getItem('user');
+    const userData: UserRequest | null = getSession('user');
 
     const getBy = async () => {
         if (userData!.me_register !== 0) {

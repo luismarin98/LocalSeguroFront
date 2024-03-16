@@ -1,8 +1,8 @@
 import { LoginRequest } from "../../../Interfaces/UserRequest";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { setItem } from "../../../components/StorageFunctions";
 import axios from "axios";
+import { setSession } from "../../../components/StorageFunctions";
 
 export const useLogin = () => {
     const navigate = useNavigate();
@@ -13,8 +13,8 @@ export const useLogin = () => {
         toast.promise(findLog, {
             loading: 'Logging',
             success: (res) => {
-                navigate('/dashboard');
-                setItem('user', res.data.userData);
+                navigate(`/dashboard/${res.data.userData.username}`);
+                setSession('user', res.data.userData);
                 return res.data.msg
             },
             error: (err) => err.response.data.msg,

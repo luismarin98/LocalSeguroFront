@@ -2,12 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { Admin, Client, Dashboard, Home, HomeDash, Login, Register, Profile, Activities, AdminRo } from "./routes";
-import { UserRequest } from "./Interfaces/UserRequest";
-import { getItem } from "./components/StorageFunctions";
 
 function App() {
-
-  const user: UserRequest | null = getItem('user');
 
   useEffect(() => { document.title = 'Local Seguro' }, [])
 
@@ -18,7 +14,7 @@ function App() {
         <Route path="" element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="/dashboard/:username" element={<Dashboard />}>
           <Route path="" element={<HomeDash />} />
           <Route path="client" element={<Client />} />
           <Route path="admin" element={<AdminRo />}>

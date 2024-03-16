@@ -4,7 +4,7 @@ import { UserRequest } from "../../Interfaces/UserRequest"
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form"
 import RegisterContext, { IRegister } from "./provider";
 import toast from "react-hot-toast";
-import { getItem } from "../../components/StorageFunctions";
+import { getSession } from "../../components/StorageFunctions";
 import { useNavigate } from "react-router-dom";
 
 export const RegisterFeature: FC = () => {
@@ -52,7 +52,7 @@ export const RegisterFeature: FC = () => {
     }
 
     useEffect(() => {
-        const user: UserRequest | null = getItem('user');
+        const user: UserRequest | null = getSession('user');
         if (user) return navigate('/dahsboard');
     })
 

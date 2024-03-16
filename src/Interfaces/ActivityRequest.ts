@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { LocalsRequest } from "./LocalRequest";
 import { MotosRequest } from "./MotosRequest";
 import { UserRequest } from "./UserRequest";
@@ -41,4 +42,10 @@ export interface ActivityMoto {
 export interface ActivityLocal {
     act: ActData,
     obj: LocalsRequest;
+}
+
+export interface ActivityResponses {
+    msg: string;
+    data: ActData[] | ActData | ActivityUser | ActivityLocal | ActivityMoto;
+    error: AxiosError
 }

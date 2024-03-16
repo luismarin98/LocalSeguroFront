@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Input } from "../../../../components/Input";
 import ClientContext, { IClient } from "../../provider";
-import { getItem } from "../../../../components/StorageFunctions";
+import { getSession } from "../../../../components/StorageFunctions";
 import { UserRequest } from "../../../../Interfaces/UserRequest";
 
 export const FormLocals = () => {
@@ -15,7 +15,7 @@ export const FormLocals = () => {
 
     const { register, getValues, reset } = useForm<LocalsRequest>();
 
-    const user: UserRequest | null = getItem('user');
+    const user: UserRequest | null = getSession('user');
 
     const handlesave = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();

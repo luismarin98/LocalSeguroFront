@@ -8,7 +8,7 @@ export const FormFilter = () => {
     const { filterActivities } = useContext(ActivitiesContext) as IActivities;
 
     const submit: SubmitHandler<FilterActivities> = (data) => {
-        filterActivities(data)
+        filterActivities(data);
         reset();
     }
 
