@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
-import { removeItem, setItem, getSession } from "../../../components/StorageFunctions";
+import { getSession, setItem } from "../../../components/StorageFunctions";
 import { UpdatePassword } from "../../../Interfaces/UpdateRequest";
 import { PhotoRequest } from "../../../Interfaces/PhotoRequest";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setLocal } from "../../../Redux/Local/locals.slice";
 import { setMoto } from "../../../Redux/Moto/moto.slice";
 import { setUser } from "../../../Redux/User/user.slice";
+import { ApiMsg, User_REST } from "../../../components/AxiosConfig";
 
 export const useProfile = () => {
     const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
@@ -62,7 +63,16 @@ export const useProfile = () => {
         }, { loading: { duration: 2000 } })
     }
 
+    const getBy = () => {
+        toast.promise(User_REST.getBy(user!.me_register), {
+            loading: 'Cargando datos...',
+            success: (res) => {
+                setItem('registerBy', res.data.user);
+                return res.data.msg;
+            },
+            error: (err: AxiosError<ApiMsg>) => err.response!.data.msg,
+        })
+    }
 
-
-    return { updatePass, updatePhoto, getUser, getLocals, getMotos }
+    return { updatePass, updatePhoto, getUser, getLocals, getMotos, getBy }
 }

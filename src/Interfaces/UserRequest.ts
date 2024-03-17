@@ -28,6 +28,7 @@ export interface props_userRequest {
     register: (body: UserRequest) => Promise<AxiosResponse<ApiMsg>>
     postUser: (id: number, user: UserRequest) => Promise<AxiosResponse<ApiMsg>>
     getUsers: (url: string) => Promise<AxiosResponse<UserApiResponse>>
-    editUser: (id: number, body: UserRequest) => Promise<any>
-    deleteUser: (id: number) => Promise<any>
+    editUser: (id: number, body: UserRequest) => Promise<AxiosResponse<ApiMsg>>
+    deleteUser: (id: number) => Promise<AxiosResponse<ApiMsg>>
+    getBy: (id: number) => Promise<AxiosResponse<UserApiResponse>>
 }

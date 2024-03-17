@@ -26,7 +26,8 @@ export interface IProfile {
     postKey: (data: KeyRequest) => void;
     getKey: () => void;
     updateKey: (data: KeyRequest) => void;
-    deleteKey: () => void
+    deleteKey: () => void;
+    getBy: () => void;
 }
 
 const ProfileContext = createContext({});
@@ -36,7 +37,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     const [openModalPhoto, setOpenModaPhoto] = useState<boolean>(false);
     const [confPass, setConfPass] = useState<string>('');
 
-    const { updatePass, updatePhoto, getUser, getLocals, getMotos } = useProfile();
+    const { updatePass, updatePhoto, getUser, getLocals, getMotos, getBy } = useProfile();
 
     const { postKey, openKeyModal, setOpenKeyModal, key, getKey, updateKey, deleteKey } = useKey();
 
@@ -55,7 +56,8 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         key,
         getKey,
         updateKey,
-        deleteKey
+        deleteKey,
+        getBy
     };
 
     return <ProfileContext.Provider value={storage}>{children}</ProfileContext.Provider>

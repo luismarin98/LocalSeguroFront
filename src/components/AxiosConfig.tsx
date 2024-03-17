@@ -48,7 +48,8 @@ const userRequest = {
     postUser: (url: string, user: UserRequest) => instance.user.post(url, user),
     getUsers: (url: string) => instance.user.get(url),
     editUser: (url: string, body: UserRequest) => instance.user.put(url, body),
-    deleteUser: (url: string) => instance.user.delete(url)
+    deleteUser: (url: string) => instance.user.delete(url),
+    getBy: (url: string) => instance.user.get(url),
 }
 
 export const User_REST: props_userRequest = {
@@ -57,5 +58,6 @@ export const User_REST: props_userRequest = {
     deleteUser: (id: number): Promise<AxiosResponse<ApiMsg>> => userRequest.deleteUser(`/delete/${id}`),
     editUser: (id:number, body: UserRequest): Promise<AxiosResponse<ApiMsg>> => userRequest.editUser(`/update/${id}`, body),
     getUsers: (url: string): Promise<AxiosResponse<UserApiResponse>> => userRequest.getUsers(url),
-    postUser: (id: number, body: UserRequest): Promise<AxiosResponse<ApiMsg>> => userRequest.postUser(`/post-user/${id}`, body)
+    postUser: (id: number, body: UserRequest): Promise<AxiosResponse<ApiMsg>> => userRequest.postUser(`/post-user/${id}`, body),
+    getBy: (id: number): Promise<AxiosResponse<UserApiResponse>> => userRequest.getBy(`/search/${id}`),
 }

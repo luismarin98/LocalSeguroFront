@@ -1,11 +1,9 @@
-import { FC, useContext, useEffect } from "react"
+import { FC } from "react"
 import { UserRequest } from "../../Interfaces/UserRequest"
 import { getSession } from "../../components/StorageFunctions"
 import { Link } from "react-router-dom";
-import HomeDashContext, { IHomeDash } from "./provider";
 
 export const HomeDashFeature: FC = () => {
-    const { getBy } = useContext(HomeDashContext) as IHomeDash;
 
     const user: UserRequest | null = getSession('user');
 
@@ -34,8 +32,6 @@ export const HomeDashFeature: FC = () => {
             icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-users" width="70" height="70" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
         }
     ];
-
-    useEffect(() => { getBy() })
 
     return (
         <div className="flex flex-row flex-wrap w-full items-center justify-center gap-2">

@@ -1,4 +1,4 @@
-import { HTMLAttributes, MouseEvent, useContext } from "react";
+import { HTMLAttributes, MouseEvent, useContext, useEffect } from "react";
 import { UserRequest } from "../../Interfaces/UserRequest";
 import { getItem, getSession } from "../../components/StorageFunctions";
 import { Modal } from "../../components/Modal";
@@ -28,7 +28,8 @@ export const ProfileFeature = () => {
         setOpenKeyModal,
         getKey,
         updateKey,
-        deleteKey
+        deleteKey,
+        getBy
     } = useContext(ProfileContext) as IProfile;
 
     const buttons = [
@@ -102,6 +103,8 @@ export const ProfileFeature = () => {
             }
         }
     ]
+
+    useEffect(() => { user!.me_register !== 0 && getBy() }, [])
 
     const registredBy: UserRequest | null = getItem('registerBy');
 
