@@ -13,11 +13,15 @@ export const useLogin = () => {
         toast.promise(findLog, {
             loading: 'Logging',
             success: (res) => {
+                debugger
                 navigate(`/dashboard/${res.data.user.username}`);
                 setSession('user', res.data.user);
                 return res.data.msg
             },
-            error: (err: AxiosError<ApiMsg>) => err.response!.data.msg,
+            error: (err: AxiosError<ApiMsg>) => {
+                debugger
+                return err.response!.data.msg;
+            }
         }, { loading: { duration: 2000 } });
     }
 

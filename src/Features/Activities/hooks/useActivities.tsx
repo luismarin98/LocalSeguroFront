@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosError } from "axios";
+import axios from "axios";
 import toast from "react-hot-toast";
 import { getSession } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
