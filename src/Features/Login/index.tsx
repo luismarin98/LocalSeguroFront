@@ -33,9 +33,9 @@ export const LoginFeature: FC = () => {
     })
 
     return (
-        <div className="flex flex-col gap-3 items-center justify-center h-screen">
+        <div className="flex flex-col gap-3 items-center justify-center h-screen w-screen">
             <FormProvider {...methos}>
-                <div className="flex flex-col items-center justify-center gap-5 p-3 bg-slate-200 text-black rounded-md w-[40vh] h-[50vh]">
+                <div className="flex flex-col items-center justify-center gap-5 p-3 bg-slate-200 text-black rounded-md">
                     <label className="text-center text-3xl">Login System</label>
                     <label className="flex flex-col gap-2">
                         <p>Usuario</p>

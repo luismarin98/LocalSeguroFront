@@ -1,15 +1,13 @@
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { User_REST } from "../../../components/AxiosConfig";
 
 export const useRegister = () => {
     const navigate = useNavigate();
 
-    const api = process.env.REACT_APP_API_USERS ? process.env.REACT_APP_API_USERS : 'http://localhost:3001/api/user';
-
     const postUser = (data: UserRequest) => {
-        const saveUser = axios.post(`${api}/register`, { ...data });
+        const saveUser = User_REST.register(data);
         toast.promise(saveUser, {
             loading: 'Registrando...',
             success: (res) => {

@@ -1,3 +1,6 @@
+import { AxiosResponse } from "axios";
+import { ApiMsg } from "../components/AxiosConfig";
+
 export interface KeyRequest {
     id_user: number;
     key: string;
@@ -6,4 +9,11 @@ export interface KeyRequest {
 export interface KeyApiResponse {
     msg: string;
     key: string;
+}
+
+export interface props_keyRequest {
+    generate: (id: number, body: KeyRequest) => Promise<AxiosResponse<ApiMsg>>;
+    show: (id: number) => Promise<AxiosResponse<KeyApiResponse>>;
+    delete: (id: number) => Promise<AxiosResponse<ApiMsg>>;
+    update: (id: number, body: KeyRequest) => Promise<AxiosResponse<ApiMsg>>;
 }
