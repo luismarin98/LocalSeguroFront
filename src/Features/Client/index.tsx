@@ -103,6 +103,10 @@ export const ClientFeature: FC = () => {
                                         <p>{data.cooperativa}</p>
                                         <p>{data.conductor}</p>
                                         <p>{data.ubicacion}</p>
+                                        <button className="px-6 py-1 bg-neutral-800 rounded-md hover:scale-105 hover:shadow-md hover:shadow-neutral-800 transition-all ease-in-out" onClick={(e) => {
+                                            e.preventDefault();
+                                            window.open(data.foto)
+                                        }}>Ver foto</button>
                                         <Link className="bg-blue-400 text-black dark:bg-neutral-800 rounded-md px-6 py-1 dark:text-white transition-all duration-100 ease-in-out hover:scale-105 hover:shadow-md hover:shadow-neutral-600" to={data.foto}>ver foto</Link>
                                     </div>
                                 ))
@@ -118,6 +122,10 @@ export const ClientFeature: FC = () => {
                                         <p>{data.localName}</p>
                                         <p>{data.phone}</p>
                                         <p>{data.location}</p>
+                                        <button className="px-6 py-1 bg-neutral-800 rounded-md hover:scale-105 hover:shadow-md hover:shadow-neutral-800 transition-all ease-in-out" onClick={(e) => {
+                                            e.preventDefault();
+                                            window.open(data.linkPhoto)
+                                        }}>Ver foto</button>
                                         <Link className="bg-blue-400 text-black dark:bg-neutral-800 rounded-md px-6 py-1 dark:text-white transition-all duration-100 ease-in-out hover:scale-105 hover:shadow-md hover:shadow-neutral-600" to={data.linkPhoto}>Ver foto</Link>
                                     </div>
                                 ))
