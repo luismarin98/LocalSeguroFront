@@ -2,19 +2,19 @@ import { LocalsRequest } from "../../../Interfaces/LocalRequest";
 import toast from "react-hot-toast";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import { getSession } from "../../../components/StorageFunctions";
-import axios from "axios";
 import { ActData } from "../../../Interfaces/ActivityRequest";
 import { useDispatch } from "react-redux";
 import { setListLocal } from "../../../Redux/Local/locals.slice";
+import { ACT_REST, ApiMsg, Local_REST } from "../../../components/AxiosConfig";
+import { AxiosError } from "axios";
 
 export const useLocal = () => {
-    const api = process.env.REACT_APP_API_LOCALS ? process.env.REACT_APP_API_LOCALS : 'http://localhost:3001/api/locals';
-    const actApi = process.env.REACT_APP_API_ACTIVITIES ? process.env.REACT_APP_API_ACTIVITIES : 'http://localhost:3001/api/activities';
+
     const user: UserRequest | null = getSession('user');
     const dispatch = useDispatch();
 
     const postLocal = async (data: LocalsRequest) => {
-        const postLocal = axios.post(`${api}/save`, { ...data });
+        const postLocal = Local_REST.save(data);
         toast.promise(postLocal, {
             loading: 'Guardando informacion',
             success: (res) => {
@@ -31,25 +31,23 @@ export const useLocal = () => {
                             id_user: user!.id,
                             id_obj: data.id
                         }
-                        await axios.post(`${actApi}/save-activity`, { ...actData });
+                        ACT_REST.saveAct(actData);
                     }
                 )()
                 return res.data.msg;
             },
-            error: (err) => err.response.data.msg,
+            error: (err: AxiosError<ApiMsg>) => err.response!.data.msg,
         }, { loading: { duration: 2000 } });
     }
 
     const getLocals = async () => {
-        const find = axios.get(`${api}/search/${user!.id}`);
-        toast.promise(find, {
-            loading: 'Cargando locales...',
-            success: (res) => {
-                dispatch(setListLocal(res.data.localsArray));
-                return res.data.msg;
-            },
-            error: (err) => err.response.data.msg
-        }, { loading: { duration: 2000 } })
+        await Local_REST.get(user!.id).then((res) => {
+            dispatch(setListLocal(res.data.localsArray));
+        toast.success(res.data.msg);
+        }).catch((err: AxiosError<ApiMsg>) => {
+            toast.error(err.response!.data.msg);
+        })
+        
     }
 
     return { postLocal, getLocals }

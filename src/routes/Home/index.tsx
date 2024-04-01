@@ -10,7 +10,7 @@ export const Home = () => {
     useEffect(() => {
         const user: UserRequest | null = getSession('user');
         if (user) return navigate(`/dashboard/${user!.username}`);
-    }, [])
+    }, [navigate])
     
     return (
         <div className="flex flex-col gap-3 items-center justify-center h-screen w-screen p-2">

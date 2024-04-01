@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { Navbar } from "./components/Navbar";
-import { Admin, Client, Dashboard, Home, HomeDash, Login, Register, Profile, Activities, AdminRo } from "./routes";
+import { Admin, Client, Dashboard, Home, HomeDash, Login, Register, Profile, Activities, AdminRo, Verify } from "./routes";
 
 function App() {
 
@@ -13,7 +13,8 @@ function App() {
       <Routes>
         <Route path="" element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/verify" element={<Verify />} />
+        <Route path="register/:key" element={<Register />} />
         <Route path="/dashboard/:username" element={<Dashboard />}>
           <Route path="" element={<HomeDash />} />
           <Route path="client" element={<Client />} />
@@ -22,7 +23,7 @@ function App() {
             <Route path="activities" element={<Activities />} />
           </Route>
           <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<div className="w-full h-full flex items-center justify-center"><p className="text-2xl uppercase">Pagina no encontrada</p></div>} />
+          <Route path="*" element={<div className="w-full h-full flex items-center justify-center"><p className="text-2xl uppercase">Esta seccion aun se encuentra en desarrollo</p></div>} />
         </Route>
       </Routes>
     </div>

@@ -47,7 +47,7 @@ export const LoginFeature: FC = () => {
                     </label>
                     <div className="flex flex-row flex-wrap gap-2">
                         <button onClick={handLog} className="bg-neutral-800 rounded-md px-6 py-0.5 text-white hover:scale-105" type="submit">Acceder</button>
-                        <Link className="px-6 py-1 bg-neutral-800 text-white rounded-md hover:scale-105 transition-all duration-100" to='/register'>Registrarse</Link>
+                        <Link className="px-6 py-1 bg-neutral-800 text-white rounded-md hover:scale-105 transition-all duration-100" to='/verify'>Registrarse</Link>
                     </div>
                 </div>
             </FormProvider>

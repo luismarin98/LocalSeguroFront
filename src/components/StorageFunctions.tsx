@@ -8,7 +8,7 @@ export function setItem<T>(key: string, value: T): void {
     localStorage.setItem(key, JSON.stringify(value));
 }
 // eslint-disable-next-line
-export function removeItem<T>(key: string): void {
+export function removeItem(key: string): void {
     localStorage.removeItem(key);
 }
 
@@ -21,6 +21,6 @@ export function getSession<T>(key: string): T | null {
     return item ? JSON.parse(item) as T : null;
 }
 
-export function endSession<T>(key: string): void {
+export function endSession(key: string): void {
     sessionStorage.removeItem(key);
 }

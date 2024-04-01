@@ -8,7 +8,7 @@ export interface KeyRequest {
 
 export interface KeyApiResponse {
     msg: string;
-    key: string;
+    key: KeyRequest;
 }
 
 export interface props_keyRequest {
@@ -16,4 +16,5 @@ export interface props_keyRequest {
     show: (id: number) => Promise<AxiosResponse<KeyApiResponse>>;
     delete: (id: number) => Promise<AxiosResponse<ApiMsg>>;
     update: (id: number, body: KeyRequest) => Promise<AxiosResponse<ApiMsg>>;
+    verify: (key: string) => Promise<AxiosResponse<KeyApiResponse>>;
 }

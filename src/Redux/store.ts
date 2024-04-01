@@ -4,6 +4,7 @@ import { userSlice } from "./User/user.slice";
 import { activitySlice } from "./Activity/activity.slice";
 import { localSlice } from "./Local/locals.slice";
 import { motoSlice } from "./Moto/moto.slice";
+import { keySlice } from "./Key/key.slice";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         activity: activitySlice.reducer,
         local: localSlice.reducer,
         moto: motoSlice.reducer,
+        key: keySlice.reducer
     }
 });
 

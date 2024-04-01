@@ -104,7 +104,7 @@ export const ProfileFeature = () => {
         }
     ]
 
-    useEffect(() => { user!.me_register !== 0 && getBy() }, [])
+    useEffect(() => { user!.me_register !== 0 && getBy() }, [getBy, user])
 
     const registredBy: UserRequest | null = getItem('registerBy');
 
@@ -123,7 +123,7 @@ export const ProfileFeature = () => {
                         {
                             registredBy && registredBy !== undefined && (
                                 <div className="felx flex-col gap-2 w-full">
-                                    <p className="text-xl uppercase font-bold">Registrado por</p>
+                                    <p className="text-lg font-bold">Registrado por</p>
                                     <p className="text-md"><strong>Usuario:</strong> {registredBy!.username}</p>
                                     <p className="text-md"><strong>Email:</strong> {registredBy!.email}</p>
                                 </div>
@@ -137,14 +137,18 @@ export const ProfileFeature = () => {
                     }
                 </div>
             </div>
-            <div className="flex flex-row flex-wrap gap-3 items-center justify-center ring-1 dark:ring-white ring-black p-2 rounded-md">
-                <p className="dark:text-white text-black">Llave de registro de usuarios</p>
-                {
-                    keyButtons.map((data, i) => (
-                        <button key={i} onClick={data.onClick} className={classButton.className} >{data.title}</button>
-                    ))
-                }
-            </div>
+            {
+                user !== null && user!.isAdmin && (
+                    <div className="flex flex-row flex-wrap gap-3 items-center justify-center ring-1 dark:ring-white ring-black p-2 rounded-md">
+                        <p className="dark:text-white text-black">Llave de registro de usuarios</p>
+                        {
+                            keyButtons.map((data, i) => (
+                                <button key={i} onClick={data.onClick} className={classButton.className} >{data.title}</button>
+                            ))
+                        }
+                    </div>
+                )
+            }
         </div >
         <Modal isOpen={openKeyModal} setIsOpen={setOpenKeyModal}><KeyContainer /></Modal>
         <Modal title="Cambiar contraseña" isOpen={open} setIsOpen={setOpen}><UpdatePass /></Modal>

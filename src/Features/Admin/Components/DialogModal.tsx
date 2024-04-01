@@ -2,7 +2,7 @@ import { MouseEvent, useContext } from "react";
 import AdminContext, { IAdmin } from "../provider";
 
 export const DialogModal = () => {
-    const { userId, deleteUser, setOpenDelete, setUserId } = useContext(AdminContext) as IAdmin;
+    const { deleteUser, setOpenDelete, setUserId } = useContext(AdminContext) as IAdmin;
 
     const actions = [
         {

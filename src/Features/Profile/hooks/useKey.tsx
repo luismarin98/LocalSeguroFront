@@ -5,11 +5,13 @@ import { UserRequest } from "../../../Interfaces/UserRequest";
 import { getSession } from "../../../components/StorageFunctions";
 import { useState } from "react";
 import { AxiosError } from "axios";
+import { useDispatch } from "react-redux";
+import { setKey } from "../../../Redux/Key/key.slice";
 
 export const useKey = () => {
     const user: UserRequest | null = getSession('user');
     const [openKeyModal, setOpenKeyModal] = useState<boolean>(false);
-    const [key, setKey] = useState<string>('');
+    const dispatch = useDispatch();
 
     const postKey = (data: KeyRequest) => {
         const pst = Key_REST.generate(data.id_user, data);
@@ -23,9 +25,9 @@ export const useKey = () => {
     const getKey = () => {
         const get = Key_REST.show(user!.id);
         toast.promise(get, {
-            loading: 'Generando llave...',
+            loading: 'Mostrando llave...',
             success: (res) => {
-                setKey(res.data.key);
+                dispatch(setKey(res.data.key));
                 setOpenKeyModal(true);
                 return res.data.msg;
             },
@@ -53,5 +55,5 @@ export const useKey = () => {
         });
     }
 
-    return { postKey, openKeyModal, setOpenKeyModal, key, getKey, updateKey, deleteKey }
+    return { postKey, openKeyModal, setOpenKeyModal, getKey, updateKey, deleteKey }
 }

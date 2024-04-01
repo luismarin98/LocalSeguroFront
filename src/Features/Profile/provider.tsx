@@ -10,7 +10,6 @@ export interface IProfile {
     confPass: string;
     openModalPhoto: boolean;
     openKeyModal: boolean;
-    key: string;
 
     setOpen: Dispatch<SetStateAction<boolean>>;
     setConfPass: Dispatch<SetStateAction<string>>;
@@ -39,7 +38,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
 
     const { updatePass, updatePhoto, getUser, getLocals, getMotos, getBy } = useProfile();
 
-    const { postKey, openKeyModal, setOpenKeyModal, key, getKey, updateKey, deleteKey } = useKey();
+    const { postKey, openKeyModal, setOpenKeyModal, getKey, updateKey, deleteKey } = useKey();
 
     const storage: IProfile = {
         open, setOpen,
@@ -53,7 +52,6 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         getMotos,
         postKey,
         openKeyModal, setOpenKeyModal,
-        key,
         getKey,
         updateKey,
         deleteKey,

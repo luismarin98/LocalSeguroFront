@@ -1,7 +1,9 @@
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { LocalsRequest } from "./LocalRequest";
 import { MotosRequest } from "./MotosRequest";
 import { UserRequest } from "./UserRequest";
+import { ApiMsg } from "../components/AxiosConfig";
+import { FilterActivities } from "./SearchRequest";
 
 type activityType = 'Add Local' | 'Add Moto' | 'Add User';
 
@@ -47,5 +49,21 @@ export interface ActivityLocal {
 export interface ActivityResponses {
     msg: string;
     data: ActData[] | ActData | ActivityUser | ActivityLocal | ActivityMoto;
-    error: AxiosError
+    type: string;
+}
+
+export interface ActivityResponse {
+    msg: string;
+    activity: {
+        act: ActData,
+        obj: UserRequest | LocalsRequest | MotosRequest
+    },
+}
+
+export interface props_activityRequest {
+    saveAct: (body: ActData) => Promise<AxiosResponse<ApiMsg>>;
+    filterAct: (filter: FilterActivities, id: number) => Promise<AxiosResponse<ActivityResponses>>;
+    getAct: (id: number) => Promise<AxiosResponse<ActivityResponse>>;
+    delAct: (id: number) => Promise<AxiosResponse<ActivityResponses>>;
+    updAct: (id: number, data: LocalsRequest | UserRequest | MotosRequest) => Promise<AxiosResponse<ActivityResponse>>
 }

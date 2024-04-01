@@ -63,7 +63,7 @@ export const FormEditUser = () => {
             setValue('photo', userData!.photo);
             setValue('me_register', userData!.me_register);
         }
-    }, []);
+    }, [setNumero, setValue, setValueSelect, userData]);
 
     return <FormProvider {...methods}>
         <form onSubmit={handleSubmit(submit)} className="w-full shadow-md shadow-neutral-800 rounded-md p-2 flex flex-col gap-3 bg-blue-500 items-center justify-center">

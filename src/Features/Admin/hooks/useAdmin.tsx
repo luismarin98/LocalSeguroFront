@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { getSession } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import { SearchRequest } from "../../../Interfaces/SearchRequest";
@@ -7,13 +7,12 @@ import { useState } from "react";
 import { ActData } from "../../../Interfaces/ActivityRequest";
 import { useDispatch } from "react-redux";
 import { list_users } from "../../../Redux/User/user.slice";
-import { ApiMsg, User_REST } from "../../../components/AxiosConfig";
+import { ACT_REST, ApiMsg, User_REST } from "../../../components/AxiosConfig";
 
 export const useAdmin = () => {
     const [userId, setUserId] = useState<number>(0);
     const dispatch = useDispatch();
 
-    const actApi = process.env.REACT_APP_API_ACTIVITIES ? process.env.REACT_APP_API_ACTIVITIES : 'http://localhost:3001/api/activities';
     const user: UserRequest | null = getSession('user');
 
     const postUser = (data: UserRequest) => {
@@ -34,7 +33,7 @@ export const useAdmin = () => {
                             id_user: user!.id,
                             id_obj: data.id
                         }
-                        await axios.post(`${actApi}/save-activity`, { ...actData });
+                        ACT_REST.saveAct(actData);
                     }
                 )()
                 return res.data.msg
@@ -52,10 +51,7 @@ export const useAdmin = () => {
                 dispatch(list_users(res.data.usersArray))
                 return res.data.msg;
             },
-            error: (err) => {
-                dispatch(list_users(null));
-                return err.response.data.msg;
-            },
+            error: (err: AxiosError<ApiMsg>) => err.response!.data.msg,
         }, { loading: { duration: 2000 } })
     }
 
@@ -64,7 +60,7 @@ export const useAdmin = () => {
         toast.promise(update, {
             loading: 'Actualizando datos...',
             success: (res) => res.data.msg,
-            error: (err) => err.response.data.msg,
+            error: (err: AxiosError<ApiMsg>) => err.response!.data.msg,
         }, { loading: { duration: 2000 } })
     }
 
@@ -76,7 +72,7 @@ export const useAdmin = () => {
                 setUserId(0);
                 return res.data.msg;
             },
-            error: (err) => err.response.data.msg,
+            error: (err: AxiosError<ApiMsg>) => err.response!.data.msg,
         }, { loading: { duration: 2000 } })
     }
 

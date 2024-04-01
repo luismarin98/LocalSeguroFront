@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
 import { useActivities } from "./hooks/useActivities";
 import { FilterActivities } from "../../Interfaces/SearchRequest";
 import { ActData } from "../../Interfaces/ActivityRequest";

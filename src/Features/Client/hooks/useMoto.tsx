@@ -2,19 +2,19 @@ import { MotosRequest } from "../../../Interfaces/MotosRequest";
 import { getSession } from "../../../components/StorageFunctions";
 import { UserRequest } from "../../../Interfaces/UserRequest";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { ActData } from "../../../Interfaces/ActivityRequest";
 import { useDispatch } from "react-redux";
 import { setListMoto } from "../../../Redux/Moto/moto.slice";
+import { ACT_REST, ApiMsg, Moto_REST } from "../../../components/AxiosConfig";
+import { AxiosError } from "axios";
 
 export const useMoto = () => {
-    const api = process.env.REACT_APP_API_MOTOS ? process.env.REACT_APP_API_MOTOS : 'http://localhost:3001/api/motos';
-    const actApi = process.env.REACT_APP_API_ACTIVITIES ? process.env.REACT_APP_API_ACTIVITIES : 'http://localhost:3001/api/activities';
+
     const user: UserRequest | null = getSession('user');
     const dispatch = useDispatch();
 
     const postMoto = (data: MotosRequest) => {
-        const post = axios.post(`${api}/save`, { ...data });
+        const post = Moto_REST.save(data);
         toast.promise(post, {
             loading: 'Guardando...',
             success: (res) => {
@@ -31,30 +31,21 @@ export const useMoto = () => {
                             id_user: user!.id,
                             id_obj: data.id
                         }
-                        await axios.post(`${actApi}/save-activity`, { ...actData });
+                        ACT_REST.saveAct(actData);
                     }
                 )()
                 return res.data.msg
             },
-            error: (err) => {
-                console.log(err.response.data.Error)
-                return err.response.data.msg
-            }
+            error: (err: AxiosError<ApiMsg>) => err.response!.data.msg,
         })
     }
 
-    const getMotos = () => {
-        const motos = axios.get(`${api}/search/${user!.id}`);
-        toast.promise(motos, {
-            loading: 'Cargando...',
-            success: (res) => {
-                dispatch(setListMoto(res.data.motosArray));
-                return res.data.msg;
-            },
-            error: (err) => {
-                console.log(err.response.data.Error)
-                return err.response.data.msg
-            }
+    const getMotos = async () => {
+        await Moto_REST.get(user!.id).then((res) => {
+            dispatch(setListMoto(res.data.motosArray));
+            toast.success(res.data.msg);
+        }).catch((err: AxiosError<ApiMsg>) => {
+            toast.error(err.response!.data.msg);
         })
     }
 

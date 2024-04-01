@@ -1,5 +1,7 @@
-import { AxiosResponse } from "axios";
+import { AxiosPromise, AxiosResponse } from "axios";
 import { ApiMsg } from "../components/AxiosConfig";
+import { PhotoRequest } from "./PhotoRequest";
+import { UpdatePassword } from "./UpdateRequest";
 
 export interface UserRequest {
     id: number;
@@ -31,4 +33,7 @@ export interface props_userRequest {
     editUser: (id: number, body: UserRequest) => Promise<AxiosResponse<ApiMsg>>
     deleteUser: (id: number) => Promise<AxiosResponse<ApiMsg>>
     getBy: (id: number) => Promise<AxiosResponse<UserApiResponse>>
+    search: (id: number) => Promise<AxiosResponse<ApiMsg>>
+    updatePhoto: (id: number, body: PhotoRequest) => Promise<AxiosResponse<UserApiResponse>>
+    updatePass: (id: number, body: UpdatePassword) => Promise<AxiosResponse<ApiMsg>>
 }
