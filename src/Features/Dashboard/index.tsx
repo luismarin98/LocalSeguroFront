@@ -6,14 +6,14 @@ import { getSession } from "../../components/StorageFunctions";
 export const DashboardFeature: FC = () => {
     const userLocal: UserRequest | null = getSession('user');
 
-    return <div className="flex flex-col gap-3 items-center justify-center h-screen">
+    return <div className="flex flex-col gap-3 items-center justify-center h-full w-full">
         {
             userLocal === null ? (
-                <div className="text-black w-5/6 h-full m-2 rounded-md flex flex-col gap-2 items-center justify-center">
+                <div className="text-black m-2 rounded-md flex flex-col gap-2 items-center justify-center">
                     <p className="text-2xl">Asegurate de iniciar sesion antes</p>
                 </div>
             ) : (
-                <div className="shadow-neutral-500 m-2 w-5/6 h-full rounded-md flex justify-center items-center">
+                <div className="flex justify-center items-center w-full h-full">
                     <Outlet />
                 </div>
             )

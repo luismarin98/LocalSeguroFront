@@ -10,7 +10,7 @@ export const AdminR = () => {
             user && user!.isAdmin ? (
                 <Outlet />
             ) : (
-                <p className="uppercase text-2xl">no tienes acceso</p>
+                <p className="dark:text-white text-2xl">No tienes acceso</p>
             )
         }
     </div>

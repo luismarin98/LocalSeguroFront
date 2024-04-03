@@ -34,7 +34,7 @@ export const HomeDashFeature: FC = () => {
     ];
 
     return (
-        <div className="flex flex-row flex-wrap w-full items-center justify-center gap-2">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-2 h-full w-full">
             {
                 user!.isAdmin ? (
                     admin_buttons.map((obj, i) => (<Link key={i} className="w-32 h-32 bg-neutral-800 dark:bg-neutral-300 dark:text-black transition-all ease-in-out hover:scale-105 hover:shadow-md rounded-md hover:shadow-neutral-800 text-white flex flex-col gap-2 justify-center items-center text-center" to={obj.href}>{obj.icon}{obj.title}</Link>))

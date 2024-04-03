@@ -19,8 +19,6 @@ export interface IProfile {
     updatePass: (data: UpdatePassword) => void;
     updatePhoto: (photo: PhotoRequest) => void;
     getUser: () => void;
-    getLocals: () => Promise<void>;
-    getMotos: () => Promise<void>;
 
     postKey: (data: KeyRequest) => void;
     getKey: () => void;
@@ -36,7 +34,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     const [openModalPhoto, setOpenModaPhoto] = useState<boolean>(false);
     const [confPass, setConfPass] = useState<string>('');
 
-    const { updatePass, updatePhoto, getUser, getLocals, getMotos, getBy } = useProfile();
+    const { updatePass, updatePhoto, getUser, getBy } = useProfile();
 
     const { postKey, openKeyModal, setOpenKeyModal, getKey, updateKey, deleteKey } = useKey();
 
@@ -48,8 +46,6 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         openModalPhoto,
         setOpenModaPhoto,
         getUser,
-        getLocals,
-        getMotos,
         postKey,
         openKeyModal, setOpenKeyModal,
         getKey,

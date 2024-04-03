@@ -1,14 +1,22 @@
-import { MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../imgs/logoPNE.png';
 import { UserRequest } from "../Interfaces/UserRequest";
 import { MenuModal } from "./MenuModal";
 import { Menu } from "@headlessui/react";
 import { getSession, endSession } from "./StorageFunctions";
+import { Modal } from "./Modal";
 
 export const Navbar = () => {
 
     const userLocal: UserRequest | null = getSession('user');
+
+    const [hidden, setHidden] = useState<boolean>(false);
+
+    const handleHidden = (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setHidden(!hidden);
+    }
 
     const navigate = useNavigate();
 
@@ -46,37 +54,69 @@ export const Navbar = () => {
     }
 
     return (
-        <nav className="bg-gray-700 p-2 m-1 rounded-md">
-            <div className="container flex justify-around items-center">
-
-                <div className="flex flex-row gap-2 items-center justify-center">
-                    <img src={logo} alt="logoPNE" width={30} className="rounded-full" />
-                    <Link className="text-white text-lg font-semibold" to={userLocal !== null ? `/dashboard/${userLocal!.username}` : '/'}>Local Seguro</Link>
+        <div className="w-full p-2">
+            <nav className="dark:bg-gray-600 bg-gray-700 p-0.5 rounded-md">
+                <div className="flex flex-row gap-1 items-center justify-between px-2">
+                    <div className="flex flex-row gap-2 items-center">
+                        <div className="flex flex-row gap-2 items-center justify-center p-1">
+                            <img src={logo} alt="logoPNE" width={30} className="rounded-full" />
+                            <Link className="text-white text-lg font-bold" to={userLocal !== null ? `/dashboard/${userLocal!.username}` : '/'}>Local Seguro</Link>
+                        </div>
+                    </div>
+                    {
+                        userLocal === null && (
+                            <div className="hidden md:flex md:flex-row md:flex-wrap md:gap-2 items-center">
+                                <Link className="dark:text-white text-lg hover:scale-105 transition-all ease-in-out duration-100" to='/'>Inicio</Link>
+                            </div>
+                        )
+                    }
+                    {
+                        userLocal !== null && (
+                            <div className="hidden md:flex md:flex-row md:flex-wrap md:gap-2 items-center dark:text-white">
+                                <Link to={userLocal !== null ? `/dashboard/${userLocal!.username}` : '/'}>Dashboard</Link>
+                            </div>
+                        )
+                    }
+                    <div className="md:hidden flex items-center">
+                        <button onClick={handleHidden} className="p-1 rounded-md bg-slate-50 flex items-center justify-center">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    {
+                        userLocal !== null ? (
+                            <MenuModal title={userLocal!.username}>
+                                {
+                                    buttons.map((data, i) => (
+                                        <Menu.Item key={i}>
+                                            {
+                                                ({ active }) => (
+                                                    <button className={`${active ? 'hover:bg-violet-500 text-white hover:scale-95' : 'text-gray-900'} transition-all ease-in-out duration-100 bg-slate-100 group flex flex-row gap-1 w-full items-center rounded-md text-sm p-1`} onClick={data.onClick}>{data.icon}{data.title}</button>
+                                                )
+                                            }
+                                        </Menu.Item>
+                                    ))
+                                }
+                            </MenuModal>
+                        ) : (
+                            <button className="rounded-md bg-neutral-200 text-black px-6 py-0.5 hover:scale-105 transition-all ease-in-out duration-100" onClick={handleLoggin}>Acceder</button>
+                        )
+                    }
                 </div>
-
-                <div className="flex flex-row flex-wrap gap-2 text-white">
-                    <Link to={userLocal !== null ? `/dashboard/${userLocal!.username}` : '/'}>Inicio</Link>
+            </nav>
+            <Modal isOpen={hidden} setIsOpen={setHidden}>
+                <div className="flex flex-col gap-2 full">
+                    {userLocal === null && (<button onClick={(e) => {
+                        handleHidden(e);
+                        navigate('/');
+                    }} className="bg-slate-50 px-6 py-1 rounded-md" >Inicio</button>)}
+                    {userLocal !== null && (<button onClick={(e) => {
+                        handleHidden(e);
+                        navigate(userLocal !== null ? `/dashboard/${userLocal!.username}` : '/')
+                    }} className="bg-slate-50 px-6 py-1 rounded-md" >Dashboard</button>)}
                 </div>
-                {
-                    userLocal !== null ? (
-                        <MenuModal title={userLocal!.username}>
-                            {
-                                buttons.map((data, i) => (
-                                    <Menu.Item key={i}>
-                                        {
-                                            ({ active }) => (
-                                                <button className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'} group flex flex-row gap-1 w-full items-center rounded-md px-2 py-2 text-sm`} onClick={data.onClick}>{data.icon}{data.title}</button>
-                                            )
-                                        }
-                                    </Menu.Item>
-                                ))
-                            }
-                        </MenuModal>
-                    ) : (
-                        <button className="px-4 py-1 rounded-md bg-neutral-200 text-black" onClick={handleLoggin}>Acceder</button>
-                    )
-                }
-            </div>
-        </nav>
+            </Modal>
+        </div>
     );
 }

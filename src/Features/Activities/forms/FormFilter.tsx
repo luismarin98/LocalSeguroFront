@@ -39,8 +39,8 @@ export const FormFilter = () => {
     const classButton = "flex flex-row gap-2 text-white dark:text-black dark:bg-white bg-neutral-800 px-6 py-2 rounded-md hover:scale-105 transition-all ease-in-out hover:shadow-neutral-800"
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-row flex-wrap gap-3 justify-evenly w-full items-center" >
-            <label className="uppercase text-2xl">Actividades</label>
+        <form onSubmit={handleSubmit(submit)} className="flex flex-row flex-wrap gap-3 justify-evenly w-full items-center dark:text-white p-2" >
+            <label className="text-2xl">Actividades</label>
             <select className="text-center text-black rounded-md p-2" {...register('type')}>
                 {
                     optionsSelect.map((data, i) => (

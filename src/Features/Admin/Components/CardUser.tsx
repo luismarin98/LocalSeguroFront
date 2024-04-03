@@ -30,10 +30,10 @@ export const CardUser = (data: UserRequest) => {
     ]
 
     return (
-        <div className="bg-neutral-700 rounded-md w-[50vh] h-1/2 p-2 flex flex-row gap-2 justify-center - items-center">
+        <div className="bg-neutral-700 rounded-md w-auto h-auto p-2 flex flex-row gap-2 justify-center  items-center">
             <div className="flex flex-row gap-2 justify-center items-center w-full">
                 <img src={data.photo} alt={data.username} width={70} height={70} className="rounded-full bg-white" />
-                <div className="w-full">
+                <div className="w-full text-white">
                     <p><strong>Usuario:</strong> {data.username}</p>
                     <p><strong>Email:</strong> {data.email}</p>
                     <p><strong>Telefono:</strong> {data.phone}</p>
@@ -44,7 +44,7 @@ export const CardUser = (data: UserRequest) => {
                 {
                     actions.map((data, i) => (
                         <button onClick={data.onClick} className={data.style} key={i}>{data.icon}</button>
-                    ))
+                    )).slice(0, 6)
                 }
             </div>
         </div>

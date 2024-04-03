@@ -20,8 +20,6 @@ export const ProfileFeature = () => {
         setOpen,
         setOpenModaPhoto,
         openModalPhoto,
-        getLocals,
-        getMotos,
         getUser,
         postKey,
         openKeyModal,
@@ -51,8 +49,6 @@ export const ProfileFeature = () => {
             title: 'Refrescar datos',
             onClick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
-                getLocals();
-                getMotos();
                 getUser();
             }
         },
@@ -111,14 +107,14 @@ export const ProfileFeature = () => {
     const classButton: HTMLAttributes<HTMLButtonElement> = { className: "flex flex-row gap-2 text-white dark:text-black dark:bg-neutral-200 bg-neutral-800 px-6 py-1 rounded-md hover:shadow-md hover:scale-105 transition-all ease-in-out dark:hover:shadow-neutral-100 hover:shadow-neutral-800" }
 
     return <>
-        <div className="flex flex-col gap-3 w-full h-full items-center justify-center dark:text-neutral-900">
+        <div className="flex flex-col gap-3 items-center justify-center dark:text-neutral-900 p-2">
             <div className="flex flex-row flex-wrap gap-3 items-center justify-center ring-1 dark:ring-white ring-black p-2 rounded-md">
                 <div className="flex flex-row flex-wrap gap-5 justify-center items-center dark:bg-blue-400 bg-green-300 p-3 rounded-md">
                     <img src={user!.photo!} alt={user!.username} className="w-32 h-32 rounded-full hover:shadow-md dark:hover:shadow-neutral-500 hover:scale-105 transition-all ease-in-out duration-100" />
                     <div className="flex flex-col gap-3">
                         <p><strong>Nombres:</strong> {user!.username}</p>
                         <p><strong>Correo:</strong> {user!.email}</p>
-                        <p><strong>Telefono:</strong> +593 {user!.phone}</p>
+                        <p><strong>Telefono:</strong> {user!.phone}</p>
                         <p><strong>Tipo de usuario:</strong> {user!.isAdmin ? 'Administrador' : 'Cliente'}</p>
                         {
                             registredBy && registredBy !== undefined && (

@@ -43,29 +43,35 @@ export const AdminFeature: FC = () => {
         }
     ]
 
-    return <div className="flex flex-row flex-wrap gap-2 w-full h-full items-center justify-center"> {/*Todo lo que esta en ese className es tailwind */}
-        <div className="flex flex-col gap-2 justify-center items-center">
-            {
-                buttons.map((data, i) => (
-                    <button key={i} onClick={data.onClick} className={`flex w-full flex-row items-center justify-center p-2 text-center gap-2 dark:bg-neutral-100 bg-neutral-900 text-white dark:text-black transition-all duration-75 hover:scale-105 rounded-md hover:shadow-md hover:shadow-neutral-900`}>
-                        {data.icon}
-                        <p className="sm:text-sm">{data.title}</p>
-                    </button>
-                ))
-            }
-        </div>
-        <div className="w-5/6 h-5/6 flex flex-col gap-2 justify-center">
-            <FormSearch />
-            <div className="bg-neutral-200 p-2 overflow-x-auto no-scrollbar rounded-md w-full h-full shadow-inner shadow-neutral-800 grid grid-rows-2 grid-flow-col gap-4 place-items-center">
+    return (
+        <div className="flex flex-col gap-2 p-5 items-center justify-between w-full h-full">
+            <div className="flex flex-col md:flex-row gap-2 justify-center items-center">
                 {
-                    users && users!.length > 0 && users!.map((data, i) => (
-                        <CardUser key={i} {...data} />
+                    buttons.map((data, i) => (
+                        <button key={i} onClick={data.onClick} className={`flex flex-row items-center justify-center py-1 px-6 text-center gap-2 dark:bg-neutral-100 bg-neutral-900 text-white dark:text-black transition-all duration-75 hover:scale-105 rounded-md hover:shadow-md hover:shadow-neutral-900`}>
+                            {data.icon}
+                            <p className="sm:text-sm">{data.title}</p>
+                        </button>
                     ))
                 }
             </div>
+            <div className="w-full h-full flex flex-col gap-2 justify-center">
+                <FormSearch />
+                <div className="bg-neutral-200 h-full p-2 overflow-x-auto no-scrollbar rounded-md shadow-inner shadow-neutral-800 grid grid-rows-2 grid-flow-col gap-4 place-items-center">
+                    {
+                        users && users!.length > 0 && users!.map((data, i) => (
+                            <CardUser key={i} {...data} />
+                        ))
+                    }
+                </div>
+            </div>
+            <Modal title="Añadir usuario" isOpen={openAddUser} setIsOpen={setOpenAddUser}><FormUser /></Modal>
+            <Modal title="Editar usuario" isOpen={openEditUser} setIsOpen={setOpenEditUser} ><FormEditUser /></Modal>
+            <Modal title="Estas seguro/a de eliminar este usuario?" isOpen={openDelete} setIsOpen={setOpenDelete} ><DialogModal /></Modal>
         </div>
-        <Modal title="Añadir usuario" isOpen={openAddUser} setIsOpen={setOpenAddUser}><FormUser /></Modal>
-        <Modal title="Editar usuario" isOpen={openEditUser} setIsOpen={setOpenEditUser} ><FormEditUser /></Modal>
-        <Modal title="Estas seguro/a de eliminar este usuario?" isOpen={openDelete} setIsOpen={setOpenDelete} ><DialogModal /></Modal>
-    </div>
+    )
 }
+
+/**
+ * 
+ */
