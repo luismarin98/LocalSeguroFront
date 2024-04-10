@@ -26,7 +26,7 @@ const instance = {
         baseURL: process.env.REACT_APP_API_MOTOS ? process.env.REACT_APP_API_MOTOS : `http://${process.env.REACT_APP_PORT}:3001/api/motos`,
     }),
     key: axios.create({
-        baseURL: process.env.REACT_APP_API_KEY ? process.env.REACT_APP_API_KEY : `http://${process.env.REACT_APP_PORT}:3001/api/key`,
+        baseURL: process.env.REACT_APP_API_KEY ? process.env.REACT_APP_API_WATCH : `http://${process.env.REACT_APP_PORT}:3001/api/key`,
     })
 }
 
