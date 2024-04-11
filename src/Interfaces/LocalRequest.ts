@@ -10,6 +10,8 @@ export interface LocalsRequest {
     phone: string;
     location: string;
     linkPhoto: string;
+    sector: string;
+    value: number;
 }
 
 export interface LocalApiResponse {
@@ -21,4 +23,5 @@ export interface LocalApiResponse {
 export interface props_LocalResponse {
     save:(body: LocalsRequest) => Promise<AxiosResponse<ApiMsg>>;
     get: (id: number) => Promise<AxiosResponse<LocalApiResponse>>;
+    put: (id: number, body: LocalsRequest) => Promise<AxiosResponse<ApiMsg>>
 }

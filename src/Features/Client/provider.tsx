@@ -12,6 +12,9 @@ export interface IClient {
     openAddMoto: boolean;
     setOpeAddMoto: Dispatch<SetStateAction<boolean>>;
 
+    value: number
+    setValue: Dispatch<SetStateAction<number>>
+    
     postLocal: (data: LocalsRequest) => Promise<void>;
     getLocals: () => Promise<void>;
     getMotos: () => void;
@@ -28,6 +31,7 @@ export const ClientProvider = ({ children }: { children: ReactNode }) => {
 
     const { postLocal, getLocals } = useLocal();
     const { getMotos, postMoto } = useMoto();
+    const [value, setValue] = useState<number>(0);
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [openAddLocal, setOpenAddLocal] = useState<boolean>(false);
@@ -49,7 +53,9 @@ export const ClientProvider = ({ children }: { children: ReactNode }) => {
         seeMotos,
         setSeeMotos,
         valueOption,
-        setValueOption
+        setValueOption,
+        value, 
+        setValue
     };
 
     return <ClientContext.Provider value={storage}>{children}</ClientContext.Provider>

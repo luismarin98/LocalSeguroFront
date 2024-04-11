@@ -5,7 +5,12 @@ import { LocalsRequest } from "../../../Interfaces/LocalRequest";
 import { useAppSelector } from "../../../Redux/store";
 import { activityLocalSelector } from "../../../Redux/Activity/activity.selector";
 
-export const FormEditLocal = (local: LocalsRequest) => {
+interface propsSectores {
+    local: LocalsRequest;
+    cuadranteValue: string[];
+}
+
+export const FormEditLocal = (props: propsSectores) => {
     const { updateActivity, setOpenDrawer } = useContext(ActivitiesContext) as IActivities;
 
     const { handleSubmit, register, setValue, reset } = useForm<LocalsRequest>();
@@ -16,7 +21,7 @@ export const FormEditLocal = (local: LocalsRequest) => {
         reset();
     }
 
-    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, id_user: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '' }
+    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, id_user: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '', sector: '', value: 0 }
 
     const method = useForm({ defaultValues: initialValues });
 
@@ -26,14 +31,14 @@ export const FormEditLocal = (local: LocalsRequest) => {
     }
 
     useEffect(() => {
-        setValue('id', local.id);
-        setValue('id_user', local.id_user);
-        setValue('dniOnwer', local.dniOnwer);
-        setValue('nameOwner', local.nameOwner);
-        setValue('localName', local.localName);
-        setValue('phone', local.phone);
-        setValue('location', local.location);
-        setValue('linkPhoto', local.linkPhoto);
+        setValue('id', props.local.id);
+        setValue('id_user', props.local.id_user);
+        setValue('dniOnwer', props.local.dniOnwer);
+        setValue('nameOwner', props.local.nameOwner);
+        setValue('localName', props.local.localName);
+        setValue('phone', props.local.phone);
+        setValue('location', props.local.location);
+        setValue('linkPhoto', props.local.linkPhoto);
         // eslint-disable-next-line
     }, [])
 
@@ -62,6 +67,16 @@ export const FormEditLocal = (local: LocalsRequest) => {
             <label className="w-full flex flex-row gap-2 p-2">
                 <p className="text-black w-full">Telefono</p>
                 <input className="w-full ring-1 ring-black p-1 text-center rounded-md" type="text" {...register('phone')} />
+            </label>
+            <label className="flex flex-row justify-center w-full items-center p-2">
+                <p className="w-full">Sector</p>
+                <select className="w-full rounded-md text-center flex flex-col" {...register('sector')}>
+                    {
+                        props.cuadranteValue.map((data, i) => (
+                            <option key={i} value={data}>{data}</option>
+                        ))
+                    }
+                </select>
             </label>
             <div className="flex flex-row flex-wrap gap-2 items-center justify-center">
                 <button className={`bg-green-500 px-6 py-1 text-white rounded-md hover:scale-105 transition-all ease-in-out duration-100 hover:shadow-md hover:shadow-neutral-800`} type="submit">Guardar</button>

@@ -7,9 +7,13 @@ import ClientContext, { IClient } from "../../provider";
 import { getSession } from "../../../../components/StorageFunctions";
 import { UserRequest } from "../../../../Interfaces/UserRequest";
 
-export const FormLocals = () => {
-    const { setOpenAddLocal, openAddLocal, postLocal } = useContext(ClientContext) as IClient;
-    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '', id_user: 0 };
+interface propsSectores {
+    cuadranteValue: string[];
+}
+
+export const FormLocals = (props: propsSectores) => {
+    const { setOpenAddLocal, openAddLocal, postLocal, value } = useContext(ClientContext) as IClient;
+    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '', id_user: 0, sector: '', value: 0 };
 
     const methods = useForm({ defaultValues: initialValues });
 
@@ -27,6 +31,7 @@ export const FormLocals = () => {
 
         values.id = Math.floor(Math.random() * 10000);
         values.id_user = user!.id;
+        values.value = value;
 
         postLocal(values)
         setOpenAddLocal(!openAddLocal);
@@ -41,6 +46,16 @@ export const FormLocals = () => {
             <Input title="Telefono" iRegister={register} textRegis="phone" />
             <Input title="Ubicacion del local" iRegister={register} textRegis="location" />
             <Input title="Foto de visita al local" iRegister={register} textRegis="linkPhoto" />
+            <label className="flex flex-row justify-center w-full items-center p-2">
+                <p className="w-full">Sector</p>
+                <select className="w-full rounded-md text-center flex flex-col" {...register('sector')}>
+                    {
+                        props.cuadranteValue.map((data, i) => (
+                            <option key={i} value={data}>{data}</option>
+                        ))
+                    }
+                </select>
+            </label>
             <button type="submit" onClick={handlesave} className="bg-neutral-800 rounded-md px-6 py-0.5 text-white hover:scale-105">Guardar local</button>
         </form>
     </FormProvider>

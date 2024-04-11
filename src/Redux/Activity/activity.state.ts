@@ -10,7 +10,7 @@ export interface ActivityState {
 export const initialState: ActivityState = {
     activityLocal: {
         act: { email: '', id: 0, id_admin: 0, id_obj: 0, id_user: 0, phone: '', photo: '', type: 'Add Local', username: '' },
-        obj: { dniOnwer: '', id: 0, id_user: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '' }
+        obj: { dniOnwer: '', id: 0, id_user: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '', sector: '', value: 0 }
     },
     activities: [],
     activityMoto: {

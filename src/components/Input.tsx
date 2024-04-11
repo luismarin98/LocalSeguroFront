@@ -28,7 +28,7 @@ type UserInputProps = {
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => (
     <label className="w-full flex flex-row p-2 gap-3">
         <p className="w-full text-white">{props.title}</p>
-        <input className="ring-1 ring-black text-black" type={props.type} {...(typeof props.iRegister === 'function' ? props.iRegister(props.textRegis!) : {})} />
+        <input className="ring-1 ring-black text-black rounded-md" type={props.type} {...(typeof props.iRegister === 'function' ? props.iRegister(props.textRegis!) : {})} />
     </label>
 ));
 

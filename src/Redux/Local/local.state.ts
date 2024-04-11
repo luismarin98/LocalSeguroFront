@@ -14,7 +14,9 @@ export const initialState: LocalState = {
         localName: '',
         location: '',
         nameOwner: '',
-        phone: ''
+        phone: '',
+        sector: '',
+        value: 0
     },
     list_locals: [],
 }

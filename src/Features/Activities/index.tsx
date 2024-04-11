@@ -14,9 +14,11 @@ import { FormEditMoto } from "./forms/editMoto";
 import { FormEditUser } from "./forms/editUser";
 import { useAppSelector } from "../../Redux/store";
 import { activitiesSelector, activityLocalSelector, activityMotoSelector, activityUserSelector } from "../../Redux/Activity/activity.selector";
+import { cuadrante_1, cuadrante_2, cuadrante_3, cuadrante_4, cuadrante_5, cuadrante_6 } from "../../components/Sectores";
+
 
 export const ActivitiesFeature: FC = () => {
-    const { openModal, setOpenModal, openDrawer, setOpenDrawer, typeActivity } = useContext(ActivitiesContext) as IActivities;
+    const { openModal, setOpenModal, openDrawer, setOpenDrawer, typeActivity, value } = useContext(ActivitiesContext) as IActivities;
     const activities = useAppSelector(activitiesSelector);
     const initialValues: FilterActivities = { type: 'All', username: '' };
 
@@ -25,6 +27,27 @@ export const ActivitiesFeature: FC = () => {
     const activityLocal = useAppSelector(activityLocalSelector);
     const activityMoto = useAppSelector(activityMotoSelector);
     const activityUser = useAppSelector(activityUserSelector);
+
+    const cuadrantes = [
+        {
+            sec: cuadrante_1
+        },
+        {
+            sec: cuadrante_2
+        },
+        {
+            sec: cuadrante_3
+        },
+        {
+            sec: cuadrante_4
+        },
+        {
+            sec: cuadrante_5
+        },
+        {
+            sec: cuadrante_6
+        }
+    ]
 
     return <>
         <div className="w-full h-full flex flex-col gap-2 items-center">
@@ -42,7 +65,7 @@ export const ActivitiesFeature: FC = () => {
 
         <Draw title="Editar actividad" open={openDrawer} setOpen={setOpenDrawer}>
             {
-                typeActivity === 'Add Local' && activityLocal && activityLocal !== null && <FormEditLocal {...activityLocal!.obj} />
+                typeActivity === 'Add Local' && activityLocal && activityLocal !== null && <FormEditLocal local={activityLocal!.obj} cuadranteValue={cuadrantes[value].sec!.map(data => data)}  />
             }
             {
                 typeActivity === 'Add Moto' && activityMoto && activityMoto !== null && <FormEditMoto {...activityMoto!.obj} />

@@ -42,6 +42,7 @@ const activityRequest = {
 const localRequest = {
     saveLocal: (url: string, body: LocalsRequest) => instance.local.post(url, body),
     getLocals: (url: string) => instance.local.get(url),
+    updateLocal: (url: string, body: LocalsRequest) => instance.local.put(url, body)
 }
 
 const motoRequest = {
@@ -74,6 +75,7 @@ const userRequest = {
 export const Local_REST: props_LocalResponse = {
     save: (body: LocalsRequest): Promise<AxiosResponse<ApiMsg>> => localRequest.saveLocal(`/save`, body),
     get: (id: number): Promise<AxiosResponse<LocalApiResponse>> => localRequest.getLocals(`/get-locals/${id}`),
+    put: (id: number, body: LocalsRequest): Promise<AxiosResponse<LocalApiResponse>> => localRequest.updateLocal(`/update-local/${id}`, body),
 }
 
 export const Moto_REST: props_MotoResponse = {

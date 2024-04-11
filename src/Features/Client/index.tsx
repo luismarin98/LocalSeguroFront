@@ -1,4 +1,4 @@
-import { FC, useContext, MouseEvent } from "react";
+import { FC, useContext, MouseEvent, useState } from "react";
 import { Modal } from "../../components/Modal";
 import { FormFilter, FormLocals, FormMotos } from "./forms";
 import ClientContext, { IClient } from "./provider";
@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../Redux/store";
 import { list_localsSelector } from "../../Redux/Local/local.selector";
 import { list_motosSelector } from "../../Redux/Moto/moto.selector";
+import { cuadrante_1, cuadrante_2, cuadrante_3, cuadrante_4, cuadrante_5, cuadrante_6 } from "../../components/Sectores";
 
 export const ClientFeature: FC = () => {
-    const { openAddMoto, setOpeAddMoto, setOpenAddLocal, openAddLocal, seeMotos } = useContext(ClientContext) as IClient;
+    const { openAddMoto, setOpeAddMoto, setOpenAddLocal, openAddLocal, seeMotos, setValue, value } = useContext(ClientContext) as IClient;
 
     const sectores = [
         {
@@ -16,7 +17,9 @@ export const ClientFeature: FC = () => {
             onclick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 setOpenAddLocal(!openAddLocal);
+                setValue(0);
             },
+            sec: cuadrante_1,
             icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home-plus" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M19 12h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
         },
         {
@@ -24,7 +27,9 @@ export const ClientFeature: FC = () => {
             onclick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 setOpenAddLocal(!openAddLocal);
+                setValue(1);
             },
+            sec: cuadrante_2,
             icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home-plus" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M19 12h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
         },
         {
@@ -32,7 +37,9 @@ export const ClientFeature: FC = () => {
             onclick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 setOpenAddLocal(!openAddLocal);
+                setValue(2);
             },
+            sec: cuadrante_3,
             icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home-plus" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M19 12h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
         },
         {
@@ -40,7 +47,9 @@ export const ClientFeature: FC = () => {
             onclick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 setOpenAddLocal(!openAddLocal);
+                setValue(3);
             },
+            sec: cuadrante_4,
             icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home-plus" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M19 12h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
         },
         {
@@ -48,7 +57,9 @@ export const ClientFeature: FC = () => {
             onclick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 setOpenAddLocal(!openAddLocal);
+                setValue(4);
             },
+            sec: cuadrante_5,
             icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home-plus" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M19 12h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
         },
         {
@@ -56,15 +67,9 @@ export const ClientFeature: FC = () => {
             onclick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 setOpenAddLocal(!openAddLocal);
+                setValue(5);
             },
-            icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home-plus" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M19 12h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
-        },
-        {
-            title: 'Sector 7',
-            onclick: (event: MouseEvent<HTMLButtonElement>) => {
-                event.preventDefault();
-                setOpenAddLocal(!openAddLocal);
-            },
+            sec: cuadrante_6,
             icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home-plus" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M19 12h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
         },
         {
@@ -138,7 +143,7 @@ export const ClientFeature: FC = () => {
                     }
                 </div>
             </div>
-            <Modal title="Añadir local" isOpen={openAddLocal} setIsOpen={setOpenAddLocal}><FormLocals /></Modal>
+            <Modal title="Añadir local" isOpen={openAddLocal} setIsOpen={setOpenAddLocal}><FormLocals cuadranteValue={sectores[value].sec!.map(data => data)} /></Modal>
             <Modal title="Añadir Moto" isOpen={openAddMoto} setIsOpen={setOpeAddMoto}><FormMotos /></Modal>
         </div >
     )
