@@ -8,7 +8,7 @@ export interface UserRequest {
     username: string;
     password: string;
     email: string;
-    phone: string;
+    phone: number;
     isAdmin: boolean;
     me_register: number;
     photo: string;

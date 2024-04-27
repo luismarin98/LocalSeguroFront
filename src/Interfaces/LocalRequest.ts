@@ -7,7 +7,7 @@ export interface LocalsRequest {
     dniOnwer: string;
     nameOwner: string;
     localName: string;
-    phone: string;
+    phone: number;
     location: string;
     linkPhoto: string;
     sector: string;

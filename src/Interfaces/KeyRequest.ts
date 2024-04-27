@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { ApiMsg } from "../components/AxiosConfig";
 
 export interface KeyRequest {
+    id: number;
     id_user: number;
     key: string;
 }
