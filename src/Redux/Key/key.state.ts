@@ -6,6 +6,7 @@ export interface KeyState {
 
 export const initialState: KeyState = {
     keyData: {
+        id: 0,
         id_user: 0,
         key: ''
     }

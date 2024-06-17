@@ -13,7 +13,7 @@ interface propsSectores {
 
 export const FormLocals = (props: propsSectores) => {
     const { setOpenAddLocal, openAddLocal, postLocal, value } = useContext(ClientContext) as IClient;
-    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '', id_user: 0, sector: '', value: 0 };
+    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: 0, id_user: 0, sector: '', value: 0 };
 
     const methods = useForm({ defaultValues: initialValues });
 

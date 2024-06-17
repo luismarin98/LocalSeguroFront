@@ -21,7 +21,7 @@ export const FormEditLocal = (props: propsSectores) => {
         reset();
     }
 
-    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, id_user: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: '', sector: '', value: 0 }
+    const initialValues: LocalsRequest = { dniOnwer: '', id: 0, id_user: 0, linkPhoto: '', localName: '', location: '', nameOwner: '', phone: 0, sector: '', value: 0 }
 
     const method = useForm({ defaultValues: initialValues });
 

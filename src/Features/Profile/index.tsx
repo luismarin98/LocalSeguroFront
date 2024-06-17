@@ -27,7 +27,8 @@ export const ProfileFeature = () => {
         getKey,
         updateKey,
         deleteKey,
-        getBy
+        getBy,
+        currentCapture
     } = useContext(ProfileContext) as IProfile;
 
     const buttons = [
@@ -67,6 +68,7 @@ export const ProfileFeature = () => {
             onClick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 const keyData: KeyRequest = {
+                    id: 0,
                     id_user: user!.id,
                     key: generateRandomKey(20),
                 }
@@ -85,6 +87,7 @@ export const ProfileFeature = () => {
             onClick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
                 const keyData: KeyRequest = {
+                    id: 0,
                     id_user: user!.id,
                     key: generateRandomKey(20),
                 }
@@ -107,10 +110,11 @@ export const ProfileFeature = () => {
     const classButton: HTMLAttributes<HTMLButtonElement> = { className: "flex flex-row gap-2 text-white dark:text-black dark:bg-neutral-200 bg-neutral-800 px-6 py-1 rounded-md hover:shadow-md hover:scale-105 transition-all ease-in-out dark:hover:shadow-neutral-100 hover:shadow-neutral-800" }
 
     return <>
-        <div className="flex flex-col gap-3 items-center justify-center dark:text-neutral-900 p-2">
-            <div className="flex flex-row flex-wrap gap-3 items-center justify-center ring-1 dark:ring-white ring-black p-2 rounded-md">
-                <div className="flex flex-row flex-wrap gap-5 justify-center items-center dark:bg-blue-400 bg-green-300 p-3 rounded-md">
-                    <img src={user!.photo!} alt={user!.username} className="w-32 h-32 rounded-full hover:shadow-md dark:hover:shadow-neutral-500 hover:scale-105 transition-all ease-in-out duration-100" />
+        <div className="flex flex-col gap-3 items-center justify-center p-2 text-white">
+            <div className="flex flex-row flex-wrap gap-3 items-center justify-center ring-1 ring-white p-2 rounded-md">
+                <div className="flex flex-row flex-wrap gap-5 justify-center items-center p-3 rounded-md">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="60"  height="60"  viewBox="0 0 24 24"  fill="currentColor"  className="icon icon-tabler icons-tabler-filled icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" /><path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" /></svg>
+                    {/* {currentCapture && <img src={currentCapture} alt={user!.username} className="w-32 h-32 rounded-full hover:shadow-md dark:hover:shadow-neutral-500 hover:scale-105 transition-all ease-in-out duration-100" />} */}
                     <div className="flex flex-col gap-3">
                         <p><strong>Nombres:</strong> {user!.username}</p>
                         <p><strong>Correo:</strong> {user!.email}</p>

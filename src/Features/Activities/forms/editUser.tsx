@@ -21,7 +21,7 @@ export const FormEditUser = (user: UserRequest) => {
         password: '',
         username: '',
         email: '',
-        phone: '',
+        phone: 0,
         isAdmin: false,
         id: 0,
         me_register: 0,

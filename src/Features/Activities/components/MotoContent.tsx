@@ -1,6 +1,8 @@
 import { ActivityMoto } from "../../../Interfaces/ActivityRequest";
 import { MouseEvent, useContext } from "react";
 import ActivitiesContext, { IActivities } from "../provider";
+import moto from "./icono_moto.png";
+import { DownloadExcel } from "../../../components/DownloadExcel";
 
 export const MotoContent = (data: ActivityMoto) => {
 
@@ -29,7 +31,7 @@ export const MotoContent = (data: ActivityMoto) => {
     return <div className="bg-white p-2 rounded-md w-full flex flex-col gap-3 justify-center items-center">
         <div className="flex flex-col gap-3 p-2">
             <div className="flex flex-row gap-3 items-center justify-center">
-                <div className="rounded-full w-[40px] h-[40px] bg-black" />
+                <img src={moto} className="rounded-full w-[40px] h-[40px]" />
                 <p className="text-2xl font-bold">Añadido por {data.act.username}</p>
             </div>
             <div className="flex flex-row gap-2 w-full justify-center items-center">

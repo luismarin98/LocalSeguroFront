@@ -1,6 +1,7 @@
 import { useContext, MouseEvent } from "react";
 import { ActivityLocal } from "../../../Interfaces/ActivityRequest";
 import ActivitiesContext, { IActivities } from "../provider";
+import { DownloadExcel } from "../../../components/DownloadExcel";
 
 export const LocalContent = (data: ActivityLocal) => {
     const { setOpenDrawer, deleteActivity, setValue } = useContext(ActivitiesContext) as IActivities;
@@ -29,7 +30,7 @@ export const LocalContent = (data: ActivityLocal) => {
     return <div className="bg-white p-2 rounded-md w-full flex flex-col gap-3 justify-center items-center">
         <div className="flex flex-col gap-3 p-2">
             <div className="flex flex-row gap-3 items-center justify-center">
-                <img src={data.obj.linkPhoto} alt={data.act.photo} className="rounded-full w-[40px] h-[40px]" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor" className="icon icon-tabler icons-tabler-filled icon-tabler-home"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12.707 2.293l9 9c.63 .63 .184 1.707 -.707 1.707h-1v6a3 3 0 0 1 -3 3h-1v-7a3 3 0 0 0 -2.824 -2.995l-.176 -.005h-2a3 3 0 0 0 -3 3v7h-1a3 3 0 0 1 -3 -3v-6h-1c-.89 0 -1.337 -1.077 -.707 -1.707l9 -9a1 1 0 0 1 1.414 0m.293 11.707a1 1 0 0 1 1 1v7h-4v-7a1 1 0 0 1 .883 -.993l.117 -.007z" /></svg>
                 <p className="text-2xl font-bold">Añadido por {data.act.username}</p>
             </div>
             <div className="flex flex-row gap-2 w-full justify-center items-center">

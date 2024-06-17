@@ -54,18 +54,20 @@ export const ActivitiesFeature: FC = () => {
             <FormProvider {...method}>
                 <FormFilter />
             </FormProvider>
-            <div className="flex flex-row flex-wrap gap-2 items-center justify-center w-full h-full">
-                {
-                    activities && activities!.map((data, i) => (
-                        <CardActivity key={i} {...data} />
-                    ))
-                }
+            <div className="w-full h-full p-2">
+                <div className="flex flex-col md:no-scrollbar md:grid md:grid-rows-3 md:grid-flow-col gap-4 place-items-center overflow-y-auto max-h-full md:overflow-x-auto md:max-w-full h-full p-3">
+                    {
+                        activities && activities!.map((data, i) => (
+                            <CardActivity key={i} {...data} />
+                        ))
+                    }
+                </div>
             </div>
         </div>
 
         <Draw title="Editar actividad" open={openDrawer} setOpen={setOpenDrawer}>
             {
-                typeActivity === 'Add Local' && activityLocal && activityLocal !== null && <FormEditLocal local={activityLocal!.obj} cuadranteValue={cuadrantes[value].sec!.map(data => data)}  />
+                typeActivity === 'Add Local' && activityLocal && activityLocal !== null && <FormEditLocal local={activityLocal!.obj} cuadranteValue={cuadrantes[value].sec!.map(data => data)} />
             }
             {
                 typeActivity === 'Add Moto' && activityMoto && activityMoto !== null && <FormEditMoto {...activityMoto!.obj} />

@@ -52,6 +52,17 @@ export interface ActivityResponses {
     type: string;
 }
 
+export interface UserActsResponse {
+    msg: string;
+    userAct: UserActivities | null;
+}
+
+export interface UserActivities {
+    users: UserRequest[];
+    motos: MotosRequest[];
+    locals: LocalsRequest[];
+}
+
 export interface ActivityResponse {
     msg: string;
     activity: {
@@ -65,5 +76,6 @@ export interface props_activityRequest {
     filterAct: (filter: FilterActivities, id: number) => Promise<AxiosResponse<ActivityResponses>>;
     getAct: (id: number) => Promise<AxiosResponse<ActivityResponse>>;
     delAct: (id: number) => Promise<AxiosResponse<ActivityResponses>>;
-    updAct: (id: number, data: LocalsRequest | UserRequest | MotosRequest) => Promise<AxiosResponse<ActivityResponse>>
+    updAct: (id: number, data: LocalsRequest | UserRequest | MotosRequest) => Promise<AxiosResponse<ActivityResponse>>;
+    getUserActs: (id: string) => Promise<AxiosResponse<UserActsResponse>>;
 }

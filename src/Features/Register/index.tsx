@@ -15,7 +15,7 @@ export const RegisterFeature: FC = () => {
         password: '',
         username: '',
         email: '',
-        phone: '',
+        phone: 0,
         isAdmin: false,
         id: 0,
         me_register: 0,
@@ -34,7 +34,7 @@ export const RegisterFeature: FC = () => {
     const handleRegister: SubmitHandler<UserRequest> = (data) => {
         const values = data;
         if (values.password !== confPass) return toast.error('Asegurate de que las contraseñas sean iguales.');
-        if (values.username === '' || values.password === '' || values.email === '' || values.phone === '') return toast.error('Asegurate de rellenar todos los campos');
+        if (values.username === '' || values.password === '' || values.email === '' || values.phone === 0) return toast.error('Asegurate de rellenar todos los campos');
 
         setValue('isAdmin', false);
         setValue('photo', 'https://guiauniversitaria.mx/wp-content/uploads/2023/08/CHEEMS.png.webp');
@@ -46,7 +46,7 @@ export const RegisterFeature: FC = () => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (/[0-9]/.test(event.target.value)) {
-            setValue('phone', event.target.value);
+            setValue('phone', parseInt(event.target.value));
             setNumero(event.target.value);
         }
     }

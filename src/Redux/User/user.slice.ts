@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { initialState } from './user.state';
+import { initialState as state } from './user.state';
 import { removeItem, setItem } from '../../components/StorageFunctions';
 
 const userSlice = createSlice({
     name: 'userStore',
-    initialState,
+    initialState: state,
     reducers: {
         setUser: (state, action) => {
             if (action.payload !== null) {

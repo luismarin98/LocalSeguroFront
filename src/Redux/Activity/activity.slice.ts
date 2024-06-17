@@ -25,9 +25,14 @@ const activitySlice = createSlice({
                 state.activities = action.payload;
             }
         },
+        setUserActivites: (state, action) => {
+            if(action.payload !== null) {
+                state.userActivities = action.payload;
+            }
+        }
     }
 });
 
-export const { setActivities, setLocalAct, setMotoAct, setUserAct } = activitySlice.actions;
+export const { setActivities, setLocalAct, setMotoAct, setUserAct, setUserActivites } = activitySlice.actions;
 
 export { activitySlice }

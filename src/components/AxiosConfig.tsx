@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { UserApiResponse, UserRequest, props_userRequest } from "../Interfaces/UserRequest";
 import { KeyApiResponse, KeyRequest, props_keyRequest } from "../Interfaces/KeyRequest";
-import { ActData, ActivityResponse, ActivityResponses, props_activityRequest } from "../Interfaces/ActivityRequest";
+import { ActData, ActivityResponse, ActivityResponses, UserActsResponse, props_activityRequest } from "../Interfaces/ActivityRequest";
 import { LocalApiResponse, LocalsRequest, props_LocalResponse } from "../Interfaces/LocalRequest";
 import { MotoApiResponse, MotosRequest, props_MotoResponse } from "../Interfaces/MotosRequest";
 import { PhotoRequest } from "../Interfaces/PhotoRequest";
@@ -37,6 +37,7 @@ const activityRequest = {
     getAct: (url: string) => instance.activity.get(url),
     delAct: (url: string) => instance.activity.delete(url),
     updAct: (url: string, body: LocalsRequest | UserRequest | MotosRequest) => instance.activity.put(url, body),
+    getUserActs: (url: string) => instance.activity.get(url)
 }
 
 const localRequest = {
@@ -89,7 +90,8 @@ export const ACT_REST: props_activityRequest = {
     filterAct: (filter: FilterActivities, id: number): Promise<AxiosResponse<ActivityResponses>> => activityRequest.filterAct(`/filter-activities/${id}?type=${filter.type !== null ? filter.type : filter.username !== '' && `?username=${filter.username}`}`),
     getAct: (id: number): Promise<AxiosResponse<ActivityResponse>> => activityRequest.getAct(`/get-activity/${id}`),
     delAct: (id: number): Promise<AxiosResponse<ActivityResponses>> => activityRequest.delAct(`/delete-activity/${id}`),
-    updAct: (id: number, data: LocalsRequest | UserRequest | MotosRequest): Promise<AxiosResponse<ActivityResponse>> => activityRequest.updAct(`/update-activity/${id}`, data)
+    updAct: (id: number, data: LocalsRequest | UserRequest | MotosRequest): Promise<AxiosResponse<ActivityResponse>> => activityRequest.updAct(`/update-activity/${id}`, data),
+    getUserActs: (id: string): Promise<AxiosResponse<UserActsResponse>> => activityRequest.getUserActs(`/get-user-activities/${id}`)
 }
 
 export const Key_REST: props_keyRequest = {
@@ -97,7 +99,7 @@ export const Key_REST: props_keyRequest = {
     generate: (id: number, body: KeyRequest): Promise<AxiosResponse<ApiMsg>> => keyRequest.generate(`/generate-key/${id}`, body),
     show: (id: number): Promise<AxiosResponse<KeyApiResponse>> => keyRequest.show(`/show-key/${id}`),
     update: (id: number, body: KeyRequest): Promise<AxiosResponse<ApiMsg>> => keyRequest.update(`/change-key/${id}`, body),
-    verify: (key: string): Promise<AxiosResponse<KeyApiResponse>> => keyRequest.verify(`/verify-key/?key=${key}`)
+    verify: (key: string): Promise<AxiosResponse<KeyApiResponse>> => keyRequest.verify(`/verify-key?key=${key}`)
 }
 
 export const User_REST: props_userRequest = {

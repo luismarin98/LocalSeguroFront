@@ -27,7 +27,7 @@ export const useLocal = () => {
                             type: 'Add Local',
                             username: user!.username,
                             email: user!.email,
-                            phone: user!.phone,
+                            phone: user!.phone.toString(),
                             id_user: user!.id,
                             id_obj: data.id
                         }

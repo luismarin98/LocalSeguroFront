@@ -1,6 +1,7 @@
 import { useContext, MouseEvent } from "react";
 import { ActivityUser } from "../../../Interfaces/ActivityRequest";
 import ActivitiesContext, { IActivities } from "../provider";
+import { DownloadExcel } from "../../../components/DownloadExcel";
 
 
 export const UserContent = (data: ActivityUser) => {
@@ -16,7 +17,7 @@ export const UserContent = (data: ActivityUser) => {
         deleteActivity(data.act.id)
     }
 
-    const handleFoto =(event: MouseEvent<HTMLButtonElement>) => {
+    const handleFoto = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         window.open(data.obj.photo);
     }
@@ -24,7 +25,7 @@ export const UserContent = (data: ActivityUser) => {
     return <div className="bg-white p-2 rounded-md w-full flex flex-col gap-3 justify-center items-center">
         <div className="flex flex-col gap-3 p-2">
             <div className="flex flex-row gap-3 items-center justify-center">
-                <div className="rounded-full w-[40px] h-[40px] bg-black" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" className="icon icon-tabler icons-tabler-filled icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" /><path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" /></svg>
                 <p className="text-2xl font-bold">Añadido por {data.act.username}</p>
             </div>
             <div className="flex flex-row gap-2 w-full justify-center items-center">

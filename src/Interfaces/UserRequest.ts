@@ -12,6 +12,7 @@ export interface UserRequest {
     isAdmin: boolean;
     me_register: number;
     photo: string;
+    createdAt?: Date;
 }
 
 export interface LoginRequest {

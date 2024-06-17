@@ -5,13 +5,14 @@ import { ChangeEvent, useContext, useEffect } from "react";
 import AdminContext, { IAdmin } from "../provider";
 import { UserInput } from "../../../components/Input";
 import toast from "react-hot-toast";
+import { butonStyle } from "../../../components/Styles";
 
 export const FormUser = () => {
     const initialValues: UserRequest = {
         password: '',
         username: '',
         email: '',
-        phone: '',
+        phone: 0,
         isAdmin: false,
         id: 0,
         me_register: 0,
@@ -26,7 +27,7 @@ export const FormUser = () => {
 
     const submit: SubmitHandler<UserRequest> = (values) => {
         values.id = Math.floor(Math.random() * 10000);
-        if (values.username === '' || values.password === '' || values.email === '' || values.phone === '') return toast.error('Asegurate de rellenar todos los campos');
+        if (values.username === '' || values.password === '' || values.email === '' || values.phone === 0) return toast.error('Asegurate de rellenar todos los campos');
         postUser(values);
         setOpenAddUser(false);
         reset();
@@ -44,8 +45,8 @@ export const FormUser = () => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (/[0-9]/.test(event.target.value)) {
-            setValue('phone', event.target.value);
-            setNumero(event.target.value);
+            setValue('phone', parseInt(event.target.value));
+            setNumero(parseInt(event.target.value));
         }
     }
 
@@ -70,7 +71,7 @@ export const FormUser = () => {
                     <option value='false'>Cliente</option>
                 </select>
             </label>
-            <button type="submit" className="bg-neutral-800 rounded-md px-6 py-0.5 text-white hover:scale-105">Crear usuario</button>
+            <button type="submit" {...butonStyle}>Crear usuario</button>
         </form>
     </FormProvider>
 }

@@ -9,7 +9,7 @@ interface MenuModalProps {
 export const MenuModal = (props: MenuModalProps) => {
     return (
         <Menu as="div" className="relative inline-block text-left">
-            <Menu.Button className="flex w-full justify-center items-center rounded-md bg-black/20 px-6 py-0.5 text-md font-medium text-white hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">{props.title}</Menu.Button>
+            <Menu.Button className="rounded-md bg-neutral-50 text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 hover:bg-neutral-200 hover:text-black px-6 py-0.5 hover:scale-105 transition-all ease-in-out duration-100">{props.title}</Menu.Button>
             <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"

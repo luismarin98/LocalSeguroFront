@@ -4,7 +4,11 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: () => ({
+        'fondo': "url('/src/components/imgs/chimborazo.jpg')"
+      }),
+    },
   },
   plugins: [],
 }

@@ -1,6 +1,6 @@
 import { MouseEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from '../imgs/logoPNE.png';
+import logo from '../components/imgs/logoPolicia.png';
 import { UserRequest } from "../Interfaces/UserRequest";
 import { MenuModal } from "./MenuModal";
 import { Menu } from "@headlessui/react";
@@ -20,9 +20,36 @@ export const Navbar = () => {
 
     const navigate = useNavigate();
 
+    const routes = [
+        {
+            title: 'Inicio',
+            icon: 'home',
+            path: userLocal !== null ? `/dashboard/${userLocal!.username}` : '/'
+        },
+        {
+            title: 'Nosotros',
+            icon: 'login',
+            path: '/about'
+        },
+        {
+            title: 'Contactanos',
+            icon: 'register',
+            path: '/contact'
+        },
+        {
+            title: 'Aceder',
+            icon: 'login',
+            path: '/login',
+            onclick: (event: MouseEvent<HTMLButtonElement>) => {
+                event.preventDefault();
+                handleLoggin(event)
+            }
+        }
+    ]
+
     const buttons = [
         {
-            title: 'Home',
+            title: 'Dashboard',
             icon: <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>,
             onClick: (event: MouseEvent<HTMLButtonElement>) => {
                 event.preventDefault();
@@ -55,37 +82,36 @@ export const Navbar = () => {
 
     return (
         <div className="w-full p-2">
-            <nav className="dark:bg-gray-600 bg-gray-700 p-0.5 rounded-md">
-                <div className="flex flex-row gap-1 items-center justify-between px-2">
+            <nav className="p-0.5 rounded-md">
+                <div className="flex-row gap-1 items-center justify-between px-2 flex">
                     <div className="flex flex-row gap-2 items-center">
-                        <div className="flex flex-row gap-2 items-center justify-center p-1">
+                        <div className="flex flex-row gap-2 items-center justify-center px-3 py-0.5 rounded-md">
                             <img src={logo} alt="logoPNE" width={30} className="rounded-full" />
-                            <Link className="text-white text-lg font-bold" to={userLocal !== null ? `/dashboard/${userLocal!.username}` : '/'}>Local Seguro</Link>
+                            <Link className="text-white text-xl font-bold" to={userLocal !== null ? `/dashboard/${userLocal!.username}` : '/'}>Local Seguro</Link>
                         </div>
+                    </div>
+                    <div className="flex flex-row gap-2 items-center">
+                        {
+                            userLocal === null && (
+                                routes.map((data, i) => (<div key={i} className="flex-row gap-5 items-center hidden md:flex">
+                                    <Link to={data.path} className="rounded-md bg-neutral-50 text-black hover:bg-orange-400 hover:text-white px-6 py-0.5 hover:scale-105 transition-all ease-in-out duration-100">{data.title}</Link>
+                                </div>))
+                            )
+                        }
                     </div>
                     {
                         userLocal === null && (
-                            <div className="hidden md:flex md:flex-row md:flex-wrap md:gap-2 items-center">
-                                <Link className="dark:text-white text-lg hover:scale-105 transition-all ease-in-out duration-100" to='/'>Inicio</Link>
+                            <div className="md:hidden flex items-center">
+                                <button onClick={handleHidden} className="p-1 rounded-md bg-slate-50 flex items-center justify-center">
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                    </svg>
+                                </button>
                             </div>
                         )
                     }
                     {
                         userLocal !== null && (
-                            <div className="hidden md:flex md:flex-row md:flex-wrap md:gap-2 items-center dark:text-white">
-                                <Link to={userLocal !== null ? `/dashboard/${userLocal!.username}` : '/'}>Dashboard</Link>
-                            </div>
-                        )
-                    }
-                    <div className="md:hidden flex items-center">
-                        <button onClick={handleHidden} className="p-1 rounded-md bg-slate-50 flex items-center justify-center">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    {
-                        userLocal !== null ? (
                             <MenuModal title={userLocal!.username}>
                                 {
                                     buttons.map((data, i) => (
@@ -99,22 +125,20 @@ export const Navbar = () => {
                                     ))
                                 }
                             </MenuModal>
-                        ) : (
-                            <button className="rounded-md bg-neutral-200 text-black px-6 py-0.5 hover:scale-105 transition-all ease-in-out duration-100" onClick={handleLoggin}>Acceder</button>
                         )
                     }
                 </div>
             </nav>
             <Modal isOpen={hidden} setIsOpen={setHidden}>
                 <div className="flex flex-col gap-2 full">
-                    {userLocal === null && (<button onClick={(e) => {
-                        handleHidden(e);
-                        navigate('/');
-                    }} className="bg-slate-50 px-6 py-1 rounded-md" >Inicio</button>)}
-                    {userLocal !== null && (<button onClick={(e) => {
-                        handleHidden(e);
-                        navigate(userLocal !== null ? `/dashboard/${userLocal!.username}` : '/')
-                    }} className="bg-slate-50 px-6 py-1 rounded-md" >Dashboard</button>)}
+                    {userLocal === null && (
+                        routes.map((data, i) => (
+                            <button key={i} onClick={(e) => {
+                                handleHidden(e);
+                                navigate(data.path)
+                            }} className="bg-slate-50 px-6 py-1 rounded-md" >{data.title}</button>
+                        ))
+                    )}
                 </div>
             </Modal>
         </div>

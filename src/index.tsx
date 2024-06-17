@@ -13,8 +13,10 @@ root.render(
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
-        <Toaster position='top-right' />
+        <div className='w-screen h-screen bg-fondo bg-cover bg-center bg-fixed bg-no-repeat max-h-screen overflow-y-auto no-scrollbar:'>
+          <App />
+          <Toaster position='top-right' />
+        </div>
       </Provider>
     </BrowserRouter>
   </StrictMode>

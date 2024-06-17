@@ -10,11 +10,12 @@ export const initialState: UserState = {
         password: '',
         username: '',
         email: '',
-        phone: '',
+        phone: 0,
         isAdmin: false,
         id: 0,
         me_register: 0,
-        photo: ''
+        photo: '',
+        createdAt: new Date()
     },
     list_users: []
 };

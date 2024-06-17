@@ -6,6 +6,7 @@ import { UserInput } from "../../../components/Input";
 import toast from "react-hot-toast";
 import { useAppSelector } from "../../../Redux/store";
 import { userSelector } from "../../../Redux/User/user.selector";
+import { butonStyle } from "../../../components/Styles";
 
 export const FormEditUser = () => {
     const { editUser, setNumero, numero, setValueSelect, valueSelect, setOpenEditUser } = useContext(AdminContext) as IAdmin;
@@ -15,7 +16,7 @@ export const FormEditUser = () => {
         password: '',
         username: '',
         email: '',
-        phone: '',
+        phone: 0,
         isAdmin: false,
         id: 0,
         me_register: 0,
@@ -27,7 +28,7 @@ export const FormEditUser = () => {
     const { handleSubmit, register, setValue, reset } = useForm<UserRequest>();
 
     const submit: SubmitHandler<UserRequest> = (values) => {
-        if (values.username === '' || values.password === '' || values.email === '' || values.phone === '') return toast.error('Asegurate de rellenar todos los campos');
+        if (values.username === '' || values.password === '' || values.email === '' || values.phone === 0) return toast.error('Asegurate de rellenar todos los campos');
         editUser(values);
         setOpenEditUser(false);
         reset();
@@ -45,8 +46,10 @@ export const FormEditUser = () => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (/[0-9]/.test(event.target.value)) {
-            setValue('phone', event.target.value);
-            setNumero(event.target.value);
+            setValue('phone', parseInt(event.target.value));
+            setNumero(parseInt(event.target.value));
+        } else {
+            setValue('phone', 0);
         }
     }
 
@@ -82,7 +85,7 @@ export const FormEditUser = () => {
                     <option value='false'>Cliente</option>
                 </select>
             </label>
-            <button type="submit" className="bg-neutral-800 rounded-md px-6 py-0.5 text-white hover:scale-105">Editar usuario</button>
+            <button type="submit" {...butonStyle}>Editar usuario</button>
         </form>
     </FormProvider>
 }

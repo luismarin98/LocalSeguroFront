@@ -29,7 +29,7 @@ export const useRegister = () => {
                             type: 'Add Local',
                             username: user.data.user!.username,
                             email: user.data.user!.email,
-                            phone: user.data.user!.phone,
+                            phone: user.data.user!.phone.toString(),
                             id_user: user.data.user!.id,
                             id_obj: user.data.user!.id
                         }

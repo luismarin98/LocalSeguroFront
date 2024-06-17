@@ -24,22 +24,24 @@ export interface IAdmin {
     valueSelect: string;
     setValueSelect: Dispatch<SetStateAction<string>>;
 
-    numero: string;
-    setNumero: Dispatch<SetStateAction<string>>;
+    numero: number;
+    setNumero: Dispatch<SetStateAction<number>>;
 
     userAdmin: boolean | null;
     setUserAdmin: Dispatch<SetStateAction<boolean | null>>;
+
+    getUserActivities: (user_id: string) => void;
 }
 
 const AdminContext = createContext({});
 
 export const AdminProvider = ({ children }: { children: ReactNode }) => {
-    const { getUsers, postUser, deleteUser, editUser, setUserId, userId } = useAdmin();
+    const { getUsers, postUser, deleteUser, editUser, setUserId, userId, getUserActivities } = useAdmin();
 
     const [openAddUser, setOpenAddUser] = useState<boolean>(false);
     const [openEditUser, setOpenEditUser] = useState<boolean>(false);
     const [openDelete, setOpenDelete] = useState<boolean>(false);
-    const [numero, setNumero] = useState<string>('');
+    const [numero, setNumero] = useState<number>(0);
     const [valueSelect, setValueSelect] = useState<string>('');
     const [userAdmin, setUserAdmin] = useState<boolean | null>(false);
 
@@ -61,7 +63,8 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
         userId,
         setUserId,
         openEditUser,
-        setOpenEditUser
+        setOpenEditUser,
+        getUserActivities
     };
 
     return <AdminContext.Provider value={storage}>{children}</AdminContext.Provider>

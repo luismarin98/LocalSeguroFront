@@ -14,7 +14,7 @@ export const initialState: LocalState = {
         localName: '',
         location: '',
         nameOwner: '',
-        phone: '',
+        phone: 0,
         sector: '',
         value: 0
     },

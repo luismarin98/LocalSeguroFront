@@ -10,6 +10,8 @@ export interface IProfile {
     confPass: string;
     openModalPhoto: boolean;
     openKeyModal: boolean;
+    currentCapture: string | null | undefined;
+    photoData: FormData | undefined;
 
     setOpen: Dispatch<SetStateAction<boolean>>;
     setConfPass: Dispatch<SetStateAction<string>>;
@@ -25,6 +27,7 @@ export interface IProfile {
     updateKey: (data: KeyRequest) => void;
     deleteKey: () => void;
     getBy: () => void;
+    setCurrentCapture: Dispatch<SetStateAction<string | null | undefined>>;
 }
 
 const ProfileContext = createContext({});
@@ -33,6 +36,8 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     const [open, setOpen] = useState<boolean>(false);
     const [openModalPhoto, setOpenModaPhoto] = useState<boolean>(false);
     const [confPass, setConfPass] = useState<string>('');
+    const [currentCapture, setCurrentCapture] = useState<string | null>();
+    const photoData = new FormData();
 
     const { updatePass, updatePhoto, getUser, getBy } = useProfile();
 
@@ -51,7 +56,10 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         getKey,
         updateKey,
         deleteKey,
-        getBy
+        getBy,
+        currentCapture,
+        setCurrentCapture,
+        photoData
     };
 
     return <ProfileContext.Provider value={storage}>{children}</ProfileContext.Provider>

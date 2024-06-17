@@ -60,7 +60,7 @@ export const FormFilter = () => {
 
     return (
         <div className="flex flex-row flex-wrap gap-2 justify-around items-center">
-            <h1 className="dark:text-white">Historial de acciones</h1>
+            <h1 className="text-black bg-white shadow-inner shadow-neutral-800 px-6 py-1 rounded-md">Historial de acciones</h1>
             <button onClick={handleRefresh} className="p-2 text-black bg-neutral-300 hover:shadow-md hover:shadow-neutral-800 rounded-md hover:scale-105 transition-all duration-100">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-rotate-clockwise-2" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" /><path d="M5.63 7.16l0 .01" /><path d="M4.06 11l0 .01" /><path d="M4.63 15.1l0 .01" /><path d="M7.16 18.37l0 .01" /><path d="M11 19.94l0 .01" /></svg>
             </button>

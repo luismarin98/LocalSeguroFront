@@ -8,12 +8,25 @@ import { ActData } from "../../../Interfaces/ActivityRequest";
 import { useDispatch } from "react-redux";
 import { list_users } from "../../../Redux/User/user.slice";
 import { ACT_REST, ApiMsg, User_REST } from "../../../components/AxiosConfig";
+import { downloadUserActivities } from "../../../components/DownloadExcel";
 
 export const useAdmin = () => {
     const [userId, setUserId] = useState<number>(0);
     const dispatch = useDispatch();
 
     const user: UserRequest | null = getSession('user');
+
+    const getUserActivities = (user_id: string) => {
+        const getActivities = ACT_REST.getUserActs(user_id);
+        toast.promise(getActivities, {
+            loading: 'Descargando actividades',
+            success: (res) => {
+                if(res.data.userAct !== null) downloadUserActivities({ name: user!.username, user: res.data.userAct!.users, local: res.data.userAct!.locals, moto: res.data.userAct!.motos });
+                return res.data.msg;
+            },
+            error: (error: AxiosError<ApiMsg>) => error.response!.data.msg,
+        });
+    }
 
     const postUser = (data: UserRequest) => {
         const postU = User_REST.postUser(user!.id, data);
@@ -43,7 +56,13 @@ export const useAdmin = () => {
     }
 
     const getUsers = (search: SearchRequest) => {
-        const filterApi = `/get-${search.filtro === true || search.filtro === false ? 'rol' : search.nombre !== '' ? 'name' : 'users'}/${user!.id}/${search.filtro === true || search.filtro === false ? `?isAdmin=${search.filtro}` : search.nombre !== '' ? `?username=${search.nombre}` : ''}`;
+
+        const filterApi = `/get-${search.filtro === true || search.filtro === false ?
+                'rol' : search.nombre !== '' ?
+                    'name' : 'users'}/${user!.id}/${search.filtro === true || search.filtro === false ?
+                        `?isAdmin=${search.filtro}` : search.nombre !== '' ?
+                            `?username=${search.nombre}` : ''}`;
+
         const get = User_REST.getUsers(filterApi);
         toast.promise(get, {
             loading: 'Filtrando...',
@@ -76,5 +95,5 @@ export const useAdmin = () => {
         }, { loading: { duration: 2000 } })
     }
 
-    return { getUsers, postUser, editUser, deleteUser, setUserId, userId };
+    return { getUsers, postUser, editUser, deleteUser, setUserId, userId, getUserActivities };
 }

@@ -9,5 +9,25 @@ import { Profile } from "./Profile";
 import { Activities } from "./Activities";
 import { AdminRo } from "./AdminR";
 import { Verify } from "./Verify";
+import { About } from "./About";
+import { Contact } from "./Contact";
+import { Terminos } from "./Terminos";
+import { Privacidad } from "./Privacidad";
 
-export { Home, Client, Admin, Login, Register, Dashboard, HomeDash, Profile, Activities, AdminRo, Verify }
+export {
+    About,
+    Contact,
+    Home,
+    Client,
+    Admin,
+    Login,
+    Register,
+    Dashboard,
+    HomeDash,
+    Profile,
+    Activities,
+    AdminRo,
+    Verify,
+    Terminos,
+    Privacidad
+}

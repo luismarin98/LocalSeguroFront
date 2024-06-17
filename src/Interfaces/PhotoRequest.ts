@@ -1,3 +1,4 @@
 export interface PhotoRequest {
-    photo: string;
+    photoData: File | null;
+    name: string | null;
 }

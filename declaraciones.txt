@@ -1,0 +1,5 @@
+REACT_APP_API_WATCH="https://localseguroback.onrender.com/api/key"
+REACT_APP_API_ACTIVITIES="https://localseguroback.onrender.com/api/activities"
+REACT_APP_API_MOTOS="https://localseguroback.onrender.com/api/motos"
+REACT_APP_API_LOCALS="https://localseguroback.onrender.com/api/locals"
+REACT_APP_API_USERS="https://localseguroback.onrender.com/api/user"
